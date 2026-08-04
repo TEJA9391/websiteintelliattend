@@ -5,7 +5,7 @@ import { Check, Minus } from "lucide-react"
 const features = [
   { name: "Student Portal", school: true, college: true, enterprise: true },
   { name: "Faculty Portal", school: true, college: true, enterprise: true },
-  { name: "QR Attendance", school: true, college: true, enterprise: true },
+  { name: "Automated Attendance", school: true, college: true, enterprise: true },
   { name: "SmartBoard", school: false, college: true, enterprise: true },
   { name: "AI Analytics", school: false, college: true, enterprise: true },
   { name: "Multi Department", school: false, college: true, enterprise: true },
@@ -20,9 +20,13 @@ const features = [
 export function FeatureComparison() {
   return (
     <div className="max-w-5xl mx-auto px-6 mb-24">
-      <div className="text-center mb-12">
-        <h2 className="text-3xl font-bold text-slate-900 mb-4">Compare all features</h2>
-        <p className="text-slate-600 ">See exactly what's included in each plan.</p>
+      <div className="text-center max-w-3xl mx-auto mb-16">
+        <h2 className="text-3xl md:text-5xl font-extrabold text-slate-900 mb-6 tracking-tight">
+          What&apos;s included in each plan?
+        </h2>
+        <p className="text-lg text-slate-600">
+          Compare features across our starter, professional, and enterprise tiers to find the perfect fit for your institution.
+        </p>
       </div>
 
       <div className="overflow-x-auto">

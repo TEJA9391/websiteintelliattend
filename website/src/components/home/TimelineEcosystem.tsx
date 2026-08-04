@@ -1,12 +1,12 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Play, QrCode, Smartphone, CheckCircle, Brain, FileBarChart } from "lucide-react";
+import { Play, ClipboardCheck, Smartphone, CheckCircle, Brain, FileBarChart } from "lucide-react";
 
 const steps = [
   { icon: Play, title: "Faculty Starts Session", desc: "Select subject and initiate class from the portal." },
-  { icon: QrCode, title: "Dynamic QR Generated", desc: "A time-sensitive, rotating QR code is displayed on the smartboard." },
-  { icon: Smartphone, title: "Students Scan", desc: "Students scan using the IntelliAttend mobile app." },
+  { icon: ClipboardCheck, title: "Session Activated", desc: "The professor initiates the digital attendance session from their dashboard." },
+  { icon: Smartphone, title: "Students Authenticate", desc: "Students log attendance using the IntelliAttend mobile app." },
   { icon: CheckCircle, title: "Attendance Verified", desc: "Location and device IDs are cross-verified instantly." },
   { icon: Brain, title: "AI Analysis", desc: "System updates risk models and behavior patterns." },
   { icon: FileBarChart, title: "Reports Generated", desc: "Real-time sync with admin dashboards and parent alerts." },

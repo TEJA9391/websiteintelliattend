@@ -51,7 +51,7 @@ export function HowItWorks() {
                 className="relative z-10 flex flex-col items-center text-center"
               >
                 <div className="w-20 h-20 rounded-[24px] bg-white border border-[#0F172A]/[0.08] flex items-center justify-center shadow-lg shadow-[#0F172A]/[0.03] mb-6 group hover:scale-110 transition-transform duration-300">
-                  <step.icon className="w-8 h-8 text-primary group-hover:scale-110 transition-transform duration-300" />
+                  <step.icon className="w-8 h-8 text-slate-500 group-hover:scale-110 transition-transform duration-300" />
                 </div>
                 
                 <h3 className="text-xl font-bold text-[#0F172A] mb-3">{step.title}</h3>

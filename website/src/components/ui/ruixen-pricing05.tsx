@@ -108,7 +108,7 @@ export default function Pricing_05() {
                 <ul className="flex flex-col gap-4 mt-6 text-sm">
                   {features.map((feature) => (
                     <li key={feature} className="flex items-center gap-2">
-                      <Check className={`w-4 h-4 ${inverse ? "text-white/80" : "text-primary"}`} />
+                      <Check className={`w-4 h-4 ${inverse ? "text-white/80" : "text-slate-500"}`} />
                       <span>{feature}</span>
                     </li>
                   ))}

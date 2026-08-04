@@ -25,7 +25,7 @@ export default function RootLayout({
       <body className="min-h-full flex flex-col font-sans">
         <SmoothScrollProvider>
           <Navbar />
-          <main className="flex-1 overflow-hidden relative">
+          <main className="flex-1 relative">
             {children}
           </main>
           <Footer />

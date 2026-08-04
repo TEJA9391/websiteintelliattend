@@ -1,0 +1,491 @@
+"use client";
+
+import React, { useRef, useEffect, useState, use } from "react";
+import { Eye, EyeOff, ArrowRight, ArrowLeft } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
+import Link from "next/link";
+import Image from "next/image";
+
+// Helper function to merge class names
+const cn = (...classes: string[]) => {
+  return classes.filter(Boolean).join(" ");
+};
+
+// Custom Button Component
+interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+  children: React.ReactNode;
+  variant?: "default" | "outline";
+  className?: string;
+}
+
+const Button = ({ 
+  children, 
+  variant = "default", 
+  className = "", 
+  ...props 
+}: ButtonProps) => {
+  const baseStyles = "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50";
+  
+  const variantStyles = {
+    default: "bg-primary bg-gradient-to-r from-blue-500 to-indigo-600 text-white hover:from-blue-600 hover:to-indigo-700",
+    outline: "border border-input bg-background hover:bg-accent hover:text-accent-foreground"
+  };
+  
+  return (
+    <button
+      className={`${baseStyles} ${variantStyles[variant]} ${className}`}
+      {...props}
+    >
+      {children}
+    </button>
+  );
+};
+
+// Custom Input Component
+interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
+  className?: string;
+}
+
+const Input = ({ className = "", ...props }: InputProps) => {
+  return (
+    <input
+      className={`flex h-10 w-full rounded-md border bg-background px-3 py-2 text-sm text-gray-800 ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-gray-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 ${className}`}
+      {...props}
+    />
+  );
+};
+
+type RoutePoint = {
+  x: number;
+  y: number;
+  delay: number;
+};
+
+const DotMap = ({ dotColor, lineColor }: { dotColor: string, lineColor: string }) => {
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
+
+  // Set up routes that will animate to form the EXACT IntelliAttend logo geometry
+  const routes: { start: RoutePoint; end: RoutePoint; color: string }[] = [
+    // --- Blue Web Structure ---
+    // N1 (Top) connections
+    { start: { x: 228, y: 36, delay: 0 }, end: { x: 191, y: 60, delay: 1.5 }, color: lineColor }, // N1 -> N2
+    { start: { x: 228, y: 36, delay: 0 }, end: { x: 195, y: 115, delay: 1.5 }, color: lineColor }, // N1 -> N4
+    { start: { x: 228, y: 36, delay: 0.5 }, end: { x: 270, y: 186, delay: 2 }, color: lineColor }, // N1 -> P1 (Right edge)
+
+    // N2 (Top-Left) connections
+    { start: { x: 191, y: 60, delay: 1.5 }, end: { x: 140, y: 111, delay: 3 }, color: lineColor }, // N2 -> N3
+    { start: { x: 191, y: 60, delay: 1.5 }, end: { x: 195, y: 115, delay: 3 }, color: lineColor }, // N2 -> N4
+    { start: { x: 191, y: 60, delay: 1.5 }, end: { x: 193, y: 181, delay: 3 }, color: lineColor }, // N2 -> N6 (Vertical Spine)
+
+    // N3 (Far-Left) connections
+    { start: { x: 140, y: 111, delay: 3 }, end: { x: 195, y: 115, delay: 4.5 }, color: lineColor }, // N3 -> N4
+    { start: { x: 140, y: 111, delay: 3 }, end: { x: 140, y: 179, delay: 4.5 }, color: lineColor }, // N3 -> N5
+    { start: { x: 140, y: 111, delay: 3 }, end: { x: 193, y: 181, delay: 4.5 }, color: lineColor }, // N3 -> N6 (Diagonal)
+
+    // N5 (Bottom-Left) connections
+    { start: { x: 140, y: 179, delay: 4.5 }, end: { x: 195, y: 115, delay: 6 }, color: lineColor }, // N5 -> N4 (Diagonal)
+    { start: { x: 140, y: 179, delay: 4.5 }, end: { x: 193, y: 181, delay: 6 }, color: lineColor }, // N5 -> N6 (Bottom horizontal)
+
+    // Bottom Right Triangle
+    { start: { x: 193, y: 181, delay: 6 }, end: { x: 226, y: 142, delay: 7.5 }, color: lineColor }, // N6 -> LB
+    { start: { x: 226, y: 142, delay: 7.5 }, end: { x: 270, y: 186, delay: 9 }, color: lineColor }, // LB -> P1
+
+    // --- The Lightbulb ---
+    { start: { x: 226, y: 142, delay: 7.5 }, end: { x: 215, y: 130, delay: 8 }, color: lineColor }, // Stem to bulb bottom
+    // Bulb Diamond Shape
+    { start: { x: 215, y: 130, delay: 8 }, end: { x: 211, y: 124, delay: 8.5 }, color: lineColor },
+    { start: { x: 211, y: 124, delay: 8.5 }, end: { x: 215, y: 118, delay: 9 }, color: lineColor },
+    { start: { x: 215, y: 118, delay: 9 }, end: { x: 219, y: 124, delay: 9.5 }, color: lineColor },
+    { start: { x: 219, y: 124, delay: 9.5 }, end: { x: 215, y: 130, delay: 10 }, color: lineColor },
+    
+    // Rays
+    { start: { x: 209, y: 118, delay: 9 }, end: { x: 205, y: 114, delay: 9.5 }, color: lineColor },
+    { start: { x: 215, y: 114, delay: 9.1 }, end: { x: 215, y: 108, delay: 9.6 }, color: lineColor },
+    { start: { x: 221, y: 118, delay: 9.2 }, end: { x: 225, y: 114, delay: 9.7 }, color: lineColor },
+    { start: { x: 207, y: 124, delay: 9.3 }, end: { x: 201, y: 124, delay: 9.8 }, color: lineColor },
+    { start: { x: 223, y: 124, delay: 9.4 }, end: { x: 229, y: 124, delay: 9.9 }, color: lineColor },
+
+    // --- The Green Checkmark ---
+    { start: { x: 231, y: 93, delay: 6 }, end: { x: 246, y: 131, delay: 7.5 }, color: lineColor }, // Short leg
+    { start: { x: 246, y: 131, delay: 7.5 }, end: { x: 297, y: 27, delay: 9.5 }, color: lineColor }, // Long leg
+  ];
+
+  // Create dots for the sparse square grid
+  const generateDots = (width: number, height: number) => {
+    const dots = [];
+    const gap = 24; // Spacing between grid points
+    const dotSize = 2.5; // Size of the square dot
+
+    // Create a uniform dot grid pattern with random omissions
+    for (let x = 0; x < width; x += gap) {
+      for (let y = 0; y < height; y += gap) {
+        // Only render some dots randomly to create a sparse grid effect (e.g. 30% chance to render)
+        if (Math.random() > 0.7) {
+          dots.push({
+            x,
+            y,
+            size: dotSize,
+            opacity: Math.random() * 0.4 + 0.1, // Random opacity between 0.1 and 0.5
+          });
+        }
+      }
+    }
+    return dots;
+  };
+
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+
+    const resizeObserver = new ResizeObserver(entries => {
+      const { width, height } = entries[0].contentRect;
+      setDimensions({ width, height });
+      canvas.width = width;
+      canvas.height = height;
+    });
+
+    resizeObserver.observe(canvas.parentElement as Element);
+    return () => resizeObserver.disconnect();
+  }, []);
+
+  useEffect(() => {
+    if (!dimensions.width || !dimensions.height) return;
+
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
+
+    const dots = generateDots(dimensions.width, dimensions.height);
+    let animationFrameId: number;
+    let startTime = Date.now();
+
+    // Draw background dots
+    function drawDots() {
+      ctx.clearRect(0, 0, dimensions.width, dimensions.height);
+      
+      // Draw the dots as small squares
+      dots.forEach(dot => {
+        ctx.fillStyle = `rgba(${dotColor}, ${dot.opacity})`;
+        ctx.fillRect(dot.x, dot.y, dot.size, dot.size);
+      });
+    }
+
+    // Draw animated routes
+    function drawRoutes() {
+      const currentTime = (Date.now() - startTime) / 1000; // Time in seconds
+      
+      routes.forEach(route => {
+        const elapsed = currentTime - route.start.delay;
+        if (elapsed <= 0) return;
+        
+        const duration = 3; // Animation duration in seconds
+        const progress = Math.min(elapsed / duration, 1);
+        
+        const x = route.start.x + (route.end.x - route.start.x) * progress;
+        const y = route.start.y + (route.end.y - route.start.y) * progress;
+        
+        // Draw the route line
+        ctx.beginPath();
+        ctx.moveTo(route.start.x, route.start.y);
+        ctx.lineTo(x, y);
+        ctx.strokeStyle = route.color;
+        ctx.lineWidth = 1.5;
+        ctx.stroke();
+        
+        // Draw the start point
+        ctx.beginPath();
+        ctx.arc(route.start.x, route.start.y, 3, 0, Math.PI * 2);
+        ctx.fillStyle = route.color;
+        ctx.fill();
+        
+        // Draw the moving point
+        ctx.beginPath();
+        ctx.arc(x, y, 3, 0, Math.PI * 2);
+        ctx.fillStyle = lineColor;
+        ctx.fill();
+        
+        // Add glow effect to the moving point
+        ctx.beginPath();
+        ctx.arc(x, y, 6, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(${dotColor}, 0.4)`;
+        ctx.fill();
+        
+        // If the route is complete, draw the end point
+        if (progress === 1) {
+          ctx.beginPath();
+          ctx.arc(route.end.x, route.end.y, 3, 0, Math.PI * 2);
+          ctx.fillStyle = route.color;
+          ctx.fill();
+        }
+      });
+    }
+    
+    // Animation loop
+    function animate() {
+      drawDots();
+      drawRoutes();
+      
+      // If all routes are complete, restart the animation
+      const currentTime = (Date.now() - startTime) / 1000;
+      if (currentTime > 15) { // Reset after 15 seconds
+        startTime = Date.now();
+      }
+      
+      animationFrameId = requestAnimationFrame(animate);
+    }
+    
+    animate();
+
+    return () => cancelAnimationFrame(animationFrameId);
+  }, [dimensions]);
+
+  return (
+    <div className="relative w-full h-full overflow-hidden">
+      <canvas ref={canvasRef} className="absolute inset-0 w-full h-full" />
+    </div>
+  );
+};
+
+const SignInCard = ({ role }: { role: string }) => {
+  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [isHovered, setIsHovered] = useState(false);
+  
+  const roleDisplay = role.charAt(0).toUpperCase() + role.slice(1);
+  const roleKey = role.toLowerCase();
+  
+  const themes = {
+    faculty: {
+      gradientText: "from-blue-600 to-indigo-600",
+      gradientBg: "from-blue-500 to-indigo-600",
+      hoverGradientBg: "hover:from-blue-600 hover:to-indigo-700",
+      shadowColor: "shadow-blue-200",
+      mapDotColor: "37, 99, 235", // blue-600
+      mapLineColor: "#2563eb", // blue-600
+      bgGradient: "from-blue-50 to-indigo-100"
+    },
+    student: {
+      gradientText: "from-emerald-600 to-teal-600",
+      gradientBg: "from-emerald-500 to-teal-600",
+      hoverGradientBg: "hover:from-emerald-600 hover:to-teal-700",
+      shadowColor: "shadow-emerald-200",
+      mapDotColor: "5, 150, 105", // emerald-600
+      mapLineColor: "#059669", // emerald-600
+      bgGradient: "from-emerald-50 to-teal-100"
+    },
+    admin: {
+      gradientText: "from-purple-600 to-fuchsia-600",
+      gradientBg: "from-purple-500 to-fuchsia-600",
+      hoverGradientBg: "hover:from-purple-600 hover:to-fuchsia-700",
+      shadowColor: "shadow-purple-200",
+      mapDotColor: "147, 51, 234", // purple-600
+      mapLineColor: "#9333ea", // purple-600
+      bgGradient: "from-purple-50 to-fuchsia-100"
+    }
+  };
+
+  const theme = themes[roleKey as keyof typeof themes] || themes.faculty;
+  
+  return (
+    <div className="flex w-full h-full items-center justify-center">
+      <motion.div
+        initial={{ opacity: 0, scale: 0.95 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.5 }}
+        className="w-full max-w-4xl overflow-hidden rounded-2xl flex bg-white shadow-xl"
+      >
+        {/* Left side - Map */}
+        <div className="hidden md:block w-1/2 h-[600px] relative overflow-hidden border-r border-gray-100">
+          <div className={`absolute inset-0 bg-gradient-to-br ${theme.bgGradient}`}>
+            <DotMap dotColor={theme.mapDotColor} lineColor={theme.mapLineColor} />
+            
+            {/* Logo and text overlay */}
+            <div className="absolute inset-0 flex flex-col items-center justify-center p-8 z-10 pointer-events-none">
+              <motion.div 
+                initial={{ opacity: 0, y: -20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.6, duration: 0.5 }}
+                className="mb-6"
+              >
+                <div className={`h-12 w-12 rounded-full bg-gradient-to-br ${theme.gradientBg} flex items-center justify-center shadow-lg ${theme.shadowColor}`}>
+                  <Image src="/images/logo.png" alt="Logo" width={24} height={24} className="brightness-0 invert w-6 h-6 object-contain" />
+                </div>
+              </motion.div>
+              <motion.h2 
+                initial={{ opacity: 0, y: -20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.7, duration: 0.5 }}
+                className={`text-3xl font-bold mb-2 text-center text-transparent bg-clip-text bg-gradient-to-r ${theme.gradientText}`}
+              >
+                IntelliAttend
+              </motion.h2>
+              <motion.p 
+                initial={{ opacity: 0, y: -20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.8, duration: 0.5 }}
+                className="text-sm text-center text-gray-600 max-w-xs"
+              >
+                Sign in to access your {roleDisplay} dashboard and manage your smart campus experience.
+              </motion.p>
+            </div>
+          </div>
+        </div>
+        
+        {/* Right side - Sign In Form */}
+        <div className="w-full md:w-1/2 p-8 md:p-10 flex flex-col justify-center bg-white relative">
+          
+          <Link href="/login" className="absolute top-6 left-6 md:left-10 flex items-center gap-2 text-sm text-slate-500 hover:text-blue-600 transition-colors">
+            <ArrowLeft size={16} />
+            Back to portals
+          </Link>
+
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className="mt-4"
+          >
+            <h1 className="text-2xl md:text-3xl font-bold mb-1 text-gray-800">{roleDisplay} Sign In</h1>
+            <p className="text-gray-500 mb-8">Sign in to your account</p>
+            
+            <div className="mb-6">
+              <button 
+                className="w-full flex items-center justify-center gap-2 bg-gray-50 border border-gray-200 rounded-lg p-3 hover:bg-gray-100 transition-all duration-300 text-gray-700 shadow-sm"
+                onClick={() => console.log("Google sign-in")}
+              >
+                <svg className="h-5 w-5" viewBox="0 0 24 24">
+                  <path
+                    fill="currentColor"
+                    d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"
+                    fillOpacity=".54"
+                  />
+                  <path
+                    fill="#4285F4"
+                    d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"
+                  />
+                  <path
+                    fill="#34A853"
+                    d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"
+                  />
+                  <path
+                    fill="#FBBC05"
+                    d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"
+                  />
+                  <path fill="#EA4335" d="M1 1h22v22H1z" fillOpacity="0" />
+                </svg>
+                <span>Login with Google</span>
+              </button>
+            </div>
+            
+            <div className="relative my-6">
+              <div className="absolute inset-0 flex items-center">
+                <div className="w-full border-t border-gray-200"></div>
+              </div>
+              <div className="relative flex justify-center text-sm">
+                <span className="px-2 bg-white text-gray-500">or</span>
+              </div>
+            </div>
+            
+            <form className="space-y-5">
+              <div>
+                <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
+                  Email <span className="text-blue-500">*</span>
+                </label>
+                <Input
+                  id="email"
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="Enter your email address"
+                  required
+                  className="bg-gray-50 border-gray-200 placeholder:text-gray-400 text-gray-800 w-full focus:border-blue-500 focus:ring-blue-500"
+                />
+              </div>
+              
+              <div>
+                <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-1">
+                  Password <span className="text-blue-500">*</span>
+                </label>
+                <div className="relative">
+                  <Input
+                    id="password"
+                    type={isPasswordVisible ? "text" : "password"}
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    placeholder="Enter your password"
+                    required
+                    className="bg-gray-50 border-gray-200 placeholder:text-gray-400 text-gray-800 w-full pr-10 focus:border-blue-500 focus:ring-blue-500"
+                  />
+                  <button
+                    type="button"
+                    className="absolute inset-y-0 right-0 flex items-center pr-3 text-gray-500 hover:text-gray-700"
+                    onClick={() => setIsPasswordVisible(!isPasswordVisible)}
+                  >
+                    {isPasswordVisible ? <EyeOff size={18} /> : <Eye size={18} />}
+                  </button>
+                </div>
+              </div>
+              
+              <motion.div 
+                whileHover={{ scale: 1.01 }}
+                whileTap={{ scale: 0.98 }}
+                onHoverStart={() => setIsHovered(true)}
+                onHoverEnd={() => setIsHovered(false)}
+                className="pt-2"
+              >
+                <Button
+                  type="button"
+                  className={cn(
+                    "w-full bg-gradient-to-r relative overflow-hidden text-white py-2 rounded-lg transition-all duration-300",
+                    theme.gradientBg,
+                    theme.hoverGradientBg,
+                    isHovered ? `shadow-lg ${theme.shadowColor}` : ""
+                  )}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    window.location.href = `/${role.toLowerCase()}`;
+                  }}
+                >
+                  <span className="flex items-center justify-center">
+                    Sign in
+                    <ArrowRight className="ml-2 h-4 w-4" />
+                  </span>
+                  {isHovered && (
+                    <motion.span
+                      initial={{ left: "-100%" }}
+                      animate={{ left: "100%" }}
+                      transition={{ duration: 1, ease: "easeInOut" }}
+                      className="absolute top-0 bottom-0 left-0 w-20 bg-gradient-to-r from-transparent via-white/30 to-transparent"
+                      style={{ filter: "blur(8px)" }}
+                    />
+                  )}
+                </Button>
+              </motion.div>
+              
+              <div className="text-center mt-6">
+                <a href="#" className="text-blue-600 hover:text-blue-700 text-sm transition-colors">
+                  Forgot password?
+                </a>
+              </div>
+            </form>
+          </motion.div>
+        </div>
+      </motion.div>
+    </div>
+  );
+};
+
+export default function RoleLoginPage({ params }: { params: Promise<{ role: string }> }) {
+  const resolvedParams = use(params);
+  const role = resolvedParams.role;
+  
+  return (
+    <div className="min-h-screen w-full flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100 p-4 font-sans">
+      <SignInCard role={role} />
+    </div>
+  );
+}

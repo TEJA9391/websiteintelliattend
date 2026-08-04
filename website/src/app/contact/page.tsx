@@ -15,7 +15,7 @@ export default function ContactPage() {
           className="text-center max-w-3xl mx-auto mb-20"
         >
           <h1 className="text-4xl md:text-6xl font-bold text-slate-900 dark:text-white mb-6">
-            Get in <span className="text-primary">Touch</span>
+            Get in <span className="text-slate-500">Touch</span>
           </h1>
           <p className="text-lg text-slate-600 dark:text-slate-400">
             Have questions about IntelliAttend? Our team is here to help you transform your campus.
@@ -28,7 +28,7 @@ export default function ContactPage() {
             <h3 className="text-2xl font-bold mb-6 text-slate-900 dark:text-white">Contact Information</h3>
             <div className="space-y-6">
               <div className="flex items-start gap-4">
-                <div className="bg-primary/10 p-3 rounded-xl text-primary">
+                <div className="bg-primary/10 p-3 rounded-xl text-slate-500">
                   <MapPin className="h-6 w-6" />
                 </div>
                 <div>
@@ -37,7 +37,7 @@ export default function ContactPage() {
                 </div>
               </div>
               <div className="flex items-start gap-4">
-                <div className="bg-primary/10 p-3 rounded-xl text-primary">
+                <div className="bg-primary/10 p-3 rounded-xl text-slate-500">
                   <Phone className="h-6 w-6" />
                 </div>
                 <div>
@@ -46,7 +46,7 @@ export default function ContactPage() {
                 </div>
               </div>
               <div className="flex items-start gap-4">
-                <div className="bg-primary/10 p-3 rounded-xl text-primary">
+                <div className="bg-primary/10 p-3 rounded-xl text-slate-500">
                   <Mail className="h-6 w-6" />
                 </div>
                 <div>

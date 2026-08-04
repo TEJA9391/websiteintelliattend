@@ -4,8 +4,15 @@ import { Button } from "@/components/ui/button"
 
 export function PricingCTA() {
   return (
-    <div className="max-w-4xl mx-auto px-6 mb-32 text-center">
-      <div className="bg-primary/5 rounded-3xl p-12 border border-primary/10">
+    <section className="bg-primary/5 relative overflow-hidden pt-24 pb-20 md:pt-32 md:pb-24 mt-20">
+      {/* Top Wave */}
+      <div className="absolute top-0 left-0 right-0 w-full overflow-hidden leading-[0] z-0">
+        <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none" className="relative block w-full h-[60px] md:h-[120px]">
+          <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" className="fill-white"></path>
+        </svg>
+      </div>
+
+      <div className="mx-auto max-w-4xl px-6 relative z-10 text-center">
         <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-6">Ready to Modernize Your Campus?</h2>
         <p className="text-lg text-slate-600 mb-8 max-w-2xl mx-auto">
           Join institutions that are simplifying attendance, classroom management, and academic operations with IntelliAttend.
@@ -15,6 +22,6 @@ export function PricingCTA() {
           <Button size="lg" variant="outline" className="w-full sm:w-auto bg-white hover:bg-slate-50 :bg-slate-800">Talk to Sales</Button>
         </div>
       </div>
-    </div>
+    </section>
   )
 }

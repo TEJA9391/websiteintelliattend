@@ -73,7 +73,7 @@ export function ProductsShowcase() {
                 transition={{ duration: 0.6, ease: "easeOut" }}
                 className="w-full lg:w-1/2 flex flex-col justify-center"
               >
-                <div className="inline-flex items-center rounded-full px-3 py-1 text-sm font-semibold text-primary bg-primary/10 mb-6 w-fit">
+                <div className="inline-flex items-center rounded-full px-3 py-1 text-sm font-semibold text-slate-500 bg-primary/10 mb-6 w-fit">
                   <CheckCircle2 className="w-4 h-4 mr-2" />
                   Module 0{idx + 1}
                 </div>

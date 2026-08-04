@@ -49,18 +49,18 @@ export function PricingCards() {
           initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.1 }}
           className="bg-white/70 backdrop-blur-xl border border-white shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_8px_30px_rgb(0,0,0,0.08)] rounded-3xl p-8 transition-all duration-300 hover:-translate-y-1 relative"
         >
-          <div className="text-4xl mb-4">🏫</div>
+          <div className="text-4xl mb-4">ðŸ«</div>
           <h3 className="text-xl font-bold text-slate-900 mb-2">School</h3>
-          <p className="text-sm text-slate-500 mb-6 min-h-[40px]">Perfect for K–12 Schools and Small Institutions</p>
+          <p className="text-sm text-slate-500 mb-6 min-h-[40px]">Perfect for Kâ€“12 Schools and Small Institutions</p>
           <div className="mb-6">
-            <span className="text-4xl font-bold text-slate-900 ">₹{isAnnual ? "3,999" : "4,999"}</span>
+            <span className="text-4xl font-bold text-slate-900 ">â‚¹{isAnnual ? "3,999" : "4,999"}</span>
             <span className="text-slate-500 text-sm">/month</span>
           </div>
           <p className="text-sm font-semibold text-slate-900 mb-4">Includes</p>
           <ul className="space-y-4 mb-8 text-sm text-slate-600 ">
-            {["Up to 500 Students", "Faculty Portal", "Student Portal", "QR Attendance", "Timetable Management", "Assignments", "Notifications", "Cloud Storage", "Email Support"].map((feature, i) => (
+            {["Up to 500 Students", "Faculty Portal", "Student Portal", "Automated Attendance", "Timetable Management", "Assignments", "Notifications", "Cloud Storage", "Email Support"].map((feature, i) => (
               <motion.li key={i} initial={{ opacity: 0, x: -10 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ delay: 0.2 + (i * 0.05) }} className="flex items-start">
-                <Check className="w-5 h-5 text-primary shrink-0 mr-3" />
+                <Check className="w-5 h-5 text-slate-500 shrink-0 mr-3" />
                 <span>{feature}</span>
               </motion.li>
             ))}
@@ -82,7 +82,7 @@ export function PricingCards() {
             </span>
           </div>
           
-          <div className="text-4xl mb-4 relative z-10">🎓</div>
+          <div className="text-4xl mb-4 relative z-10">ðŸŽ“</div>
           <h3 className="text-xl font-bold text-slate-900 mb-2 relative z-10">College</h3>
           <p className="text-sm text-slate-500 mb-6 min-h-[40px] relative z-10">Designed for Colleges & Universities</p>
           <div className="mb-6 relative z-10">
@@ -92,7 +92,7 @@ export function PricingCards() {
           <ul className="space-y-4 mb-8 text-sm text-slate-600 relative z-10">
             {["Unlimited Students", "Unlimited Faculty", "SmartBoard Integration", "AI Attendance Analytics", "Department Management", "Resource Library", "Advanced Reports", "API Access", "Priority Support", "Multi-Department Management"].map((feature, i) => (
               <motion.li key={i} initial={{ opacity: 0, x: -10 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ delay: 0.3 + (i * 0.05) }} className="flex items-start">
-                <Check className="w-5 h-5 text-primary shrink-0 mr-3" />
+                <Check className="w-5 h-5 text-slate-500 shrink-0 mr-3" />
                 <span className="font-medium text-slate-700 ">{feature}</span>
               </motion.li>
             ))}
@@ -105,7 +105,7 @@ export function PricingCards() {
           initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.3 }}
           className="bg-white/70 backdrop-blur-xl border border-white shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_8px_30px_rgb(0,0,0,0.08)] rounded-3xl p-8 transition-all duration-300 hover:-translate-y-1 relative"
         >
-          <div className="text-4xl mb-4">🏢</div>
+          <div className="text-4xl mb-4">ðŸ¢</div>
           <h3 className="text-xl font-bold text-slate-900 mb-2">Enterprise</h3>
           <p className="text-sm text-slate-500 mb-6 min-h-[40px]">For Multi-Campus Institutions</p>
           <div className="mb-6">
@@ -113,9 +113,9 @@ export function PricingCards() {
           </div>
           <p className="text-sm font-semibold text-slate-900 mb-4">Everything in College plus</p>
           <ul className="space-y-4 mb-8 text-sm text-slate-600 ">
-            {["Multi-Campus Management", "Custom Branding", "Single Sign-On (SSO)", "Dedicated Account Manager", "On-Premise Deployment", "Custom Integrations", "Advanced Security", "SLA Guarantee", "24×7 Premium Support"].map((feature, i) => (
+            {["Multi-Campus Management", "Custom Branding", "Single Sign-On (SSO)", "Dedicated Account Manager", "On-Premise Deployment", "Custom Integrations", "Advanced Security", "SLA Guarantee", "24Ã—7 Premium Support"].map((feature, i) => (
               <motion.li key={i} initial={{ opacity: 0, x: -10 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ delay: 0.4 + (i * 0.05) }} className="flex items-start">
-                <Check className="w-5 h-5 text-primary shrink-0 mr-3" />
+                <Check className="w-5 h-5 text-slate-500 shrink-0 mr-3" />
                 <span>{feature}</span>
               </motion.li>
             ))}

@@ -3,7 +3,7 @@
 import { useRef, useEffect } from "react";
 import { motion, useInView, animate } from "framer-motion";
 import { 
-  QrCode, 
+  ClipboardCheck, 
   Calendar, 
   BookOpen, 
   MonitorPlay, 
@@ -59,7 +59,7 @@ export default function FacultyPage() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
           >
-            <div className="inline-flex items-center rounded-full px-4 py-1.5 text-sm font-semibold text-primary bg-primary/10 mb-8 border border-primary/20">
+            <div className="inline-flex items-center rounded-full px-4 py-1.5 text-sm font-semibold text-slate-500 bg-primary/10 mb-8 border border-primary/20">
               <Briefcase className="w-4 h-4 mr-2" />
               Faculty Portal
             </div>
@@ -68,7 +68,7 @@ export default function FacultyPage() {
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent">One Intelligent Platform.</span>
             </h1>
             <p className="mx-auto max-w-3xl text-xl leading-relaxed text-[#64748B]">
-              Empower faculty with AI-driven tools to manage attendance, classes, SmartBoard content, student engagement, and academic resources—all from a single intuitive application.
+              Empower faculty with AI-driven tools to manage attendance, classes, SmartBoard content, student engagement, and academic resourcesâ€”all from a single intuitive application.
             </p>
           </motion.div>
         </div>
@@ -116,7 +116,7 @@ export default function FacultyPage() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {[
-              { icon: QrCode, title: "Smart Attendance", desc: "Mark attendance in seconds using QR codes, secure verification, and automated records." },
+              { icon: ClipboardCheck, title: "Smart Attendance", desc: "Mark attendance in seconds using secure digital verification and automated records." },
               { icon: Calendar, title: "Class Schedule", desc: "View daily teaching schedules, classroom assignments, upcoming sessions, and academic calendars in one place." },
               { icon: BookOpen, title: "Course Resources", desc: "Upload, organize, preview, and distribute lecture notes, presentations, assignments, and reference materials effortlessly." },
               { icon: MonitorPlay, title: "SmartBoard Control", desc: "Push classroom content directly to assigned SmartBoards with a single tap for a seamless teaching experience." },
@@ -133,7 +133,7 @@ export default function FacultyPage() {
                 transition={{ delay: i * 0.05, duration: 0.5 }}
                 className="bg-slate-50 rounded-[28px] p-8 border border-slate-100 hover:shadow-xl hover:shadow-primary/10 transition-all duration-300 group"
               >
-                <div className="w-12 h-12 rounded-2xl bg-white shadow-sm flex items-center justify-center mb-6 group-hover:scale-110 transition-transform text-primary border border-slate-100">
+                <div className="w-12 h-12 rounded-2xl bg-white shadow-sm flex items-center justify-center mb-6 group-hover:scale-110 transition-transform text-slate-500 border border-slate-100">
                   <feature.icon className="w-6 h-6" />
                 </div>
                 <h3 className="text-xl font-bold text-text-main mb-3">{feature.title}</h3>
@@ -160,7 +160,7 @@ export default function FacultyPage() {
                 { title: "Login Securely" },
                 { title: "View Today's Schedule" },
                 { title: "Start Class Session" },
-                { title: "Generate Attendance QR", highlight: true },
+                { title: "Start Attendance Session", highlight: true },
                 { title: "Students Mark Attendance" },
                 { title: "Upload Lecture Materials" },
                 { title: "Push Content to SmartBoard", highlight: true },
@@ -228,7 +228,7 @@ export default function FacultyPage() {
                 className="bg-white p-8 rounded-3xl border border-slate-200 shadow-sm flex gap-6 items-start"
               >
                 <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center shrink-0">
-                  <benefit.icon className="w-6 h-6 text-primary" />
+                  <benefit.icon className="w-6 h-6 text-slate-500" />
                 </div>
                 <div>
                   <h3 className="text-xl font-bold text-text-main mb-2">{benefit.title}</h3>
@@ -241,17 +241,24 @@ export default function FacultyPage() {
       </section>
 
       {/* Callout Card */}
-      <section className="py-24 bg-white relative">
-        <div className="mx-auto max-w-7xl px-6 lg:px-8">
+      <section className="bg-primary relative overflow-hidden pt-24 pb-20 md:pt-32 md:pb-24">
+        {/* Top Wave */}
+        <div className="absolute top-0 left-0 right-0 w-full overflow-hidden leading-[0] z-0">
+          <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none" className="relative block w-full h-[60px] md:h-[120px]">
+            <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" className="fill-white"></path>
+          </svg>
+        </div>
+
+        <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 mix-blend-overlay z-0" />
+        
+        <div className="mx-auto max-w-7xl px-6 lg:px-8 relative z-10">
           <motion.div 
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="bg-primary rounded-[40px] p-12 md:p-20 text-center relative overflow-hidden"
+            className="text-center"
           >
-            <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 mix-blend-overlay" />
-            
-            <div className="relative z-10 max-w-4xl mx-auto">
+            <div className="max-w-4xl mx-auto">
               <h2 className="text-3xl md:text-5xl font-bold text-white mb-6 leading-tight">
                 Designed for Modern Educators
               </h2>
@@ -260,7 +267,7 @@ export default function FacultyPage() {
               </p>
               
               <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-                <button className="px-8 py-4 bg-white text-primary rounded-full font-bold text-lg hover:scale-105 transition-transform shadow-xl">
+                <button className="px-8 py-4 bg-white text-slate-500 rounded-full font-bold text-lg hover:scale-105 transition-transform shadow-xl">
                   Get Started
                 </button>
                 <button className="px-8 py-4 bg-accent/20 text-white border border-accent/30 rounded-full font-bold text-lg hover:bg-accent/30 transition-colors backdrop-blur-sm">

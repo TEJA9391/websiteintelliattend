@@ -14,7 +14,7 @@ export default function SolutionsOverview() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
           >
-            <div className="inline-flex items-center rounded-full px-3 py-1 text-sm font-semibold text-primary bg-primary/10 mb-6">
+            <div className="inline-flex items-center rounded-full px-3 py-1 text-sm font-semibold text-slate-500 bg-primary/10 mb-6">
               Solutions Overview
             </div>
             <h1 className="text-5xl font-bold tracking-tight text-[#0F172A] sm:text-7xl mb-8">

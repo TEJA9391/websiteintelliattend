@@ -32,16 +32,16 @@ export function ContactSection() {
             className="flex flex-col gap-8"
           >
             <h2 className="text-4xl md:text-5xl font-bold text-[#0F172A] leading-tight">
-              Let's talk about your campus.
+              Let&apos;s talk about your campus.
             </h2>
             <p className="text-lg text-[#64748B] max-w-md">
-              Whether you're looking for a custom enterprise solution or just want to see a live demo, our team is ready to help.
+              Whether you&apos;re looking for a custom enterprise solution or just want to see a live demo, our team is ready to help.
             </p>
 
             <div className="space-y-6 mt-4">
               <div className="flex items-center gap-4 group">
                 <div className="w-12 h-12 rounded-full bg-blue-50 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
-                  <Mail className="text-primary w-5 h-5" />
+                  <Mail className="text-slate-500 w-5 h-5" />
                 </div>
                 <div>
                   <h4 className="font-semibold text-[#0F172A]">Email</h4>
@@ -51,7 +51,7 @@ export function ContactSection() {
 
               <div className="flex items-center gap-4 group">
                 <div className="w-12 h-12 rounded-full bg-blue-50 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
-                  <Phone className="text-primary w-5 h-5" />
+                  <Phone className="text-slate-500 w-5 h-5" />
                 </div>
                 <div>
                   <h4 className="font-semibold text-[#0F172A]">Phone</h4>
@@ -61,7 +61,7 @@ export function ContactSection() {
 
               <div className="flex items-center gap-4 group">
                 <div className="w-12 h-12 rounded-full bg-blue-50 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
-                  <MapPin className="text-primary w-5 h-5" />
+                  <MapPin className="text-slate-500 w-5 h-5" />
                 </div>
                 <div>
                   <h4 className="font-semibold text-[#0F172A]">Address</h4>
@@ -153,7 +153,7 @@ export function ContactSection() {
                       <CheckCircle2 className="w-10 h-10 text-green-600" />
                     </div>
                     <h3 className="text-2xl font-bold text-[#0F172A] mb-2">Message Sent!</h3>
-                    <p className="text-[#64748B]">We'll get back to you within 24 hours.</p>
+                    <p className="text-[#64748B]">We&apos;ll get back to you within 24 hours.</p>
                   </motion.div>
                 )}
               </AnimatePresence>

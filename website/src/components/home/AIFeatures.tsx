@@ -61,7 +61,7 @@ export function AIFeatures() {
               
               <div className="relative z-10 pointer-events-none">
                 <motion.div layoutId={`icon-${feature.title}`} className="w-12 h-12 rounded-2xl bg-blue-50 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300 ease-out">
-                  <feature.icon className="w-6 h-6 text-primary" />
+                  <feature.icon className="w-6 h-6 text-slate-500" />
                 </motion.div>
                 
                 <motion.h3 layoutId={`title-${feature.title}`} className="text-xl font-bold text-[#0F172A] mb-3">
@@ -100,7 +100,7 @@ export function AIFeatures() {
                 </button>
 
                 <motion.div layoutId={`icon-${selectedFeature.title}`} className="w-16 h-16 rounded-2xl bg-blue-50 flex items-center justify-center mb-6">
-                  <selectedFeature.icon className="w-8 h-8 text-primary" />
+                  <selectedFeature.icon className="w-8 h-8 text-slate-500" />
                 </motion.div>
                 
                 <motion.h3 layoutId={`title-${selectedFeature.title}`} className="text-2xl font-bold text-[#0F172A] mb-4">
