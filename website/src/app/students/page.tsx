@@ -13,7 +13,7 @@ export default function StudentsPage() {
           className="text-center max-w-3xl mx-auto mb-20"
         >
           <h1 className="text-4xl md:text-6xl font-bold text-slate-900 dark:text-white mb-6">
-            For <span className="text-primary">Students</span>
+            For <span className="text-slate-500">Students</span>
           </h1>
           <p className="text-lg text-slate-600 dark:text-slate-400">
             Never miss a class, announcement, or assignment with the IntelliAttend Student App.

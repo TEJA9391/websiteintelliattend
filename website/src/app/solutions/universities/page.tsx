@@ -68,7 +68,7 @@ export default function UniversitiesSolution() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
           >
-            <div className="inline-flex items-center rounded-full px-4 py-1.5 text-sm font-semibold text-primary bg-primary/10 mb-8 border border-primary/20">
+            <div className="inline-flex items-center rounded-full px-4 py-1.5 text-sm font-semibold text-slate-500 bg-primary/10 mb-8 border border-primary/20">
               <Building2 className="w-4 h-4 mr-2" />
               University Solutions
             </div>
@@ -190,10 +190,10 @@ export default function UniversitiesSolution() {
               >
                 <h3 className="font-bold text-lg text-text-main mb-4">{card.title}</h3>
                 <p className="text-sm text-slate-500 mb-6">{card.problem}</p>
-                <div className="w-10 h-10 rounded-full bg-white shadow-sm flex items-center justify-center mb-6 text-primary border border-slate-100">
+                <div className="w-10 h-10 rounded-full bg-white shadow-sm flex items-center justify-center mb-6 text-slate-500 border border-slate-100">
                   <ArrowDown className="w-5 h-5" />
                 </div>
-                <p className="font-semibold text-primary">{card.solution}</p>
+                <p className="font-semibold text-slate-500">{card.solution}</p>
               </motion.div>
             ))}
           </div>
@@ -288,14 +288,14 @@ export default function UniversitiesSolution() {
                 transition={{ delay: i * 0.15 }}
                 className="flex items-center gap-6 md:gap-12 relative z-10"
               >
-                <div className="w-[100px] text-right font-mono font-bold text-primary shrink-0 text-lg hidden md:block">
+                <div className="w-[100px] text-right font-mono font-bold text-slate-500 shrink-0 text-lg hidden md:block">
                   {event.time}
                 </div>
                 <div className="w-12 h-12 rounded-full bg-white border-2 border-primary flex items-center justify-center shrink-0 shadow-sm relative left-[26px] md:left-0">
-                  <event.icon className="w-5 h-5 text-primary" />
+                  <event.icon className="w-5 h-5 text-slate-500" />
                 </div>
                 <div className="bg-slate-50 border border-slate-100 p-6 rounded-2xl flex-1 shadow-sm ml-8 md:ml-0">
-                  <div className="font-mono font-bold text-primary text-sm mb-2 md:hidden">{event.time}</div>
+                  <div className="font-mono font-bold text-slate-500 text-sm mb-2 md:hidden">{event.time}</div>
                   <span className="text-lg font-semibold text-text-main">{event.text}</span>
                 </div>
               </motion.div>
@@ -372,7 +372,7 @@ export default function UniversitiesSolution() {
                     <AnimatedCounter from={0} to={stat.num} />
                   </div>
                 </div>
-                <div className="w-16 h-16 rounded-2xl bg-primary/10 flex items-center justify-center text-primary">
+                <div className="w-16 h-16 rounded-2xl bg-primary/10 flex items-center justify-center text-slate-500">
                   <stat.icon className="w-8 h-8" />
                 </div>
               </motion.div>
@@ -388,7 +388,7 @@ export default function UniversitiesSolution() {
           {/* AI Operations */}
           <div>
             <h2 className="text-3xl font-bold text-text-main mb-12 flex items-center gap-4">
-              <BrainCircuit className="w-8 h-8 text-primary" /> AI Operations
+              <BrainCircuit className="w-8 h-8 text-slate-500" /> AI Operations
             </h2>
             <div className="flex flex-col gap-4 relative before:absolute before:inset-y-0 before:left-5 before:w-0.5 before:bg-primary/20">
               {[

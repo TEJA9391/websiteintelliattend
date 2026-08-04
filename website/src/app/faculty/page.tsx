@@ -13,7 +13,7 @@ export default function FacultyPage() {
           className="text-center max-w-3xl mx-auto mb-20"
         >
           <h1 className="text-4xl md:text-6xl font-bold text-slate-900 dark:text-white mb-6">
-            For <span className="text-primary">Faculty</span>
+            For <span className="text-slate-500">Faculty</span>
           </h1>
           <p className="text-lg text-slate-600 dark:text-slate-400">
             Empower your teaching with tools designed to reduce administrative overhead.

@@ -70,9 +70,9 @@ export default function K12Solution() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
           >
-            <div className="inline-flex items-center rounded-full px-4 py-1.5 text-sm font-semibold text-primary bg-primary/10 mb-8 border border-primary/20">
+            <div className="inline-flex items-center rounded-full px-4 py-1.5 text-sm font-semibold text-slate-500 bg-primary/10 mb-8 border border-primary/20">
               <School className="w-4 h-4 mr-2" />
-              IntelliAttend for K–12 Schools
+              IntelliAttend for Kâ€“12 Schools
             </div>
             <h1 className="text-5xl md:text-7xl font-bold tracking-tight text-text-main mb-8 leading-[1.1]">
               Building Smarter, Safer, and<br />
@@ -117,14 +117,14 @@ export default function K12Solution() {
                 transition={{ delay: i * 0.15 }}
                 className="flex items-center gap-6 md:gap-12 relative z-10"
               >
-                <div className="w-[100px] text-right font-mono font-bold text-primary shrink-0 text-lg hidden md:block">
+                <div className="w-[100px] text-right font-mono font-bold text-slate-500 shrink-0 text-lg hidden md:block">
                   {event.time}
                 </div>
                 <div className="w-12 h-12 rounded-full bg-white border-2 border-primary flex items-center justify-center shrink-0 shadow-sm relative left-[26px] md:left-0">
-                  <event.icon className="w-5 h-5 text-primary" />
+                  <event.icon className="w-5 h-5 text-slate-500" />
                 </div>
                 <div className="bg-slate-50 border border-slate-100 p-6 rounded-2xl flex-1 shadow-sm ml-8 md:ml-0">
-                  <div className="font-mono font-bold text-primary text-sm mb-2 md:hidden">{event.time}</div>
+                  <div className="font-mono font-bold text-slate-500 text-sm mb-2 md:hidden">{event.time}</div>
                   <span className="text-lg font-semibold text-text-main">{event.text}</span>
                 </div>
               </motion.div>
@@ -143,7 +143,7 @@ export default function K12Solution() {
           
           <div className="grid md:grid-cols-2 gap-8">
             {[
-              { icon: Users, title: "Teacher Workspace", desc: "Manage attendance, lesson materials, classroom schedules, and student activities from one dashboard.", color: "text-blue-500", bg: "bg-blue-50" },
+              { icon: Users, title: "Teacher Workspace", desc: "Manage attendance, lesson materials, classroom schedules, and student activities from one dashboard.", color: "text-slate-500", bg: "bg-blue-50" },
               { icon: GraduationCap, title: "Student Learning", desc: "Access homework, study materials, class schedules, announcements, and attendance records anytime.", color: "text-emerald-500", bg: "bg-emerald-50" },
               { icon: Bell, title: "Parent Communication", desc: "Keep parents informed with attendance updates, school notices, event reminders, and academic progress.", color: "text-purple-500", bg: "bg-purple-50" },
               { icon: School, title: "School Administration", desc: "Monitor classrooms, teachers, attendance, announcements, and school-wide performance through one centralized platform.", color: "text-orange-500", bg: "bg-orange-50" },
@@ -192,7 +192,7 @@ export default function K12Solution() {
                 className="bg-slate-50 border border-slate-200 rounded-3xl p-8 flex flex-col items-center text-center hover:bg-slate-100 transition-colors"
               >
                 <div className="w-14 h-14 rounded-2xl bg-white shadow-sm border border-slate-100 flex items-center justify-center mb-6">
-                  <card.icon className="w-7 h-7 text-primary" />
+                  <card.icon className="w-7 h-7 text-slate-500" />
                 </div>
                 <h3 className="font-bold text-lg text-text-main">{card.title}</h3>
               </motion.div>
@@ -336,7 +336,7 @@ export default function K12Solution() {
               {[
                 "Reduce administrative workload",
                 "Improve classroom organization",
-                "Strengthen teacher–student communication",
+                "Strengthen teacherâ€“student communication",
                 "Keep parents informed in real time",
                 "Digitize school operations",
                 "Support a safer, more connected learning environment"
@@ -350,7 +350,7 @@ export default function K12Solution() {
                   className="flex items-start gap-4 text-lg text-slate-700 font-medium"
                 >
                   <div className="w-6 h-6 rounded-full bg-primary/10 flex items-center justify-center shrink-0 mt-0.5">
-                    <CheckCircle2 className="w-4 h-4 text-primary" />
+                    <CheckCircle2 className="w-4 h-4 text-slate-500" />
                   </div>
                   {reason}
                 </motion.div>
@@ -362,26 +362,33 @@ export default function K12Solution() {
       </section>
 
       {/* Final Call to Action */}
-      <section className="py-24 bg-white relative">
-        <div className="mx-auto max-w-7xl px-6 lg:px-8">
+      <section className="bg-primary relative overflow-hidden pt-24 pb-20 md:pt-32 md:pb-24">
+        {/* Top Wave */}
+        <div className="absolute top-0 left-0 right-0 w-full overflow-hidden leading-[0] z-0">
+          <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none" className="relative block w-full h-[60px] md:h-[120px]">
+            <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" className="fill-white"></path>
+          </svg>
+        </div>
+
+        <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 mix-blend-overlay z-0" />
+        
+        <div className="mx-auto max-w-7xl px-6 lg:px-8 relative z-10">
           <motion.div 
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="bg-primary rounded-[40px] p-12 md:p-20 text-center relative overflow-hidden"
+            className="text-center"
           >
-            <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 mix-blend-overlay" />
-            
-            <div className="relative z-10 max-w-4xl mx-auto">
+            <div className="max-w-4xl mx-auto">
               <h2 className="text-3xl md:text-5xl font-bold text-white mb-6 leading-tight">
                 Helping Schools Focus on Learning, Not Paperwork.
               </h2>
               <p className="text-xl text-white/80 leading-relaxed mb-10 max-w-3xl mx-auto">
-                IntelliAttend enables K–12 schools to create efficient classrooms, connected communities, and better learning experiences through intelligent digital solutions.
+                IntelliAttend enables Kâ€“12 schools to create efficient classrooms, connected communities, and better learning experiences through intelligent digital solutions.
               </p>
               
               <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-                <button className="px-8 py-4 bg-white text-primary rounded-full font-bold text-lg hover:scale-105 transition-transform shadow-xl">
+                <button className="px-8 py-4 bg-white text-slate-500 rounded-full font-bold text-lg hover:scale-105 transition-transform shadow-xl">
                   Schedule a Demo
                 </button>
                 <button className="px-8 py-4 bg-accent/20 text-white border border-accent/30 rounded-full font-bold text-lg hover:bg-accent/30 transition-colors backdrop-blur-sm">

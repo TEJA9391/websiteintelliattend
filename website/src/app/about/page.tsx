@@ -13,7 +13,7 @@ export default function AboutPage() {
           className="text-center max-w-3xl mx-auto mb-20"
         >
           <h1 className="text-4xl md:text-6xl font-bold text-slate-900 dark:text-white mb-6">
-            About <span className="text-primary">IntelliAttend</span>
+            About <span className="text-slate-500">IntelliAttend</span>
           </h1>
           <p className="text-lg text-slate-600 dark:text-slate-400">
             We are on a mission to modernize academic operations globally.

@@ -55,7 +55,7 @@ export function ProductShowcase() {
             Available on <span className="text-gradient-primary">Every Device</span>
           </h2>
           <p className="text-lg text-slate-400">
-            A seamless experience whether you're at your desk, presenting in class, or walking across campus.
+            A seamless experience whether you&apos;re at your desk, presenting in class, or walking across campus.
           </p>
         </div>
 

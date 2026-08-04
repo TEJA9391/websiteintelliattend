@@ -50,7 +50,7 @@ export function AnalyticsShowcase() {
             <div className="space-y-6 mt-4">
                <div className="flex gap-4 items-start">
                  <div className="w-12 h-12 rounded-xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center shrink-0">
-                   <TrendingUp className="text-blue-400 w-6 h-6" />
+                   <TrendingUp className="text-slate-500 w-6 h-6" />
                  </div>
                  <div>
                    <h4 className="text-xl font-bold text-white">Trend Forecasting</h4>

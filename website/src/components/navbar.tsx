@@ -34,7 +34,8 @@ const navLinks = [
   { name: "Blog", href: "/blog" },
   { 
     name: "Resources", 
-    href: "#",
+    href: "/docs",
+    overviewHref: "/docs",
     megaTitle: "Learn how to use IntelliAttend",
     dropdown: [
       { name: "Documentation", href: "/docs", desc: "Platform guides and API" },
@@ -95,14 +96,41 @@ export function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [activeMenu, setActiveMenu] = useState<string | null>(null);
+  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
   const { scrollY } = useScroll();
   const headerHeight = useTransform(scrollY, [0, 100], [100, 80]);
+  const pathname = usePathname();
+
+  const handleMouseEnter = (menuName: string) => {
+    if (timeoutRef.current) clearTimeout(timeoutRef.current);
+    if (activeMenu) {
+      setActiveMenu(menuName);
+    } else {
+      timeoutRef.current = setTimeout(() => {
+        setActiveMenu(menuName);
+      }, 150);
+    }
+  };
+
+  const handleMouseLeave = () => {
+    if (timeoutRef.current) clearTimeout(timeoutRef.current);
+    timeoutRef.current = setTimeout(() => {
+      setActiveMenu(null);
+    }, 200); // Slight delay before closing to allow moving to dropdown
+  };
 
   useEffect(() => {
     return scrollY.onChange((latest) => {
-      setIsScrolled(latest > 20);
+      setIsScrolled(prev => {
+        const isNowScrolled = latest > 20;
+        return prev === isNowScrolled ? prev : isNowScrolled;
+      });
     });
   }, [scrollY]);
+
+  if (pathname?.startsWith('/login') || pathname?.startsWith('/register') || pathname?.startsWith('/get-started') || pathname?.startsWith('/portal')) {
+    return null;
+  }
 
   return (
     <motion.header
@@ -116,25 +144,23 @@ export function Navbar() {
         
         {/* Logo */}
         <Link href="/" className="flex items-center gap-2 group">
-          <div className="w-8 h-8 rounded-lg bg-primary flex items-center justify-center">
-            <Sparkles className="text-white w-4 h-4" />
-          </div>
+          <Image src="/images/logo.png" alt="IntelliAttend" width={32} height={32} className="w-8 h-8 object-contain" />
           <span className="font-bold text-xl text-[#0F172A] tracking-tight">IntelliAttend</span>
         </Link>
 
         {/* Desktop Links */}
         <nav 
           className="hidden md:flex h-full items-center gap-2"
-          onMouseLeave={() => setActiveMenu(null)}
         >
           {navLinks.map((link) => (
             <div 
               key={link.name} 
               className="group/nav flex items-center h-full"
-              onMouseEnter={() => setActiveMenu(link.name)}
+              onMouseLeave={handleMouseLeave}
             >
               <Link 
                 href={link.href}
+                onMouseEnter={() => handleMouseEnter(link.name)}
                 className="flex items-center gap-1.5 text-sm font-medium text-[#64748B] hover:text-[#0F172A] hover:bg-slate-100 transition-colors px-4 py-2 rounded-full"
               >
                 {link.name}
@@ -142,60 +168,64 @@ export function Navbar() {
               </Link>
               
               {link.dropdown && (
-                <AnimatePresence>
-                  {activeMenu === link.name && link.name === "Products" ? (
-                    <MegaMenuProducts3D key="mega-3d" />
-                  ) : activeMenu === link.name ? (
-                    <motion.div 
-                      key="mega-standard"
-                      initial={{ opacity: 0, y: -15 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, y: -15 }}
-                      transition={{ duration: 0.4, ease: "easeOut" }}
-                      className="absolute top-full left-0 right-0 w-full z-50 overflow-hidden bg-white shadow-[0_20px_50px_rgba(0,0,0,0.1)] border-t border-slate-100"
-                    >
-                      <div className="mx-auto max-w-7xl px-6 lg:px-8 py-6 flex gap-12">
-                        {/* Left Column */}
-                        <div className="flex-1 border-r border-slate-100 pr-12 flex flex-col justify-between max-w-md">
-                          <motion.h3 
-                            initial={{ opacity: 0, x: -10 }} 
-                            animate={{ opacity: 1, x: 0 }} 
-                            transition={{ delay: 0.1 }}
-                            className="text-2xl tracking-tight font-bold text-[#0F172A] leading-[1.2]"
-                          >
-                            {link.megaTitle}
-                          </motion.h3>
-                          <motion.div
-                            initial={{ opacity: 0, y: 10 }} 
-                            animate={{ opacity: 1, y: 0 }} 
-                            transition={{ delay: 0.2 }}
-                          >
-                            <Link href={link.overviewHref || link.href} className="mt-4 inline-flex items-center justify-center px-5 py-2 bg-slate-50 hover:bg-slate-100 text-sm font-semibold text-slate-700 rounded-full transition-colors self-start">
-                              See overview
-                            </Link>
-                          </motion.div>
-                        </div>
-
-                        {/* Right Column (Grid of Links) */}
-                        <div className="flex-1 grid grid-cols-1 gap-x-8 gap-y-1">
-                          <div className="text-xs font-semibold text-slate-400 mb-1 px-3 uppercase tracking-wider">{link.name}</div>
-                          {link.dropdown.map((item, index) => (
-                            <Link key={item.name} href={item.href} className="p-3 rounded-2xl hover:bg-slate-50 transition-colors group/item block">
-                              <motion.div
+                <>
+                  {link.name === "Products" ? (
+                    <MegaMenuProducts3D isOpen={activeMenu === "Products"} />
+                  ) : (
+                    <AnimatePresence>
+                      {activeMenu === link.name && (
+                        <motion.div 
+                          key="mega-standard"
+                          initial={{ opacity: 0, y: -15, filter: "blur(8px)" }}
+                          animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+                          exit={{ opacity: 0, y: -5, filter: "blur(4px)" }}
+                          transition={{ duration: 0.5, ease: [0.19, 1, 0.22, 1] }}
+                          className="absolute top-full left-0 right-0 w-full z-50 overflow-hidden bg-white shadow-[0_20px_50px_rgba(0,0,0,0.1)] border-t border-slate-100"
+                        >
+                          <div className="mx-auto max-w-7xl px-6 lg:px-8 py-6 flex gap-12">
+                            {/* Left Column */}
+                            <div className="flex-1 border-r border-slate-100 pr-12 flex flex-col justify-between max-w-md">
+                              <motion.h3 
                                 initial={{ opacity: 0, x: -10 }} 
                                 animate={{ opacity: 1, x: 0 }} 
-                                transition={{ delay: 0.1 + index * 0.05 }}
+                                transition={{ delay: 0.1 }}
+                                className="text-2xl tracking-tight font-bold text-[#0F172A] leading-[1.2]"
                               >
-                                <div className="text-sm font-semibold text-slate-900 group-hover/item:text-primary transition-colors">{item.name}</div>
-                                <div className="text-[13px] text-slate-500 mt-0.5">{item.desc}</div>
+                                {link.megaTitle}
+                              </motion.h3>
+                              <motion.div
+                                initial={{ opacity: 0, y: 10 }} 
+                                animate={{ opacity: 1, y: 0 }} 
+                                transition={{ delay: 0.2 }}
+                              >
+                                <Link href={link.overviewHref || link.href} className="mt-4 inline-flex items-center justify-center px-5 py-2 bg-slate-50 hover:bg-slate-100 text-sm font-semibold text-slate-700 rounded-full transition-colors self-start">
+                                  See overview
+                                </Link>
                               </motion.div>
-                            </Link>
-                          ))}
-                        </div>
-                      </div>
-                    </motion.div>
-                  ) : null}
-                </AnimatePresence>
+                            </div>
+
+                            {/* Right Column (Grid of Links) */}
+                            <div className="flex-1 grid grid-cols-1 gap-x-8 gap-y-1">
+                              <div className="text-xs font-semibold text-slate-400 mb-1 px-3 uppercase tracking-wider">{link.name}</div>
+                              {link.dropdown.map((item, index) => (
+                                <Link key={item.name} href={item.href} className="p-3 rounded-2xl hover:bg-slate-50 transition-colors group/item block">
+                                  <motion.div
+                                    initial={{ opacity: 0, x: -10 }} 
+                                    animate={{ opacity: 1, x: 0 }} 
+                                    transition={{ delay: 0.1 + index * 0.05 }}
+                                  >
+                                    <div className="text-sm font-semibold text-slate-900 group-hover/item:text-slate-500 transition-colors">{item.name}</div>
+                                    <div className="text-[13px] text-slate-500 mt-0.5">{item.desc}</div>
+                                  </motion.div>
+                                </Link>
+                              ))}
+                            </div>
+                          </div>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  )}
+                </>
               )}
             </div>
           ))}
@@ -203,8 +233,12 @@ export function Navbar() {
 
         {/* Desktop CTA */}
         <div className="hidden md:flex items-center gap-2">
-          <MagneticButton variant="ghost">Login</MagneticButton>
-          <MagneticButton variant="primary">Get Started</MagneticButton>
+          <Link href="/login">
+            <MagneticButton variant="ghost">Login</MagneticButton>
+          </Link>
+          <Link href="/get-started">
+            <MagneticButton variant="primary">Get Started</MagneticButton>
+          </Link>
         </div>
 
         {/* Mobile Toggle */}

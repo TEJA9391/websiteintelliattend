@@ -14,15 +14,19 @@ const included = [
 export function IncludedFeatures() {
   return (
     <div className="max-w-7xl mx-auto px-6 mb-24">
-      <div className="text-center mb-12">
-        <h2 className="text-3xl font-bold text-slate-900 mb-4">What's Included in Every Plan</h2>
-        <p className="text-slate-600 ">Everything you need to run your institution efficiently.</p>
+      <div className="text-center max-w-3xl mx-auto mb-16">
+        <h2 className="text-3xl md:text-5xl font-extrabold text-slate-900 mb-6 tracking-tight">
+          Everything you need is included
+        </h2>
+        <p className="text-lg text-slate-600">
+          Every IntelliAttend plan comes with our core suite of powerful campus management tools. You never have to pay extra for the essentials.
+        </p>
       </div>
 
       <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
         {included.map((feature, idx) => (
           <div key={idx} className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm hover:shadow-md transition-shadow">
-            <div className="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center mb-4 text-primary">
+            <div className="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center mb-4 text-slate-500">
               <feature.icon className="w-6 h-6" />
             </div>
             <h3 className="text-lg font-bold text-slate-900 mb-2">{feature.title}</h3>

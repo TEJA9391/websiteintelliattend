@@ -11,7 +11,7 @@ const testimonials = [
     institution: "Tech University",
     text: "IntelliAttend completely eliminated the 15 minutes of lost instructional time at the start of every lecture. The analytics are game-changing.",
     rating: 5,
-    color: "bg-blue-100 text-blue-700",
+    color: "bg-blue-100 text-slate-500",
   },
   {
     name: "Michael Chen",
@@ -70,7 +70,7 @@ export function Testimonials() {
                       <Star key={idx} className="w-5 h-5 fill-amber-400 text-amber-400" />
                     ))}
                   </div>
-                  <p className="text-[#0F172A] text-lg leading-relaxed mb-10 font-medium">"{t.text}"</p>
+                  <p className="text-[#0F172A] text-lg leading-relaxed mb-10 font-medium">&quot;{t.text}&quot;</p>
                 </div>
                 
                 <div className="flex items-center gap-4">

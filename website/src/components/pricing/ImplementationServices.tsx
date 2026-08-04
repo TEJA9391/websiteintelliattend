@@ -25,7 +25,7 @@ export function ImplementationServices() {
         <div className="grid md:grid-cols-2 gap-6 relative z-10">
           {services.map((service, idx) => (
             <div key={idx} className="flex items-center space-x-3 bg-slate-800/50 p-4 rounded-xl border border-slate-700/50">
-              <CheckCircle2 className="text-primary w-6 h-6 shrink-0" />
+              <CheckCircle2 className="text-slate-500 w-6 h-6 shrink-0" />
               <span className="font-medium">{service}</span>
             </div>
           ))}

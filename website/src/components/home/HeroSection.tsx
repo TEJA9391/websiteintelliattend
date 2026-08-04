@@ -3,10 +3,11 @@
 import { useRef, useEffect } from "react";
 import { motion, useScroll, useTransform, useSpring, useMotionValue, useAnimation } from "framer-motion";
 import { ArrowRight, Sparkles, Presentation, BarChart3, Bell, FileText, Brain, Calendar, MessageCircle, CheckSquare } from "lucide-react";
+import Link from "next/link";
 import { cn } from "@/lib/utils";
 
 const floatingCards = [
-  { id: 1, icon: Calendar, title: "Today's Classes", color: "text-blue-500", size: "w-48 h-32", initialPos: { x: -120, y: -180 } },
+  { id: 1, icon: Calendar, title: "Today's Classes", color: "text-slate-500", size: "w-48 h-32", initialPos: { x: -120, y: -180 } },
   { id: 2, icon: Presentation, title: "SmartBoard", color: "text-purple-500", size: "w-40 h-40", initialPos: { x: -180, y: 60 } },
   { id: 3, icon: BarChart3, title: "Analytics", color: "text-cyan-500", size: "w-56 h-36", initialPos: { x: 30, y: -30 } },
   { id: 4, icon: Bell, title: "Notifications", color: "text-orange-500", size: "w-40 h-32", initialPos: { x: 200, y: -160 } },
@@ -16,6 +17,7 @@ const floatingCards = [
   { id: 9, icon: CheckSquare, title: "Tasks", color: "text-rose-500", size: "w-36 h-36", initialPos: { x: -20, y: -240 } },
 ];
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function FloatingCard({ card, mouseX, mouseY }: { card: any, mouseX: any, mouseY: any }) {
   const { scrollY } = useScroll();
   const yScroll = useTransform(scrollY, [0, 1000], [0, -card.id * 40]);
@@ -26,9 +28,13 @@ function FloatingCard({ card, mouseX, mouseY }: { card: any, mouseX: any, mouseY
   }, [card, controls]);
 
   useEffect(() => {
+    let hasAnimated = false;
     return scrollY.onChange((latest) => {
-      if (latest < 20) {
+      if (latest < 20 && !hasAnimated) {
         controls.start({ x: card.initialPos.x, y: card.initialPos.y, transition: { type: "spring", stiffness: 200, damping: 20 } });
+        hasAnimated = true;
+      } else if (latest >= 20) {
+        hasAnimated = false;
       }
     });
   }, [scrollY, controls, card]);
@@ -95,13 +101,8 @@ export function HeroSection() {
             transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
             className="flex flex-col gap-8 max-w-2xl"
           >
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-card w-fit text-sm font-medium text-primary border border-primary/10 bg-blue-50/50">
-              <Sparkles className="w-4 h-4 text-blue-500" />
-              <span>AI Powered Faculty Management</span>
-            </div>
-            
             <h1 className="text-5xl sm:text-[72px] font-bold tracking-tight text-[#0F172A] leading-[1.05]">
-              The Smart Campus Platform Built for Modern Faculty.
+              The Intelligent Campus Platform <span className="text-[#64748B]">for Modern Institutions.</span>
             </h1>
             
             <p className="text-lg sm:text-[22px] text-[#64748B] leading-relaxed font-normal">
@@ -109,13 +110,15 @@ export function HeroSection() {
             </p>
             
             <div className="flex flex-wrap items-center gap-4 pt-4">
-              <motion.button 
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-                className="px-8 py-4 bg-[#0F172A] text-white rounded-full font-medium shadow-xl shadow-slate-900/10 hover:bg-[#1E293B] transition-colors flex items-center gap-2 text-lg"
-              >
-                Get Started <ArrowRight className="w-5 h-5" />
-              </motion.button>
+              <Link href="/get-started">
+                <motion.button 
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                  className="px-8 py-4 bg-[#0F172A] text-white rounded-full font-medium shadow-xl shadow-slate-900/10 hover:bg-[#1E293B] transition-colors flex items-center gap-2 text-lg"
+                >
+                  Get Started <ArrowRight className="w-5 h-5" />
+                </motion.button>
+              </Link>
               <motion.button 
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}

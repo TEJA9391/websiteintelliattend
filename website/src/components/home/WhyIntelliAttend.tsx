@@ -55,7 +55,7 @@ export function WhyIntelliAttend() {
                 className={cn("w-8 h-8 rounded-full shadow-md", isModern ? "bg-primary" : "bg-slate-400")}
               />
             </button>
-            <span className={cn("text-lg font-medium transition-colors", isModern ? "text-primary" : "text-[#64748B]")}>
+            <span className={cn("text-lg font-medium transition-colors", isModern ? "text-slate-500" : "text-[#64748B]")}>
               IntelliAttend
             </span>
           </div>
@@ -63,7 +63,7 @@ export function WhyIntelliAttend() {
 
         <div className="max-w-4xl mx-auto space-y-6">
           {comparisons.map((item, i) => (
-            <div key={i} className="glass-card rounded-[24px] p-8 flex items-center justify-between border border-[#0F172A]/[0.08] relative overflow-hidden">
+            <div key={i} className="glass-card rounded-[20px] p-5 flex items-center justify-between border border-[#0F172A]/[0.08] relative overflow-hidden">
               <AnimatePresence mode="popLayout">
                 {!isModern ? (
                   <motion.div
@@ -72,12 +72,12 @@ export function WhyIntelliAttend() {
                     animate={{ opacity: 1, x: 0 }}
                     exit={{ opacity: 0, x: -20 }}
                     transition={{ duration: 0.3 }}
-                    className="flex items-center gap-6 w-full text-slate-500"
+                    className="flex items-center gap-4 w-full text-slate-500"
                   >
-                    <div className="w-16 h-16 rounded-2xl bg-slate-100 flex items-center justify-center shrink-0">
-                      <item.old.icon className="w-8 h-8" />
+                    <div className="w-12 h-12 rounded-xl bg-slate-100 flex items-center justify-center shrink-0">
+                      <item.old.icon className="w-6 h-6" />
                     </div>
-                    <span className="text-2xl font-medium line-through decoration-slate-300">{item.old.title}</span>
+                    <span className="text-xl font-medium line-through decoration-slate-300">{item.old.title}</span>
                   </motion.div>
                 ) : (
                   <motion.div
@@ -86,12 +86,12 @@ export function WhyIntelliAttend() {
                     animate={{ opacity: 1, x: 0 }}
                     exit={{ opacity: 0, x: 20 }}
                     transition={{ duration: 0.3, delay: i * 0.05 }}
-                    className="flex items-center gap-6 w-full text-[#0F172A]"
+                    className="flex items-center gap-4 w-full text-[#0F172A]"
                   >
-                    <div className="w-16 h-16 rounded-2xl bg-blue-50 flex items-center justify-center shrink-0">
-                      <item.new.icon className="w-8 h-8 text-primary" />
+                    <div className="w-12 h-12 rounded-xl bg-blue-50 flex items-center justify-center shrink-0">
+                      <item.new.icon className="w-6 h-6 text-slate-500" />
                     </div>
-                    <span className="text-2xl font-bold">{item.new.title}</span>
+                    <span className="text-xl font-bold">{item.new.title}</span>
                   </motion.div>
                 )}
               </AnimatePresence>

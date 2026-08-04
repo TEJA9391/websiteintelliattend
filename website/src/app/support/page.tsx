@@ -1,1 +1,14 @@
-export default function Page() { return (<div className="container mx-auto px-4 py-24"><h1 className="text-3xl font-bold">SUPPORT</h1></div>) }
+// Navigation handled by layout.tsx
+import { HelpHero } from "@/components/support/HelpHero";
+import { HelpTopics } from "@/components/support/HelpTopics";
+import { HelpContact } from "@/components/support/HelpContact";
+
+export default function SupportPage() {
+  return (
+    <div className="min-h-screen bg-white font-sans selection:bg-blue-100 selection:text-slate-500">
+      <HelpHero />
+      <HelpTopics />
+      <HelpContact />
+    </div>
+  );
+}

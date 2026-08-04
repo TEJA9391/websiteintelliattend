@@ -14,14 +14,14 @@ export function PricingHero() {
           Simple Pricing.<br />Built for Every Institution.
         </h1>
         <p className="text-lg md:text-xl text-slate-600 mb-8 max-w-2xl mx-auto">
-          Choose a plan that scales with your institution—from small schools to large multi-campus universities.
+          Choose a plan that scales with your institutionâ€”from small schools to large multi-campus universities.
         </p>
         
         <div className="flex flex-wrap justify-center items-center gap-4 text-sm font-medium text-slate-600 ">
-          <span className="flex items-center"><span className="text-primary mr-2">•</span> No hidden fees</span>
-          <span className="flex items-center"><span className="text-primary mr-2">•</span> Secure Cloud</span>
-          <span className="flex items-center"><span className="text-primary mr-2">•</span> Free Migration</span>
-          <span className="flex items-center"><span className="text-primary mr-2">•</span> Dedicated Support</span>
+          <span className="flex items-center"><span className="text-slate-500 mr-2">â€¢</span> No hidden fees</span>
+          <span className="flex items-center"><span className="text-slate-500 mr-2">â€¢</span> Secure Cloud</span>
+          <span className="flex items-center"><span className="text-slate-500 mr-2">â€¢</span> Free Migration</span>
+          <span className="flex items-center"><span className="text-slate-500 mr-2">â€¢</span> Dedicated Support</span>
         </div>
       </motion.div>
     </div>

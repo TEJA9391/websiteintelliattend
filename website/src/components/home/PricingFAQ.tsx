@@ -107,7 +107,7 @@ export function PricingFAQ() {
                   {plan.features.map((f, idx) => (
                     <div key={idx} className="flex items-center gap-3">
                       <div className="w-5 h-5 rounded-full bg-blue-50 flex items-center justify-center shrink-0">
-                        <Check className="w-3 h-3 text-primary" />
+                        <Check className="w-3 h-3 text-slate-500" />
                       </div>
                       <span className="text-sm text-[#0F172A] font-medium">{f}</span>
                     </div>

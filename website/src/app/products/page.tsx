@@ -56,7 +56,7 @@ export default function ProductsOverview() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
           >
-            <div className="inline-flex items-center rounded-full px-4 py-1.5 text-sm font-semibold text-primary bg-primary/10 mb-8 border border-primary/20">
+            <div className="inline-flex items-center rounded-full px-4 py-1.5 text-sm font-semibold text-slate-500 bg-primary/10 mb-8 border border-primary/20">
               <Sparkles className="w-4 h-4 mr-2" />
               Platform Overview
             </div>
@@ -89,7 +89,7 @@ export default function ProductsOverview() {
                 transition={{ delay: i * 0.1, duration: 0.5 }}
                 className="bg-slate-50 rounded-[28px] p-8 border border-slate-100 hover:shadow-xl hover:shadow-primary/10 transition-all duration-300 group"
               >
-                <div className="w-12 h-12 rounded-2xl bg-white shadow-sm flex items-center justify-center mb-6 group-hover:scale-110 transition-transform text-primary border border-slate-100">
+                <div className="w-12 h-12 rounded-2xl bg-white shadow-sm flex items-center justify-center mb-6 group-hover:scale-110 transition-transform text-slate-500 border border-slate-100">
                   <highlight.icon className="w-6 h-6" />
                 </div>
                 <h3 className="text-xl font-bold text-text-main mb-3">{highlight.title}</h3>
@@ -256,7 +256,7 @@ export default function ProductsOverview() {
                 className="flex items-center gap-4 text-lg text-text-main font-medium"
               >
                 <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center shrink-0">
-                  <CheckCircle2 className="w-5 h-5 text-primary" />
+                  <CheckCircle2 className="w-5 h-5 text-slate-500" />
                 </div>
                 {reason}
               </motion.div>
@@ -266,17 +266,24 @@ export default function ProductsOverview() {
       </section>
 
       {/* Callout Card */}
-      <section className="py-24 bg-white relative">
-        <div className="mx-auto max-w-7xl px-6 lg:px-8">
+      <section className="bg-primary relative overflow-hidden pt-24 pb-20 md:pt-32 md:pb-24">
+        {/* Top Wave */}
+        <div className="absolute top-0 left-0 right-0 w-full overflow-hidden leading-[0] z-0">
+          <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none" className="relative block w-full h-[60px] md:h-[120px]">
+            <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" className="fill-white"></path>
+          </svg>
+        </div>
+
+        <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 mix-blend-overlay z-0" />
+        
+        <div className="mx-auto max-w-7xl px-6 lg:px-8 relative z-10">
           <motion.div 
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="bg-primary rounded-[40px] p-12 md:p-20 text-center relative overflow-hidden"
+            className="text-center"
           >
-            <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 mix-blend-overlay" />
-            
-            <div className="relative z-10 max-w-4xl mx-auto">
+            <div className="max-w-4xl mx-auto">
               <h2 className="text-3xl md:text-5xl font-bold text-white mb-6 leading-tight">
                 One Platform.<br />Every Classroom. Every Faculty. Every Student.
               </h2>
@@ -285,7 +292,7 @@ export default function ProductsOverview() {
               </p>
               
               <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-                <button className="px-8 py-4 bg-white text-primary rounded-full font-bold text-lg hover:scale-105 transition-transform shadow-xl">
+                <button className="px-8 py-4 bg-white text-slate-500 rounded-full font-bold text-lg hover:scale-105 transition-transform shadow-xl">
                   Get Started
                 </button>
                 <button className="px-8 py-4 bg-accent/20 text-white border border-accent/30 rounded-full font-bold text-lg hover:bg-accent/30 transition-colors backdrop-blur-sm">
