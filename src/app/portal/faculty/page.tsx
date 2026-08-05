@@ -11,7 +11,7 @@ export default function FacultyDashboard() {
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm">
           <div className="flex items-center gap-4 mb-4">
-            <div className="w-12 h-12 rounded-xl bg-blue-50 text-slate-500 flex items-center justify-center">
+            <div className="w-12 h-12 rounded-xl bg-teal-50 text-slate-500 flex items-center justify-center">
               <CalendarDays className="w-6 h-6" />
             </div>
             <div>
@@ -82,7 +82,7 @@ export default function FacultyDashboard() {
                   <button className="px-4 py-2 bg-slate-100 text-slate-700 text-sm font-bold rounded-xl hover:bg-slate-200 transition-colors">
                     Mark Attendance
                   </button>
-                  <button className="px-4 py-2 bg-blue-600 text-white text-sm font-bold rounded-xl hover:bg-blue-700 transition-colors flex items-center gap-2">
+                  <button className="px-4 py-2 bg-teal-600 text-white text-sm font-bold rounded-xl hover:bg-teal-700 transition-colors flex items-center gap-2">
                     Start Class <ArrowRight className="w-4 h-4" />
                   </button>
                 </div>
@@ -107,7 +107,7 @@ export default function FacultyDashboard() {
             <h3 className="font-bold text-slate-900 mb-4">Recent Notifications</h3>
             <div className="space-y-4">
               <div className="flex gap-3">
-                <div className="w-2 h-2 rounded-full bg-blue-500 mt-2 shrink-0"></div>
+                <div className="w-2 h-2 rounded-full bg-teal-500 mt-2 shrink-0"></div>
                 <div>
                   <div className="text-sm font-semibold text-slate-900">Department Meeting Moved</div>
                   <div className="text-xs text-slate-500">1 hour ago</div>

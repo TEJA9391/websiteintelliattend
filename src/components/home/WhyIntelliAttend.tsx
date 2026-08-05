@@ -88,7 +88,7 @@ export function WhyIntelliAttend() {
                     transition={{ duration: 0.3, delay: i * 0.05 }}
                     className="flex items-center gap-4 w-full text-[#0F172A]"
                   >
-                    <div className="w-12 h-12 rounded-xl bg-blue-50 flex items-center justify-center shrink-0">
+                    <div className="w-12 h-12 rounded-xl bg-teal-50 flex items-center justify-center shrink-0">
                       <item.new.icon className="w-6 h-6 text-slate-500" />
                     </div>
                     <span className="text-xl font-bold">{item.new.title}</span>

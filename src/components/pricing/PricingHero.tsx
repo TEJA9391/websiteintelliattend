@@ -10,18 +10,18 @@ export function PricingHero() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
       >
-        <h1 className="text-4xl md:text-6xl font-bold tracking-tight text-slate-900 mb-6">
-          Simple Pricing.<br />Built for Every Institution.
+        <h1 className="text-4xl md:text-6xl font-bold tracking-tight text-[#0F172A] mb-6">
+          Simple Pricing.<br /><span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent">Built for Every Institution.</span>
         </h1>
-        <p className="text-lg md:text-xl text-slate-600 mb-8 max-w-2xl mx-auto">
-          Choose a plan that scales with your institutionâ€”from small schools to large multi-campus universities.
+        <p className="text-lg md:text-xl text-[#64748B] mb-8 max-w-2xl mx-auto">
+          Choose a plan that scales with your institution—from small schools to large multi-campus universities.
         </p>
         
-        <div className="flex flex-wrap justify-center items-center gap-4 text-sm font-medium text-slate-600 ">
-          <span className="flex items-center"><span className="text-slate-500 mr-2">â€¢</span> No hidden fees</span>
-          <span className="flex items-center"><span className="text-slate-500 mr-2">â€¢</span> Secure Cloud</span>
-          <span className="flex items-center"><span className="text-slate-500 mr-2">â€¢</span> Free Migration</span>
-          <span className="flex items-center"><span className="text-slate-500 mr-2">â€¢</span> Dedicated Support</span>
+        <div className="flex flex-wrap justify-center items-center gap-4 text-sm font-medium text-[#64748B]">
+          <span className="flex items-center"><span className="text-primary mr-2">•</span> No hidden fees</span>
+          <span className="flex items-center"><span className="text-primary mr-2">•</span> Secure Cloud</span>
+          <span className="flex items-center"><span className="text-primary mr-2">•</span> Free Migration</span>
+          <span className="flex items-center"><span className="text-primary mr-2">•</span> Dedicated Support</span>
         </div>
       </motion.div>
     </div>

@@ -17,22 +17,22 @@ export const AnimatedMap = () => {
     {
       start: { x: 100, y: 150, delay: 0 },
       end: { x: 200, y: 80, delay: 2 },
-      color: "#2563eb",
+      color: "#2DD4BF",
     },
     {
       start: { x: 200, y: 80, delay: 2 },
       end: { x: 260, y: 120, delay: 4 },
-      color: "#2563eb",
+      color: "#2DD4BF",
     },
     {
       start: { x: 50, y: 50, delay: 1 },
       end: { x: 150, y: 180, delay: 3 },
-      color: "#2563eb",
+      color: "#2DD4BF",
     },
     {
       start: { x: 280, y: 60, delay: 0.5 },
       end: { x: 180, y: 180, delay: 2.5 },
-      color: "#2563eb",
+      color: "#2DD4BF",
     },
   ];
 
@@ -91,18 +91,19 @@ export const AnimatedMap = () => {
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
+    const context = ctx;
     const dots = generateDots(dimensions.width, dimensions.height);
     let animationFrameId: number;
     let startTime = Date.now();
 
     function drawDots() {
-      ctx.clearRect(0, 0, dimensions.width, dimensions.height);
+      context.clearRect(0, 0, dimensions.width, dimensions.height);
       
       dots.forEach(dot => {
-        ctx.beginPath();
-        ctx.arc(dot.x, dot.y, dot.radius, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(59, 130, 246, ${dot.opacity})`; 
-        ctx.fill();
+        context.beginPath();
+        context.arc(dot.x, dot.y, dot.radius, 0, Math.PI * 2);
+        context.fillStyle = `rgba(45, 212, 191, ${dot.opacity})`; 
+        context.fill();
       });
     }
 
@@ -119,33 +120,33 @@ export const AnimatedMap = () => {
         const x = route.start.x + (route.end.x - route.start.x) * progress;
         const y = route.start.y + (route.end.y - route.start.y) * progress;
         
-        ctx.beginPath();
-        ctx.moveTo(route.start.x, route.start.y);
-        ctx.lineTo(x, y);
-        ctx.strokeStyle = route.color;
-        ctx.lineWidth = 1.5;
-        ctx.stroke();
+        context.beginPath();
+        context.moveTo(route.start.x, route.start.y);
+        context.lineTo(x, y);
+        context.strokeStyle = route.color;
+        context.lineWidth = 1.5;
+        context.stroke();
         
-        ctx.beginPath();
-        ctx.arc(route.start.x, route.start.y, 3, 0, Math.PI * 2);
-        ctx.fillStyle = route.color;
-        ctx.fill();
+        context.beginPath();
+        context.arc(route.start.x, route.start.y, 3, 0, Math.PI * 2);
+        context.fillStyle = route.color;
+        context.fill();
         
-        ctx.beginPath();
-        ctx.arc(x, y, 3, 0, Math.PI * 2);
-        ctx.fillStyle = "#3b82f6";
-        ctx.fill();
+        context.beginPath();
+        context.arc(x, y, 3, 0, Math.PI * 2);
+        context.fillStyle = "#2DD4BF";
+        context.fill();
         
-        ctx.beginPath();
-        ctx.arc(x, y, 6, 0, Math.PI * 2);
-        ctx.fillStyle = "rgba(59, 130, 246, 0.4)";
-        ctx.fill();
+        context.beginPath();
+        context.arc(x, y, 6, 0, Math.PI * 2);
+        context.fillStyle = "rgba(45, 212, 191, 0.4)";
+        context.fill();
         
         if (progress === 1) {
-          ctx.beginPath();
-          ctx.arc(route.end.x, route.end.y, 3, 0, Math.PI * 2);
-          ctx.fillStyle = route.color;
-          ctx.fill();
+          context.beginPath();
+          context.arc(route.end.x, route.end.y, 3, 0, Math.PI * 2);
+          context.fillStyle = route.color;
+          context.fill();
         }
       });
     }

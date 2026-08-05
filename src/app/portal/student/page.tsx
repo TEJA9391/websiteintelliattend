@@ -27,7 +27,7 @@ export default function StudentDashboard() {
 
         <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }} className="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm">
           <div className="flex items-center gap-4 mb-4">
-            <div className="w-12 h-12 rounded-xl bg-blue-50 text-slate-500 flex items-center justify-center">
+            <div className="w-12 h-12 rounded-xl bg-teal-50 text-slate-500 flex items-center justify-center">
               <CalendarDays className="w-6 h-6" />
             </div>
             <div>
@@ -108,7 +108,7 @@ export default function StudentDashboard() {
               </div>
             </div>
             <div className="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm flex items-center gap-4 cursor-pointer hover:border-emerald-200 transition-colors">
-              <div className="w-10 h-10 rounded-lg bg-blue-50 text-slate-500 flex items-center justify-center shrink-0">
+              <div className="w-10 h-10 rounded-lg bg-teal-50 text-slate-500 flex items-center justify-center shrink-0">
                 <BookOpen className="w-5 h-5" />
               </div>
               <div>

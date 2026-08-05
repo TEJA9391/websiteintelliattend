@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import Index from "@/components/ui/travel-connect-signin-1";
+import Index from "@/components/auth/SignInDemo";
 
 export default function DemoAiAssistatBasic() {
   return <Index />;

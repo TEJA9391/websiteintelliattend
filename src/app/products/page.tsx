@@ -15,7 +15,7 @@ import {
   BarChart3,
   Database
 } from "lucide-react";
-import { Navbar } from "@/components/navbar";
+import { Navbar } from "@/components/layout/Navbar";
 import { ProductsShowcase } from "@/components/products/ProductsShowcase";
 
 // Counter Component
@@ -148,7 +148,7 @@ export default function ProductsOverview() {
               initial={{ opacity: 0, scale: 0.8 }}
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
-              className="bg-primary/20 border border-primary/50 shadow-[0_0_30px_rgba(37,99,235,0.2)] rounded-2xl p-6 flex flex-col items-center w-64 backdrop-blur-md relative z-10"
+              className="bg-primary/20 border border-primary/50 shadow-[0_0_30px_rgba(45,212,191,0.2)] rounded-2xl p-6 flex flex-col items-center w-64 backdrop-blur-md relative z-10"
             >
               <BrainCircuit className="w-10 h-10 text-white mb-3" />
               <span className="text-xl font-bold text-white">AI Engine</span>

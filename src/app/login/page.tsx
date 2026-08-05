@@ -9,11 +9,11 @@ const ROLES = [
     id: "faculty",
     title: "Faculty Portal",
     desc: "Manage classes, attendance, and SmartBoard.",
-    icon: <GraduationCap className="w-5 h-5 text-blue-600" />,
+    icon: <GraduationCap className="w-5 h-5 text-teal-600" />,
     href: "/login/faculty", 
-    bg: "bg-blue-50",
-    hoverBorder: "hover:border-blue-500",
-    hoverBg: "hover:bg-blue-50/50"
+    bg: "bg-teal-50",
+    hoverBorder: "hover:border-teal-500",
+    hoverBg: "hover:bg-teal-50/50"
   },
   {
     id: "student",
@@ -39,11 +39,11 @@ const ROLES = [
 
 export default function LoginPage() {
   return (
-    <div className="min-h-screen bg-slate-50 flex flex-col items-center justify-center p-4 relative overflow-hidden selection:bg-blue-100 selection:text-blue-900">
+    <div className="min-h-screen bg-slate-50 flex flex-col items-center justify-center p-4 relative overflow-hidden selection:bg-teal-100 selection:text-teal-900">
       
       {/* Background decoration */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-gradient-to-b from-blue-100/50 to-transparent rounded-full blur-3xl opacity-50"></div>
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-gradient-to-b from-teal-100/50 to-transparent rounded-full blur-3xl opacity-50"></div>
       </div>
 
       <motion.div 
@@ -80,11 +80,11 @@ export default function LoginPage() {
                   </div>
                   
                   <div className="flex-1 text-left">
-                    <h3 className="text-[15px] font-bold text-slate-900 group-hover:text-blue-600 transition-colors">{role.title}</h3>
+                    <h3 className="text-[15px] font-bold text-slate-900 group-hover:text-teal-600 transition-colors">{role.title}</h3>
                     <p className="text-[13px] text-slate-500 mt-0.5 leading-snug pr-4">{role.desc}</p>
                   </div>
                   
-                  <div className="w-8 h-8 rounded-full border border-slate-100 flex items-center justify-center text-slate-400 group-hover:border-blue-200 group-hover:bg-blue-50 group-hover:text-blue-600 transition-all">
+                  <div className="w-8 h-8 rounded-full border border-slate-100 flex items-center justify-center text-slate-400 group-hover:border-teal-200 group-hover:bg-teal-50 group-hover:text-teal-600 transition-all">
                     <ChevronRight className="w-4 h-4" />
                   </div>
                 </Link>
@@ -98,7 +98,7 @@ export default function LoginPage() {
         <div className="mt-8 text-center">
           <p className="text-sm text-slate-500">
             New to IntelliAttend?{' '}
-            <Link href="/get-started" className="text-blue-600 font-semibold hover:text-blue-700 hover:underline transition-colors">
+            <Link href="/get-started" className="text-teal-600 font-semibold hover:text-teal-700 hover:underline transition-colors">
               Request access
             </Link>
           </p>

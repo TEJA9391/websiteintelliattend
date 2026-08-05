@@ -27,7 +27,6 @@ import {
   ArrowRight,
   UserCheck
 } from "lucide-react";
-import { Navbar } from "@/components/navbar";
 
 // Counter Component
 function AnimatedCounter({ from, to, duration = 2, suffix = "", prefix = "", decimals = 0 }: { from: number, to: number, duration?: number, suffix?: string, prefix?: string, decimals?: number }) {
@@ -58,7 +57,6 @@ function AnimatedCounter({ from, to, duration = 2, suffix = "", prefix = "", dec
 export default function K12Solution() {
   return (
     <div className="min-h-screen bg-[#F8FAFC]">
-      <Navbar />
       
       {/* Hero Section */}
       <section className="relative pt-40 pb-20 overflow-hidden">
@@ -143,7 +141,7 @@ export default function K12Solution() {
           
           <div className="grid md:grid-cols-2 gap-8">
             {[
-              { icon: Users, title: "Teacher Workspace", desc: "Manage attendance, lesson materials, classroom schedules, and student activities from one dashboard.", color: "text-slate-500", bg: "bg-blue-50" },
+              { icon: Users, title: "Teacher Workspace", desc: "Manage attendance, lesson materials, classroom schedules, and student activities from one dashboard.", color: "text-slate-500", bg: "bg-teal-50" },
               { icon: GraduationCap, title: "Student Learning", desc: "Access homework, study materials, class schedules, announcements, and attendance records anytime.", color: "text-emerald-500", bg: "bg-emerald-50" },
               { icon: Bell, title: "Parent Communication", desc: "Keep parents informed with attendance updates, school notices, event reminders, and academic progress.", color: "text-purple-500", bg: "bg-purple-50" },
               { icon: School, title: "School Administration", desc: "Monitor classrooms, teachers, attendance, announcements, and school-wide performance through one centralized platform.", color: "text-orange-500", bg: "bg-orange-50" },
@@ -229,7 +227,7 @@ export default function K12Solution() {
                     transition={{ delay: i * 0.1, duration: 0.5 }}
                     className={`w-full max-w-sm p-5 rounded-2xl border backdrop-blur-md flex items-center justify-center relative z-10 ${
                       step.highlight 
-                        ? "bg-primary/20 border-primary/50 shadow-[0_0_30px_rgba(37,99,235,0.2)]" 
+                        ? "bg-primary/20 border-primary/50 shadow-[0_0_30px_rgba(45,212,191,0.2)]" 
                         : "bg-white/5 border-white/10"
                     }`}
                   >

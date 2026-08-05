@@ -24,10 +24,10 @@ const Button = ({
   className = "", 
   ...props 
 }: ButtonProps) => {
-  const baseStyles = "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50";
+  const baseStyles = "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal-500 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50";
   
   const variantStyles = {
-    default: "bg-primary bg-gradient-to-r from-blue-500 to-indigo-600 text-white hover:from-blue-600 hover:to-indigo-700",
+    default: "bg-primary bg-gradient-to-r from-teal-500 to-teal-600 text-white hover:from-teal-600 hover:to-teal-700",
     outline: "border border-input bg-background hover:bg-accent hover:text-accent-foreground"
   };
   
@@ -49,7 +49,7 @@ interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
 const Input = ({ className = "", ...props }: InputProps) => {
   return (
     <input
-      className={`flex h-10 w-full rounded-md border bg-background px-3 py-2 text-sm text-gray-800 ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-gray-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 ${className}`}
+      className={`flex h-10 w-full rounded-md border bg-background px-3 py-2 text-sm text-gray-800 ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-gray-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal-500 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 ${className}`}
       {...props}
     />
   );
@@ -158,18 +158,19 @@ const DotMap = ({ dotColor, lineColor }: { dotColor: string, lineColor: string }
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
+    const context = ctx;
     const dots = generateDots(dimensions.width, dimensions.height);
     let animationFrameId: number;
     let startTime = Date.now();
 
     // Draw background dots
     function drawDots() {
-      ctx.clearRect(0, 0, dimensions.width, dimensions.height);
+      context.clearRect(0, 0, dimensions.width, dimensions.height);
       
       // Draw the dots as small squares
       dots.forEach(dot => {
-        ctx.fillStyle = `rgba(${dotColor}, ${dot.opacity})`;
-        ctx.fillRect(dot.x, dot.y, dot.size, dot.size);
+        context.fillStyle = `rgba(${dotColor}, ${dot.opacity})`;
+        context.fillRect(dot.x, dot.y, dot.size, dot.size);
       });
     }
 
@@ -188,37 +189,37 @@ const DotMap = ({ dotColor, lineColor }: { dotColor: string, lineColor: string }
         const y = route.start.y + (route.end.y - route.start.y) * progress;
         
         // Draw the route line
-        ctx.beginPath();
-        ctx.moveTo(route.start.x, route.start.y);
-        ctx.lineTo(x, y);
-        ctx.strokeStyle = route.color;
-        ctx.lineWidth = 1.5;
-        ctx.stroke();
+        context.beginPath();
+        context.moveTo(route.start.x, route.start.y);
+        context.lineTo(x, y);
+        context.strokeStyle = route.color;
+        context.lineWidth = 1.5;
+        context.stroke();
         
         // Draw the start point
-        ctx.beginPath();
-        ctx.arc(route.start.x, route.start.y, 3, 0, Math.PI * 2);
-        ctx.fillStyle = route.color;
-        ctx.fill();
+        context.beginPath();
+        context.arc(route.start.x, route.start.y, 3, 0, Math.PI * 2);
+        context.fillStyle = route.color;
+        context.fill();
         
         // Draw the moving point
-        ctx.beginPath();
-        ctx.arc(x, y, 3, 0, Math.PI * 2);
-        ctx.fillStyle = lineColor;
-        ctx.fill();
+        context.beginPath();
+        context.arc(x, y, 3, 0, Math.PI * 2);
+        context.fillStyle = lineColor;
+        context.fill();
         
         // Add glow effect to the moving point
-        ctx.beginPath();
-        ctx.arc(x, y, 6, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(${dotColor}, 0.4)`;
-        ctx.fill();
+        context.beginPath();
+        context.arc(x, y, 6, 0, Math.PI * 2);
+        context.fillStyle = `rgba(${dotColor}, 0.4)`;
+        context.fill();
         
         // If the route is complete, draw the end point
         if (progress === 1) {
-          ctx.beginPath();
-          ctx.arc(route.end.x, route.end.y, 3, 0, Math.PI * 2);
-          ctx.fillStyle = route.color;
-          ctx.fill();
+          context.beginPath();
+          context.arc(route.end.x, route.end.y, 3, 0, Math.PI * 2);
+          context.fillStyle = route.color;
+          context.fill();
         }
       });
     }
@@ -260,13 +261,13 @@ const SignInCard = ({ role }: { role: string }) => {
   
   const themes = {
     faculty: {
-      gradientText: "from-blue-600 to-indigo-600",
-      gradientBg: "from-blue-500 to-indigo-600",
-      hoverGradientBg: "hover:from-blue-600 hover:to-indigo-700",
-      shadowColor: "shadow-blue-200",
-      mapDotColor: "37, 99, 235", // blue-600
-      mapLineColor: "#2563eb", // blue-600
-      bgGradient: "from-blue-50 to-indigo-100"
+      gradientText: "from-teal-600 to-teal-600",
+      gradientBg: "from-teal-500 to-teal-600",
+      hoverGradientBg: "hover:from-teal-600 hover:to-teal-700",
+      shadowColor: "shadow-teal-200",
+      mapDotColor: "37, 99, 235", // teal-600
+      mapLineColor: "#2DD4BF", // teal-600
+      bgGradient: "from-teal-50 to-teal-100"
     },
     student: {
       gradientText: "from-emerald-600 to-teal-600",
@@ -338,7 +339,7 @@ const SignInCard = ({ role }: { role: string }) => {
         {/* Right side - Sign In Form */}
         <div className="w-full md:w-1/2 p-8 md:p-10 flex flex-col justify-center bg-white relative">
           
-          <Link href="/login" className="absolute top-6 left-6 md:left-10 flex items-center gap-2 text-sm text-slate-500 hover:text-blue-600 transition-colors">
+          <Link href="/login" className="absolute top-6 left-6 md:left-10 flex items-center gap-2 text-sm text-slate-500 hover:text-teal-600 transition-colors">
             <ArrowLeft size={16} />
             Back to portals
           </Link>
@@ -393,7 +394,7 @@ const SignInCard = ({ role }: { role: string }) => {
             <form className="space-y-5">
               <div>
                 <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
-                  Email <span className="text-blue-500">*</span>
+                  Email <span className="text-teal-500">*</span>
                 </label>
                 <Input
                   id="email"
@@ -402,13 +403,13 @@ const SignInCard = ({ role }: { role: string }) => {
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="Enter your email address"
                   required
-                  className="bg-gray-50 border-gray-200 placeholder:text-gray-400 text-gray-800 w-full focus:border-blue-500 focus:ring-blue-500"
+                  className="bg-gray-50 border-gray-200 placeholder:text-gray-400 text-gray-800 w-full focus:border-teal-500 focus:ring-teal-500"
                 />
               </div>
               
               <div>
                 <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-1">
-                  Password <span className="text-blue-500">*</span>
+                  Password <span className="text-teal-500">*</span>
                 </label>
                 <div className="relative">
                   <Input
@@ -418,7 +419,7 @@ const SignInCard = ({ role }: { role: string }) => {
                     onChange={(e) => setPassword(e.target.value)}
                     placeholder="Enter your password"
                     required
-                    className="bg-gray-50 border-gray-200 placeholder:text-gray-400 text-gray-800 w-full pr-10 focus:border-blue-500 focus:ring-blue-500"
+                    className="bg-gray-50 border-gray-200 placeholder:text-gray-400 text-gray-800 w-full pr-10 focus:border-teal-500 focus:ring-teal-500"
                   />
                   <button
                     type="button"
@@ -467,7 +468,7 @@ const SignInCard = ({ role }: { role: string }) => {
               </motion.div>
               
               <div className="text-center mt-6">
-                <a href="#" className="text-blue-600 hover:text-blue-700 text-sm transition-colors">
+                <a href="#" className="text-teal-600 hover:text-teal-700 text-sm transition-colors">
                   Forgot password?
                 </a>
               </div>
@@ -484,7 +485,7 @@ export default function RoleLoginPage({ params }: { params: Promise<{ role: stri
   const role = resolvedParams.role;
   
   return (
-    <div className="min-h-screen w-full flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100 p-4 font-sans">
+    <div className="min-h-screen w-full flex items-center justify-center bg-gradient-to-br from-teal-50 to-teal-100 p-4 font-sans">
       <SignInCard role={role} />
     </div>
   );

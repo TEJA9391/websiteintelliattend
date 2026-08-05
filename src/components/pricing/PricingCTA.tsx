@@ -13,8 +13,8 @@ export function PricingCTA() {
       </div>
 
       <div className="mx-auto max-w-4xl px-6 relative z-10 text-center">
-        <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-6">Ready to Modernize Your Campus?</h2>
-        <p className="text-lg text-slate-600 mb-8 max-w-2xl mx-auto">
+        <h2 className="text-3xl md:text-4xl font-bold text-[#0F172A] mb-6">Ready to Modernize Your Campus?</h2>
+        <p className="text-lg text-[#64748B] mb-8 max-w-2xl mx-auto">
           Join institutions that are simplifying attendance, classroom management, and academic operations with IntelliAttend.
         </p>
         <div className="flex flex-col sm:flex-row justify-center items-center gap-4">

@@ -67,7 +67,7 @@ export default function AdminDashboard() {
                   <span className="text-sm font-medium text-slate-600">Science</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <div className="w-3 h-3 rounded-full bg-blue-400"></div>
+                  <div className="w-3 h-3 rounded-full bg-teal-400"></div>
                   <span className="text-sm font-medium text-slate-600">Arts</span>
                 </div>
               </div>
@@ -84,7 +84,7 @@ export default function AdminDashboard() {
                 <div key={i} className="flex flex-col gap-1 items-center w-12 group">
                   <div className="w-full flex gap-1 items-end h-40">
                     <div className="w-1/2 bg-violet-600 rounded-t-sm transition-all group-hover:opacity-80" style={{ height: `${h}%` }}></div>
-                    <div className="w-1/2 bg-blue-400 rounded-t-sm transition-all group-hover:opacity-80" style={{ height: `${h - 15}%` }}></div>
+                    <div className="w-1/2 bg-teal-400 rounded-t-sm transition-all group-hover:opacity-80" style={{ height: `${h - 15}%` }}></div>
                   </div>
                   <span className="text-xs text-slate-400 font-medium">{['Mon','Tue','Wed','Thu','Fri','Sat','Sun'][i]}</span>
                 </div>

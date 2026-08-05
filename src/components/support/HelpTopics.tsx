@@ -15,7 +15,7 @@ const TOPICS = [
   },
   {
     title: "SmartBoard",
-    icon: <MonitorPlay className="w-6 h-6 text-indigo-500" />,
+    icon: <MonitorPlay className="w-6 h-6 text-teal-500" />,
     desc: "Connection issues, display troubleshooting, content sharing.",
     links: ["SmartBoard offline", "Screen mirroring issues", "Updating firmware"]
   },
@@ -49,21 +49,21 @@ export function HelpTopics() {
   return (
     <section className="py-16 bg-white">
       <div className="container mx-auto px-4 max-w-7xl">
-        <h2 className="text-2xl font-bold text-slate-900 mb-8 text-center">Popular Help Topics</h2>
+        <h2 className="text-2xl font-bold text-[#0F172A] mb-8 text-center">Popular Help Topics</h2>
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {TOPICS.map((topic, idx) => (
-            <div key={idx} className="bg-slate-50 rounded-2xl p-6 border border-slate-200 hover:border-blue-200 hover:bg-blue-50/50 transition-colors group cursor-pointer">
+            <div key={idx} className="bg-[#F8FAFC] rounded-2xl p-6 border border-slate-200 hover:border-primary/30 hover:bg-primary/5 transition-colors group cursor-pointer">
               <div className="flex items-center gap-4 mb-4">
                 <div className="w-12 h-12 rounded-full bg-white border border-slate-200 shadow-sm flex items-center justify-center">
                   {topic.icon}
                 </div>
-                <h3 className="text-xl font-bold text-slate-900 group-hover:text-slate-500 transition-colors">{topic.title}</h3>
+                <h3 className="text-xl font-bold text-[#0F172A] group-hover:text-primary transition-colors">{topic.title}</h3>
               </div>
-              <p className="text-sm text-slate-600 mb-4">{topic.desc}</p>
+              <p className="text-sm text-[#64748B] mb-4">{topic.desc}</p>
               <ul className="space-y-2">
                 {topic.links.map((link, i) => (
-                  <li key={i} className="text-sm font-medium text-slate-600 flex items-center gap-1 group-hover:text-slate-800">
-                    <ChevronRight className="w-3.5 h-3.5 text-slate-500 opacity-0 group-hover:opacity-100 transition-opacity" />
+                  <li key={i} className="text-sm font-medium text-[#64748B] flex items-center gap-1 group-hover:text-[#0F172A]">
+                    <ChevronRight className="w-3.5 h-3.5 text-primary opacity-0 group-hover:opacity-100 transition-opacity" />
                     {link}
                   </li>
                 ))}
