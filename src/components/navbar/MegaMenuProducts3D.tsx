@@ -21,7 +21,8 @@ function SmartBoardModel() {
     texture.anisotropy = 16;
     texture.minFilter = THREE.LinearMipmapLinearFilter;
     
-    const imgAspect = texture.image.width / texture.image.height;
+    const img = texture.image as HTMLImageElement;
+    const imgAspect = img.width / img.height;
     const planeAspect = 16 / 9;
     
     if (imgAspect > planeAspect) {
@@ -99,7 +100,8 @@ function FacultyLaptopModel() {
     texture.anisotropy = 16;
     texture.minFilter = THREE.LinearMipmapLinearFilter;
     
-    const imgAspect = texture.image.width / texture.image.height;
+    const img = texture.image as HTMLImageElement;
+    const imgAspect = img.width / img.height;
     const planeAspect = 3.1 / 2.1;
     
     if (imgAspect > planeAspect) {
@@ -144,14 +146,15 @@ function FacultyLaptopModel() {
 }
 
 function StudentPhoneModel() {
-  const texture = useTexture("/images/products/tej_student_dashboard.png");
+  const texture = useTexture("/images/products/student_dashboard_v4.png");
 
   if (texture && texture.image) {
     texture.colorSpace = THREE.SRGBColorSpace;
     texture.anisotropy = 16;
     texture.minFilter = THREE.LinearMipmapLinearFilter;
     
-    const imgAspect = texture.image.width / texture.image.height;
+    const img = texture.image as HTMLImageElement;
+    const imgAspect = img.width / img.height;
     const planeAspect = 1.42 / 3.10;
     
     if (imgAspect > planeAspect) {
@@ -206,7 +209,7 @@ function Scene({ activeId }: { activeId: string }) {
       <ambientLight intensity={1.5} />
       <Environment preset="city" />
       <directionalLight position={[10, 10, 5]} intensity={2} />
-      <directionalLight position={[-10, -10, -5]} intensity={0.5} color="#2563eb" />
+      <directionalLight position={[-10, -10, -5]} intensity={0.5} color="#2DD4BF" />
       
       {activeId === "smartboard" && <SmartBoardModel />}
       {activeId === "faculty" && <FacultyLaptopModel />}
@@ -335,4 +338,4 @@ export function MegaMenuProducts3D({ isOpen }: { isOpen: boolean }) {
 
 useTexture.preload("/images/products/smartboard_dashboard_v3.png");
 useTexture.preload("/images/products/faculty_ui_v2.png");
-useTexture.preload("/images/products/tej_student_dashboard.png");
+useTexture.preload("/images/products/student_dashboard_v4.png");

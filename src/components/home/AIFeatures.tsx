@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { 
   Presentation,
@@ -13,6 +13,8 @@ import {
   CheckCircle,
   X
 } from "lucide-react";
+
+const flipWords = ["Faculty", "Students", "Colleges", "Schools", "Universities", "Administrators"];
 
 const features = [
   { icon: Presentation, title: "SmartBoard Integration", desc: "Push attendance and resources directly to classroom SmartBoards.", details: "IntelliAttend seamlessly syncs with interactive panels across your campus. Instantly display real-time seating charts, highlight absent students, and push daily lesson resources directly to the board." },
@@ -27,6 +29,14 @@ const features = [
 
 export function AIFeatures() {
   const [selectedFeature, setSelectedFeature] = useState<null | typeof features[0]>(null);
+  const [flipIndex, setFlipIndex] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setFlipIndex((prev) => (prev + 1) % flipWords.length);
+    }, 3000);
+    return () => clearInterval(interval);
+  }, []);
 
   return (
     <section id="features" className="py-32 relative bg-white">
@@ -39,8 +49,23 @@ export function AIFeatures() {
             viewport={{ once: true }}
             className="text-4xl md:text-5xl font-bold text-[#0F172A] mb-6 leading-tight"
           >
-            Everything Faculty Needs. <br />
-            <span className="text-[#64748B]">One Intelligent Platform.</span>
+            Everything{" "}
+            <span className="inline-flex items-center relative h-[1.2em] align-bottom">
+              <AnimatePresence mode="wait">
+                <motion.span
+                  key={flipIndex}
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -10 }}
+                  transition={{ duration: 0.5, ease: "easeInOut" }}
+                  className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent whitespace-nowrap"
+                >
+                  {flipWords[flipIndex]}
+                </motion.span>
+              </AnimatePresence>
+            </span>{" "}
+            Needs. <br />
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent">One Intelligent Platform.</span>
           </motion.h2>
         </div>
 
@@ -60,8 +85,8 @@ export function AIFeatures() {
               <div className="absolute inset-0 bg-gradient-to-br from-white/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-0 pointer-events-none" />
               
               <div className="relative z-10 pointer-events-none">
-                <motion.div layoutId={`icon-${feature.title}`} className="w-12 h-12 rounded-2xl bg-blue-50 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300 ease-out">
-                  <feature.icon className="w-6 h-6 text-slate-500" />
+                <motion.div layoutId={`icon-${feature.title}`} className="w-12 h-12 rounded-2xl bg-teal-50 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300 ease-out">
+                  <feature.icon className="w-6 h-6 text-teal-600" />
                 </motion.div>
                 
                 <motion.h3 layoutId={`title-${feature.title}`} className="text-xl font-bold text-[#0F172A] mb-3">
@@ -99,8 +124,8 @@ export function AIFeatures() {
                   <X className="w-4 h-4" />
                 </button>
 
-                <motion.div layoutId={`icon-${selectedFeature.title}`} className="w-16 h-16 rounded-2xl bg-blue-50 flex items-center justify-center mb-6">
-                  <selectedFeature.icon className="w-8 h-8 text-slate-500" />
+                <motion.div layoutId={`icon-${selectedFeature.title}`} className="w-16 h-16 rounded-2xl bg-teal-50 flex items-center justify-center mb-6">
+                  <selectedFeature.icon className="w-8 h-8 text-teal-600" />
                 </motion.div>
                 
                 <motion.h3 layoutId={`title-${selectedFeature.title}`} className="text-2xl font-bold text-[#0F172A] mb-4">

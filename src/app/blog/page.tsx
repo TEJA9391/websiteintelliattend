@@ -7,7 +7,7 @@ import { BlogCTA } from "@/components/blog/BlogCTA";
 
 export default function BlogPage() {
   return (
-    <div className="min-h-screen bg-white selection:bg-blue-100 selection:text-slate-500 font-sans">
+    <div className="min-h-screen bg-white selection:bg-teal-100 selection:text-slate-500 font-sans">
       
       <main>
         <BlogHero />

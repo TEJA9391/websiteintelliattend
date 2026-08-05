@@ -17,7 +17,7 @@ import {
   XCircle,
   CheckCircle2
 } from "lucide-react";
-import { Navbar } from "@/components/navbar";
+import { Navbar } from "@/components/layout/Navbar";
 
 // Counter Component
 function AnimatedCounter({ from, to, duration = 2, suffix = "" }: { from: number, to: number, duration?: number, suffix?: string }) {
@@ -106,14 +106,14 @@ export default function SmartBoardPage() {
       </section>
 
       {/* Workflow Section */}
-      <section className="py-32 relative overflow-hidden bg-[#0F172A]">
+      <section className="py-32 relative overflow-hidden bg-[#F8FAFC]">
         {/* Abstract background glow */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-accent/20 blur-[120px] rounded-full pointer-events-none" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-primary/10 blur-[120px] rounded-full pointer-events-none" />
         
         <div className="mx-auto max-w-7xl px-6 lg:px-8 relative z-10">
           <div className="text-center mb-20">
-            <h2 className="text-3xl md:text-5xl font-bold text-white mb-4">Instant Deployment Workflow</h2>
-            <p className="text-slate-400 text-lg max-w-2xl mx-auto">From your device to the classroom screen in milliseconds.</p>
+            <h2 className="text-3xl md:text-5xl font-bold text-[#0F172A] mb-4">Instant Deployment Workflow</h2>
+            <p className="text-[#64748B] text-lg max-w-2xl mx-auto">From your device to the classroom screen in milliseconds.</p>
           </div>
 
           <div className="max-w-4xl mx-auto">
@@ -131,28 +131,28 @@ export default function SmartBoardPage() {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true, margin: "-50px" }}
                     transition={{ delay: i * 0.15, duration: 0.5 }}
-                    className={`w-full max-w-md p-6 rounded-2xl border backdrop-blur-md flex items-center gap-6 relative z-10 ${
+                    className={`w-full max-w-md p-6 rounded-2xl border flex items-center gap-6 relative z-10 ${
                       step.highlight 
-                        ? "bg-primary/20 border-accent/50 shadow-[0_0_30px_rgba(37,99,235,0.3)]" 
-                        : "bg-white/5 border-white/10"
+                        ? "bg-primary/10 border-primary/30 shadow-[0_0_30px_rgba(45,212,191,0.2)]" 
+                        : "bg-white border-slate-200"
                     }`}
                   >
-                    <div className={`w-12 h-12 rounded-xl flex items-center justify-center shrink-0 ${step.highlight ? "bg-accent text-white" : "bg-white/10 text-white"}`}>
+                    <div className={`w-12 h-12 rounded-xl flex items-center justify-center shrink-0 ${step.highlight ? "bg-primary text-white" : "bg-primary/10 text-primary"}`}>
                       <step.icon className="w-6 h-6" />
                     </div>
-                    <span className={`text-lg font-semibold ${step.highlight ? "text-white" : "text-slate-200"}`}>
+                    <span className={`text-lg font-semibold ${step.highlight ? "text-[#0F172A]" : "text-[#0F172A]"}`}>
                       {step.title}
                     </span>
                   </motion.div>
                   
                   {i < arr.length - 1 && (
                     <div className="h-16 w-px relative my-2">
-                      <div className="absolute inset-0 bg-gradient-to-b from-accent/50 to-accent/10" />
+                      <div className="absolute inset-0 bg-gradient-to-b from-primary/50 to-primary/10" />
                       <motion.div 
                         initial={{ top: 0, opacity: 0 }}
                         animate={{ top: "100%", opacity: [0, 1, 0] }}
                         transition={{ duration: 1.5, repeat: Infinity, delay: i * 0.3 }}
-                        className="absolute left-1/2 -translate-x-1/2 w-1.5 h-6 bg-accent rounded-full blur-[2px]" 
+                        className="absolute left-1/2 -translate-x-1/2 w-1.5 h-6 bg-primary rounded-full blur-[2px]" 
                       />
                     </div>
                   )}
@@ -238,19 +238,19 @@ export default function SmartBoardPage() {
               initial={{ opacity: 0, x: 20 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
-              className="bg-[#0F172A] rounded-[32px] p-10 border border-slate-800 shadow-xl relative overflow-hidden"
+              className="bg-white rounded-[32px] p-10 border border-slate-200 shadow-xl relative overflow-hidden"
             >
-              <div className="absolute top-0 right-0 w-32 h-32 bg-accent/20 blur-[50px] rounded-full" />
+              <div className="absolute top-0 right-0 w-32 h-32 bg-primary/10 blur-[50px] rounded-full" />
               <div className="flex items-center gap-3 mb-8 relative z-10">
-                <div className="w-10 h-10 rounded-full bg-accent/20 flex items-center justify-center">
-                  <CheckCircle2 className="w-5 h-5 text-accent" />
+                <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
+                  <CheckCircle2 className="w-5 h-5 text-primary" />
                 </div>
-                <h3 className="text-2xl font-bold text-white">With IntelliAttend</h3>
+                <h3 className="text-2xl font-bold text-[#0F172A]">With IntelliAttend</h3>
               </div>
               <ul className="space-y-5 relative z-10">
                 {["One-tap publishing", "Instant classroom synchronization", "Centralized resource management", "Automatic cloud backup", "Real-time announcements"].map((item, i) => (
-                  <li key={i} className="flex items-center gap-4 text-slate-300">
-                    <div className="w-1.5 h-1.5 rounded-full bg-accent" />
+                  <li key={i} className="flex items-center gap-4 text-[#64748B]">
+                    <div className="w-1.5 h-1.5 rounded-full bg-primary" />
                     {item}
                   </li>
                 ))}
@@ -300,14 +300,14 @@ export default function SmartBoardPage() {
       </section>
 
       {/* Taglines Footer */}
-      <section className="py-20 bg-slate-900 border-t border-slate-800 text-center">
-        <div className="mx-auto max-w-7xl px-6 lg:px-8 flex flex-wrap justify-center gap-x-8 gap-y-4 text-slate-400 text-sm font-medium">
+      <section className="py-20 bg-[#F8FAFC] border-t border-slate-200 text-center">
+        <div className="mx-auto max-w-7xl px-6 lg:px-8 flex flex-wrap justify-center gap-x-8 gap-y-4 text-[#64748B] text-sm font-medium">
           <span>From Faculty to SmartBoard in Seconds.</span>
-          <span className="hidden md:inline">â€¢</span>
+          <span className="hidden md:inline">•</span>
           <span>The Intelligent Classroom Starts Here.</span>
-          <span className="hidden md:inline">â€¢</span>
+          <span className="hidden md:inline">•</span>
           <span>One Platform. Every Classroom.</span>
-          <span className="hidden md:inline">â€¢</span>
+          <span className="hidden md:inline">•</span>
           <span>Connected Teaching. Smarter Learning.</span>
         </div>
       </section>

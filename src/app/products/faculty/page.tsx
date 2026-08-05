@@ -19,7 +19,7 @@ import {
   MessageSquare,
   Laptop
 } from "lucide-react";
-import { Navbar } from "@/components/navbar";
+import { Navbar } from "@/components/layout/Navbar";
 
 // Counter Component
 function AnimatedCounter({ from, to, duration = 2, suffix = "", prefix = "" }: { from: number, to: number, duration?: number, suffix?: string, prefix?: string }) {
@@ -174,7 +174,7 @@ export default function FacultyPage() {
                     transition={{ delay: i * 0.1, duration: 0.5 }}
                     className={`w-full max-w-md p-5 rounded-2xl border backdrop-blur-md flex items-center justify-center relative z-10 ${
                       step.highlight 
-                        ? "bg-primary/20 border-primary/50 shadow-[0_0_30px_rgba(37,99,235,0.2)]" 
+                        ? "bg-primary/20 border-primary/50 shadow-[0_0_30px_rgba(45,212,191,0.2)]" 
                         : "bg-white/5 border-white/10"
                     }`}
                   >

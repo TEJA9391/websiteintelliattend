@@ -21,10 +21,10 @@ export function BlogSidebar() {
     <div className="space-y-8">
       {/* Popular Topics */}
       <div className="bg-white rounded-[1.5rem] p-6 border border-slate-100 shadow-xl shadow-slate-200/20">
-        <h3 className="text-lg font-extrabold text-slate-900 mb-5 tracking-tight">Popular Topics</h3>
+        <h3 className="text-lg font-extrabold text-[#0F172A] mb-5 tracking-tight">Popular Topics</h3>
         <div className="flex flex-wrap gap-2">
           {TOPICS.map((topic, i) => (
-            <span key={i} className="px-3 py-1.5 bg-slate-50 border border-slate-100 rounded-lg text-[11px] font-bold text-slate-600 hover:bg-blue-600 hover:text-white hover:border-blue-600 cursor-pointer transition-all uppercase tracking-wide">
+            <span key={i} className="px-3 py-1.5 bg-[#F8FAFC] border border-slate-100 rounded-lg text-[11px] font-bold text-[#64748B] hover:bg-primary hover:text-white hover:border-primary cursor-pointer transition-all uppercase tracking-wide">
               {topic}
             </span>
           ))}
@@ -32,38 +32,38 @@ export function BlogSidebar() {
       </div>
 
       {/* Free Resources */}
-      <div className="bg-slate-900 rounded-[1.5rem] p-6 text-white shadow-xl relative overflow-hidden">
+      <div className="bg-[#0F172A] rounded-[1.5rem] p-6 text-white shadow-xl relative overflow-hidden">
         <div className="absolute top-0 right-0 w-32 h-32 bg-white opacity-5 rounded-full blur-2xl -mr-10 -mt-10 pointer-events-none"></div>
         <h3 className="text-lg font-extrabold mb-5 flex items-center gap-2 relative z-10">
-          <Download className="w-5 h-5 text-slate-500" /> Free Downloads
+          <Download className="w-5 h-5 text-primary" /> Free Downloads
         </h3>
         <div className="space-y-4 relative z-10">
           {RESOURCES.map((res, i) => (
             <div key={i} className="flex gap-3 group cursor-pointer items-start">
-              <div className="mt-1 text-slate-500 group-hover:text-slate-500 transition-colors">
+              <div className="mt-1 text-primary group-hover:text-primary transition-colors">
                 <ChevronRight className="w-4 h-4" />
               </div>
-              <div className="text-sm font-medium text-slate-300 group-hover:text-white transition-colors leading-snug">{res}</div>
+              <div className="text-sm font-medium text-white/70 group-hover:text-white transition-colors leading-snug">{res}</div>
             </div>
           ))}
         </div>
       </div>
 
       {/* Newsletter */}
-      <div className="bg-gradient-to-br from-blue-600 to-indigo-700 rounded-[1.5rem] p-8 text-white shadow-xl shadow-blue-900/20 relative overflow-hidden">
+      <div className="bg-gradient-to-br from-primary to-primary/80 rounded-[1.5rem] p-8 text-white shadow-xl shadow-primary/20 relative overflow-hidden">
         <div className="absolute top-0 right-0 w-48 h-48 bg-white opacity-10 rounded-full blur-3xl -mr-16 -mt-16 pointer-events-none"></div>
-        <Mail className="w-8 h-8 mb-5 text-slate-500 relative z-10" />
+        <Mail className="w-8 h-8 mb-5 text-white/80 relative z-10" />
         <h3 className="text-xl font-extrabold mb-3 tracking-tight relative z-10">Stay Ahead of Education Innovation</h3>
-        <p className="text-sm text-slate-500 mb-6 font-medium leading-relaxed relative z-10">
+        <p className="text-sm text-white/80 mb-6 font-medium leading-relaxed relative z-10">
           Get the latest insights on AI, smart classrooms, campus management, and educational technology delivered directly to your inbox.
         </p>
         <form className="flex flex-col gap-3 relative z-10" onSubmit={(e) => e.preventDefault()}>
           <input 
             type="email" 
             placeholder="Your email address..." 
-            className="w-full bg-white/10 border border-white/20 rounded-xl px-4 py-3 text-sm text-white placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-white/50 backdrop-blur-md transition-all"
+            className="w-full bg-white/10 border border-white/20 rounded-xl px-4 py-3 text-sm text-white placeholder:text-white/50 focus:outline-none focus:ring-2 focus:ring-white/50 backdrop-blur-md transition-all"
           />
-          <button className="w-full bg-white text-slate-500 font-extrabold py-3 rounded-xl hover:bg-slate-50 transition-colors shadow-lg mt-1">
+          <button className="w-full bg-white text-primary font-extrabold py-3 rounded-xl hover:bg-white/90 transition-colors shadow-lg mt-1">
             Subscribe Now
           </button>
         </form>

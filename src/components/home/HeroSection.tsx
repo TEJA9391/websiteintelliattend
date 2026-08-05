@@ -12,7 +12,7 @@ const floatingCards = [
   { id: 3, icon: BarChart3, title: "Analytics", color: "text-cyan-500", size: "w-56 h-36", initialPos: { x: 30, y: -30 } },
   { id: 4, icon: Bell, title: "Notifications", color: "text-orange-500", size: "w-40 h-32", initialPos: { x: 200, y: -160 } },
   { id: 6, icon: FileText, title: "Resources", color: "text-pink-500", size: "w-36 h-36", initialPos: { x: -40, y: 220 } },
-  { id: 7, icon: Brain, title: "AI Insights", color: "text-indigo-500", size: "w-48 h-40", initialPos: { x: 220, y: 120 } },
+  { id: 7, icon: Brain, title: "AI Insights", color: "text-teal-500", size: "w-48 h-40", initialPos: { x: 220, y: 120 } },
   { id: 8, icon: MessageCircle, title: "Messages", color: "text-emerald-500", size: "w-40 h-32", initialPos: { x: 120, y: 240 } },
   { id: 9, icon: CheckSquare, title: "Tasks", color: "text-rose-500", size: "w-36 h-36", initialPos: { x: -20, y: -240 } },
 ];
@@ -51,7 +51,7 @@ function FloatingCard({ card, mouseX, mouseY }: { card: any, mouseX: any, mouseY
           animate={controls}
           style={{ rotateX, rotateY }}
           className={cn(
-            "absolute glass-card rounded-3xl p-6 flex flex-col justify-between shadow-2xl transition-shadow hover:shadow-[0_20px_50px_rgba(37,99,235,0.15)] z-10 cursor-grab active:cursor-grabbing pointer-events-auto",
+            "absolute glass-card rounded-3xl p-6 flex flex-col justify-between shadow-2xl transition-shadow hover:shadow-[0_20px_50px_rgba(45,212,191,0.15)] z-10 cursor-grab active:cursor-grabbing pointer-events-auto",
             card.size
           )}
           drag
@@ -102,7 +102,7 @@ export function HeroSection() {
             className="flex flex-col gap-8 max-w-2xl"
           >
             <h1 className="text-5xl sm:text-[72px] font-bold tracking-tight text-[#0F172A] leading-[1.05]">
-              The Intelligent Campus Platform <span className="text-[#64748B]">for Modern Institutions.</span>
+              The Intelligent Campus Platform <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent">for Modern Institutions.</span>
             </h1>
             
             <p className="text-lg sm:text-[22px] text-[#64748B] leading-relaxed font-normal">
@@ -114,7 +114,7 @@ export function HeroSection() {
                 <motion.button 
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
-                  className="px-8 py-4 bg-[#0F172A] text-white rounded-full font-medium shadow-xl shadow-slate-900/10 hover:bg-[#1E293B] transition-colors flex items-center gap-2 text-lg"
+                  className="px-8 py-4 bg-[#0F172A] text-white rounded-full font-medium shadow-xl shadow-teal-900/10 hover:bg-[#1E293B] transition-colors flex items-center gap-2 text-lg"
                 >
                   Get Started <ArrowRight className="w-5 h-5" />
                 </motion.button>

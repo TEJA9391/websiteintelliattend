@@ -14,7 +14,7 @@ const PLATFORM_OVERVIEW = [
   },
   {
     title: "SmartBoard",
-    icon: <MonitorSmartphone className="w-6 h-6 text-indigo-500" />,
+    icon: <MonitorSmartphone className="w-6 h-6 text-teal-500" />,
     desc: "Share presentations, lecture notes, announcements, and classroom content instantly with connected SmartBoards."
   },
   {
@@ -48,7 +48,7 @@ export function DocsContent() {
         <h2 className="text-sm font-extrabold text-slate-500 mb-3 uppercase tracking-wider">Getting Started</h2>
         <div className="bg-white rounded-3xl p-8 md:p-10 border border-slate-200 shadow-sm">
           <div className="flex items-center gap-4 mb-6">
-            <div className="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center text-slate-500">
+            <div className="w-12 h-12 bg-teal-100 rounded-xl flex items-center justify-center text-slate-500">
               <BookOpen className="w-6 h-6" />
             </div>
             <h3 className="text-2xl font-bold text-slate-900">Welcome to IntelliAttend</h3>
@@ -110,7 +110,7 @@ export function DocsContent() {
       </section>
 
       {/* CTA */}
-      <section className="bg-blue-600 w-screen relative left-1/2 right-1/2 -mx-[50vw] overflow-hidden pt-24 pb-20 md:pt-32 md:pb-24 mt-20 text-center text-white">
+      <section className="bg-teal-600 w-screen relative left-1/2 right-1/2 -mx-[50vw] overflow-hidden pt-24 pb-20 md:pt-32 md:pb-24 mt-20 text-center text-white">
         {/* Top Wave */}
         <div className="absolute top-0 left-0 right-0 w-full overflow-hidden leading-[0] z-0">
           <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none" className="relative block w-full h-[60px] md:h-[120px]">
@@ -121,10 +121,10 @@ export function DocsContent() {
         <div className="absolute top-0 right-0 w-64 h-64 bg-white opacity-10 rounded-full blur-3xl -mr-20 -mt-20 z-0"></div>
         <div className="relative z-10 max-w-4xl mx-auto px-4">
           <h3 className="text-2xl font-bold mb-4">Need More Help?</h3>
-          <p className="text-blue-100 mb-8 max-w-md mx-auto text-lg">
+          <p className="text-teal-100 mb-8 max-w-md mx-auto text-lg">
             Can&apos;t find what you&apos;re looking for?
           </p>
-          <Link href="/support" className="inline-flex items-center gap-2 bg-white text-blue-600 font-bold py-3 px-8 rounded-xl shadow-lg hover:bg-slate-50 transition-all hover:gap-3">
+          <Link href="/support" className="inline-flex items-center gap-2 bg-white text-teal-600 font-bold py-3 px-8 rounded-xl shadow-lg hover:bg-slate-50 transition-all hover:gap-3">
             Visit the Help Center <ArrowRight className="w-4 h-4" />
           </Link>
         </div>

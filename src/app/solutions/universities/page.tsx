@@ -28,7 +28,6 @@ import {
   ArrowRight,
   BrainCircuit
 } from "lucide-react";
-import { Navbar } from "@/components/navbar";
 
 // Counter Component
 function AnimatedCounter({ from, to, duration = 2, suffix = "", prefix = "" }: { from: number, to: number, duration?: number, suffix?: string, prefix?: string }) {
@@ -56,7 +55,6 @@ function AnimatedCounter({ from, to, duration = 2, suffix = "", prefix = "" }: {
 export default function UniversitiesSolution() {
   return (
     <div className="min-h-screen bg-[#F8FAFC]">
-      <Navbar />
       
       {/* Hero Section */}
       <section className="relative pt-40 pb-20 overflow-hidden">
@@ -93,7 +91,7 @@ export default function UniversitiesSolution() {
           
           <div className="flex flex-col items-center max-w-4xl mx-auto">
             {/* Top Node */}
-            <motion.div whileHover={{ scale: 1.05, boxShadow: "0 0 30px rgba(37,99,235,0.4)" }} className="bg-white/10 border border-white/20 p-4 rounded-xl text-white font-bold text-xl backdrop-blur-sm transition-all cursor-default">
+            <motion.div whileHover={{ scale: 1.05, boxShadow: "0 0 30px rgba(45,212,191,0.4)" }} className="bg-white/10 border border-white/20 p-4 rounded-xl text-white font-bold text-xl backdrop-blur-sm transition-all cursor-default">
               UNIVERSITY
             </motion.div>
             
@@ -102,14 +100,14 @@ export default function UniversitiesSolution() {
             <div className="flex justify-center gap-16 md:gap-32 w-full">
               <div className="flex flex-col items-center">
                 <div className="w-px h-8 bg-accent relative" />
-                <motion.div whileHover={{ scale: 1.05, boxShadow: "0 0 30px rgba(37,99,235,0.4)" }} className="bg-white/5 border border-white/10 px-6 py-3 rounded-xl text-white flex items-center gap-2 transition-all cursor-default">
+                <motion.div whileHover={{ scale: 1.05, boxShadow: "0 0 30px rgba(45,212,191,0.4)" }} className="bg-white/5 border border-white/10 px-6 py-3 rounded-xl text-white flex items-center gap-2 transition-all cursor-default">
                   <Building2 className="w-5 h-5 text-accent" /> Engineering
                 </motion.div>
                 <div className="w-px h-8 bg-accent relative" />
               </div>
               <div className="flex flex-col items-center">
                 <div className="w-px h-8 bg-accent relative" />
-                <motion.div whileHover={{ scale: 1.05, boxShadow: "0 0 30px rgba(37,99,235,0.4)" }} className="bg-white/5 border border-white/10 px-6 py-3 rounded-xl text-white flex items-center gap-2 transition-all cursor-default">
+                <motion.div whileHover={{ scale: 1.05, boxShadow: "0 0 30px rgba(45,212,191,0.4)" }} className="bg-white/5 border border-white/10 px-6 py-3 rounded-xl text-white flex items-center gap-2 transition-all cursor-default">
                   <Stethoscope className="w-5 h-5 text-accent" /> Medical
                 </motion.div>
                 <div className="w-px h-8 bg-accent relative" />
@@ -121,8 +119,8 @@ export default function UniversitiesSolution() {
 
             {/* Core Node */}
             <motion.div 
-              whileHover={{ scale: 1.05, boxShadow: "0 0 40px rgba(37,99,235,0.6)" }} 
-              className="bg-primary border border-primary-light p-6 rounded-2xl text-white font-bold text-2xl shadow-[0_0_30px_rgba(37,99,235,0.3)] cursor-default transition-all z-10"
+              whileHover={{ scale: 1.05, boxShadow: "0 0 40px rgba(45,212,191,0.6)" }} 
+              className="bg-primary border border-primary-light p-6 rounded-2xl text-white font-bold text-2xl shadow-[0_0_30px_rgba(45,212,191,0.3)] cursor-default transition-all z-10"
             >
               IntelliAttend
             </motion.div>
@@ -139,7 +137,7 @@ export default function UniversitiesSolution() {
               ].map((item, i) => (
                 <div key={i} className="flex flex-col items-center -mt-8">
                   <div className="w-px h-8 bg-accent relative" />
-                  <motion.div whileHover={{ scale: 1.05, boxShadow: "0 0 30px rgba(37,99,235,0.4)" }} className="bg-white/5 border border-white/10 p-4 rounded-xl text-white flex flex-col items-center gap-2 transition-all cursor-default">
+                  <motion.div whileHover={{ scale: 1.05, boxShadow: "0 0 30px rgba(45,212,191,0.4)" }} className="bg-white/5 border border-white/10 p-4 rounded-xl text-white flex flex-col items-center gap-2 transition-all cursor-default">
                     <item.icon className="w-6 h-6 text-accent" />
                     <span className="text-sm font-medium">{item.label}</span>
                   </motion.div>
@@ -213,7 +211,7 @@ export default function UniversitiesSolution() {
               initial={{ scale: 0 }}
               whileInView={{ scale: 1 }}
               viewport={{ once: true }}
-              className="w-48 h-48 bg-primary rounded-full flex items-center justify-center text-white font-bold text-xl shadow-[0_0_50px_rgba(37,99,235,0.3)] z-20 absolute"
+              className="w-48 h-48 bg-primary rounded-full flex items-center justify-center text-white font-bold text-xl shadow-[0_0_50px_rgba(45,212,191,0.3)] z-20 absolute"
             >
               IntelliAttend
             </motion.div>
@@ -251,7 +249,7 @@ export default function UniversitiesSolution() {
                     <motion.line 
                       key={i}
                       x1="50%" y1="50%" x2={`${x2}%`} y2={`${y2}%`}
-                      stroke="rgba(37,99,235,0.2)" strokeWidth="2" strokeDasharray="5,5"
+                      stroke="rgba(45,212,191,0.2)" strokeWidth="2" strokeDasharray="5,5"
                       initial={{ pathLength: 0 }}
                       whileInView={{ pathLength: 1 }}
                       viewport={{ once: true }}
@@ -407,7 +405,7 @@ export default function UniversitiesSolution() {
                   transition={{ delay: i * 0.2 }}
                   className="flex items-center gap-6 relative z-10 bg-white"
                 >
-                  <div className="w-10 h-10 rounded-full bg-primary flex items-center justify-center shrink-0 shadow-[0_0_15px_rgba(37,99,235,0.4)]">
+                  <div className="w-10 h-10 rounded-full bg-primary flex items-center justify-center shrink-0 shadow-[0_0_15px_rgba(45,212,191,0.4)]">
                     <CheckCircle2 className="w-5 h-5 text-white" />
                   </div>
                   <span className="text-lg font-semibold text-text-main">{step}</span>

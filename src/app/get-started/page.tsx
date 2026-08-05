@@ -4,11 +4,11 @@ import { ArrowLeft } from "lucide-react";
 
 export default function GetStartedPage() {
   return (
-    <div className="min-h-screen bg-slate-50 py-12 px-4 relative overflow-hidden font-sans selection:bg-blue-100 selection:text-slate-500">
+    <div className="min-h-screen bg-slate-50 py-12 px-4 relative overflow-hidden font-sans selection:bg-teal-100 selection:text-slate-500">
       {/* Background decoration */}
       <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
-        <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] rounded-full bg-blue-200/30 blur-[120px]" />
-        <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] rounded-full bg-indigo-200/30 blur-[120px]" />
+        <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] rounded-full bg-teal-200/30 blur-[120px]" />
+        <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] rounded-full bg-teal-200/30 blur-[120px]" />
       </div>
 
       <div className="container mx-auto max-w-6xl relative z-10 flex flex-col lg:flex-row gap-12 lg:gap-20 items-center min-h-[calc(100vh-6rem)]">
@@ -19,8 +19,8 @@ export default function GetStartedPage() {
             <ArrowLeft className="w-4 h-4" /> Back to home
           </Link>
           
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-slate-900 mb-6 tracking-tight leading-[1.1]">
-            Transform your <span className="text-[#64748B]">campus operations today.</span>
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-[#0F172A] mb-6 tracking-tight leading-[1.1]">
+            Transform your <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent">campus operations today.</span>
           </h1>
           <p className="text-lg text-slate-600 mb-10 leading-relaxed">
             Join leading institutions using IntelliAttend to automate attendance, empower faculty, and enhance the student learning experience.

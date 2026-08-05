@@ -1,7 +1,7 @@
 "use client"
 
 import { PricingHero } from "@/components/pricing/PricingHero"
-import Pricing_05 from "@/components/ui/ruixen-pricing05"
+import Pricing_05 from "@/components/pricing/PricingBlock"
 import { FeatureComparison } from "@/components/pricing/FeatureComparison"
 import { IncludedFeatures } from "@/components/pricing/IncludedFeatures"
 import { ImplementationServices } from "@/components/pricing/ImplementationServices"

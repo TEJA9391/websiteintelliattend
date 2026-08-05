@@ -40,8 +40,8 @@ export function ContactSection() {
 
             <div className="space-y-6 mt-4">
               <div className="flex items-center gap-4 group">
-                <div className="w-12 h-12 rounded-full bg-blue-50 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
-                  <Mail className="text-slate-500 w-5 h-5" />
+                <div className="w-12 h-12 rounded-full bg-teal-50 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
+                  <Mail className="text-teal-600 w-5 h-5" />
                 </div>
                 <div>
                   <h4 className="font-semibold text-[#0F172A]">Email</h4>
@@ -50,8 +50,8 @@ export function ContactSection() {
               </div>
 
               <div className="flex items-center gap-4 group">
-                <div className="w-12 h-12 rounded-full bg-blue-50 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
-                  <Phone className="text-slate-500 w-5 h-5" />
+                <div className="w-12 h-12 rounded-full bg-teal-50 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
+                  <Phone className="text-teal-600 w-5 h-5" />
                 </div>
                 <div>
                   <h4 className="font-semibold text-[#0F172A]">Phone</h4>
@@ -60,8 +60,8 @@ export function ContactSection() {
               </div>
 
               <div className="flex items-center gap-4 group">
-                <div className="w-12 h-12 rounded-full bg-blue-50 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
-                  <MapPin className="text-slate-500 w-5 h-5" />
+                <div className="w-12 h-12 rounded-full bg-teal-50 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
+                  <MapPin className="text-teal-600 w-5 h-5" />
                 </div>
                 <div>
                   <h4 className="font-semibold text-[#0F172A]">Address</h4>
@@ -78,7 +78,7 @@ export function ContactSection() {
             viewport={{ once: true }}
             className="relative"
           >
-            <div className="absolute inset-0 bg-blue-50/50 rounded-[32px] transform rotate-3 scale-105" />
+            <div className="absolute inset-0 bg-teal-50/50 rounded-[32px] transform rotate-3 scale-105" />
             <div className="glass-card p-10 rounded-[32px] border border-[#0F172A]/[0.08] relative bg-white shadow-2xl shadow-slate-200/50">
 
               <AnimatePresence mode="wait">

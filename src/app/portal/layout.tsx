@@ -50,7 +50,7 @@ export default function PortalLayout({ children }: { children: React.ReactNode }
   const profile = getProfile(pathname);
 
   const roleColor = role === 'faculty' ? 'text-slate-500' : role === 'student' ? 'text-emerald-600' : 'text-violet-600';
-  const roleBg = role === 'faculty' ? 'bg-blue-600' : role === 'student' ? 'bg-emerald-600' : 'bg-violet-600';
+  const roleBg = role === 'faculty' ? 'bg-teal-600' : role === 'student' ? 'bg-emerald-600' : 'bg-violet-600';
 
   return (
     <div className="h-screen bg-slate-50 flex overflow-hidden">

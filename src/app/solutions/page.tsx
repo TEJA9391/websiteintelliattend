@@ -1,12 +1,10 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Navbar } from "@/components/navbar";
 
 export default function SolutionsOverview() {
   return (
     <div className="min-h-screen bg-[#F8FAFC]">
-      <Navbar />
       <div className="pt-40 pb-20 flex items-center justify-center">
         <div className="mx-auto max-w-7xl px-6 lg:px-8 text-center">
           <motion.div

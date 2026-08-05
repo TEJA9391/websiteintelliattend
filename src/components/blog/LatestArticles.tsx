@@ -17,25 +17,25 @@ export function LatestArticles() {
           
           
           
-          <div className="text-[11px] font-black tracking-widest uppercase text-slate-500 mb-3 z-10">{article.category}</div>
-          <h3 className="text-xl font-extrabold text-slate-900 mb-3 group-hover:text-slate-500 transition-colors leading-tight z-10">
+          <div className="text-[11px] font-black tracking-widest uppercase text-[#64748B] mb-3 z-10">{article.category}</div>
+          <h3 className="text-xl font-extrabold text-[#0F172A] mb-3 group-hover:text-primary transition-colors leading-tight z-10">
             {article.title}
           </h3>
-          <p className="text-sm font-medium text-slate-500 mb-8 flex-1 z-10 leading-relaxed">
+          <p className="text-sm font-medium text-[#64748B] mb-8 flex-1 z-10 leading-relaxed">
             {article.desc}
           </p>
           
           <div className="flex items-center justify-between mt-auto pt-4 border-t border-slate-100 z-10">
-            <div className="flex items-center gap-1.5 text-xs font-bold text-slate-400">
+            <div className="flex items-center gap-1.5 text-xs font-bold text-[#64748B]">
               <Clock className="w-4 h-4" /> {article.read} read
             </div>
-            <div className="w-8 h-8 rounded-full bg-slate-50 flex items-center justify-center group-hover:bg-blue-600 transition-colors">
-              <ArrowRight className="w-4 h-4 text-slate-400 group-hover:text-white transition-colors" />
+            <div className="w-8 h-8 rounded-full bg-slate-50 flex items-center justify-center group-hover:bg-primary transition-colors">
+              <ArrowRight className="w-4 h-4 text-[#64748B] group-hover:text-white transition-colors" />
             </div>
           </div>
           
           {/* Subtle gradient hover effect */}
-          <div className="absolute inset-0 bg-gradient-to-br from-blue-50/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"></div>
+          <div className="absolute inset-0 bg-gradient-to-br from-teal-50/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"></div>
         </div>
       ))}
     </div>

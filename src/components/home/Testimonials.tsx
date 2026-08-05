@@ -11,7 +11,7 @@ const testimonials = [
     institution: "Tech University",
     text: "IntelliAttend completely eliminated the 15 minutes of lost instructional time at the start of every lecture. The analytics are game-changing.",
     rating: 5,
-    color: "bg-blue-100 text-slate-500",
+    color: "bg-teal-100 text-slate-500",
   },
   {
     name: "Michael Chen",

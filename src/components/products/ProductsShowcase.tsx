@@ -20,25 +20,25 @@ const showcaseItems = [
   {
     title: "Students",
     description: "Track attendance, academic progress, assignments, schedules, notifications, and learning resources from a personalized student portal.",
-    image: "/images/products/student_app_mockup.png",
+    image: "/images/products/student_dashboard_v4.png",
     reverse: false,
   },
   {
     title: "Administration",
     description: "Monitor departments, faculty performance, attendance, classrooms, reports, and campus operations from a centralized control center.",
-    image: "/images/products/admin_dashboard_mockup.png",
+    image: "/images/products/smartboard_dashboard_v3.png",
     reverse: true,
   },
   {
     title: "AI Analytics",
     description: "Turn academic data into actionable insights with predictive attendance trends, faculty performance metrics, and real-time institutional reports.",
-    image: "/images/products/ai_analytics_mockup.png",
+    image: "/images/products/faculty_dashboard_mockup.png",
     reverse: false,
   },
   {
     title: "Campus Communication",
     description: "Deliver announcements, emergency alerts, timetable changes, and academic updates instantly to faculty and students.",
-    image: "/images/products/campus_comm_mockup.png",
+    image: "/images/products/smartboard_mockup.png",
     reverse: true,
   }
 ];
@@ -49,10 +49,10 @@ export function ProductsShowcase() {
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         
         <div className="text-center max-w-3xl mx-auto mb-20">
-          <h2 className="text-4xl md:text-5xl font-bold text-slate-900 mb-6">
-            Everything you need. <br /> Built into one platform.
+          <h2 className="text-4xl md:text-5xl font-bold text-[#0F172A] mb-6">
+            Everything you need. <br /><span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent">Built into one platform.</span>
           </h2>
-          <p className="text-xl text-slate-600">
+          <p className="text-xl text-[#64748B]">
             Explore the specialized tools designed for every role across your entire campus.
           </p>
         </div>
@@ -73,14 +73,14 @@ export function ProductsShowcase() {
                 transition={{ duration: 0.6, ease: "easeOut" }}
                 className="w-full lg:w-1/2 flex flex-col justify-center"
               >
-                <div className="inline-flex items-center rounded-full px-3 py-1 text-sm font-semibold text-slate-500 bg-primary/10 mb-6 w-fit">
+                <div className="inline-flex items-center rounded-full px-3 py-1 text-sm font-semibold text-primary bg-primary/10 border border-primary/20 mb-6 w-fit">
                   <CheckCircle2 className="w-4 h-4 mr-2" />
                   Module 0{idx + 1}
                 </div>
-                <h3 className="text-3xl md:text-4xl font-bold text-slate-900 mb-6 leading-tight">
+                <h3 className="text-3xl md:text-4xl font-bold text-[#0F172A] mb-6 leading-tight">
                   {item.title}
                 </h3>
-                <p className="text-lg text-slate-600 leading-relaxed mb-8">
+                <p className="text-lg text-[#64748B] leading-relaxed mb-8">
                   {item.description}
                 </p>
               </motion.div>
