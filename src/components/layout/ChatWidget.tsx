@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
-import { useChat } from "ai/react";
+import { useChat } from "@ai-sdk/react";
 import ReactMarkdown from "react-markdown";
 import { X, Send, Bot, User, Mic, MicOff, RefreshCw } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
