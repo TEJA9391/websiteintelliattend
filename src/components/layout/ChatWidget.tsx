@@ -115,11 +115,11 @@ export function ChatWidget() {
                 </div>
                 <div className="flex flex-col gap-1.5">
                   <div className={`px-5 py-3.5 rounded-2xl text-[15px] shadow-sm ${msg.role === "user" ? "bg-slate-900 text-white rounded-tr-sm" : "bg-white text-slate-800 border border-slate-200/60 rounded-tl-sm"}`}>
-                    <ReactMarkdown 
-                      className="prose prose-sm prose-p:leading-relaxed prose-a:text-teal-600 prose-a:font-semibold hover:prose-a:text-teal-700 prose-strong:text-slate-900 prose-code:bg-slate-100 prose-code:text-slate-800 prose-code:px-1 prose-code:py-0.5 prose-code:rounded prose-ul:my-2 prose-li:my-0.5 max-w-none"
-                    >
-                      {msg.content}
-                    </ReactMarkdown>
+                    <div className="prose prose-sm prose-p:leading-relaxed prose-a:text-teal-600 prose-a:font-semibold hover:prose-a:text-teal-700 prose-strong:text-slate-900 prose-code:bg-slate-100 prose-code:text-slate-800 prose-code:px-1 prose-code:py-0.5 prose-code:rounded prose-ul:my-2 prose-li:my-0.5 max-w-none">
+                      <ReactMarkdown>
+                        {msg.content}
+                      </ReactMarkdown>
+                    </div>
                   </div>
                 </div>
               </div>
