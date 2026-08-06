@@ -276,7 +276,7 @@ export default function StudentPage() {
               </p>
               
               <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-                <Link href="/products/student">
+                <Link href="/get-started">
                   <button className="px-8 py-4 bg-white text-slate-500 rounded-full font-bold text-lg hover:scale-105 active:scale-95 transition-all duration-300 shadow-xl cursor-pointer">
                     Explore Student Features
                   </button>
