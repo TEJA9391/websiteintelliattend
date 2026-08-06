@@ -218,14 +218,14 @@ export function ChatWidget() {
           <input 
             ref={inputRef}
             type="text" 
-            value={input}
+            value={input || ""}
             onChange={handleInputChange}
             placeholder={isListening ? "Listening..." : "Ask me anything..."}
             className="flex-1 bg-slate-50 border border-slate-200 rounded-full px-5 py-3 text-sm text-slate-800 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-teal-500/20 focus:border-teal-500 transition-all shadow-inner"
           />
           <button 
             type="submit"
-            disabled={!input.trim() || isLoading}
+            disabled={!(input || "").trim() || isLoading}
             className="bg-slate-900 text-white p-3 rounded-full hover:bg-teal-600 disabled:opacity-50 disabled:hover:bg-slate-900 transition-colors shrink-0 shadow-md group"
           >
             <Send className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
