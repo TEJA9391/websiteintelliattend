@@ -80,12 +80,16 @@ export default function K12Solution() {
               Empower teachers, students, parents, and administrators with a unified platform that simplifies attendance, classroom management, communication, and academic operations.
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-              <button className="px-8 py-4 bg-primary text-white rounded-full font-bold text-lg hover:bg-accent transition-colors shadow-xl shadow-primary/20">
-                Request a Demo
-              </button>
-              <button className="px-8 py-4 bg-white text-text-main border border-slate-200 rounded-full font-bold text-lg hover:bg-slate-50 transition-colors shadow-sm">
-                Explore School Solutions
-              </button>
+              <Link href="/#contact">
+                <button className="px-8 py-4 bg-primary text-white rounded-full font-bold text-lg hover:bg-accent hover:scale-105 active:scale-95 transition-all duration-300 shadow-xl shadow-primary/20 cursor-pointer">
+                  Request a Demo
+                </button>
+              </Link>
+              <Link href="/solutions">
+                <button className="px-8 py-4 bg-white text-text-main border border-slate-200 rounded-full font-bold text-lg hover:bg-slate-50 hover:scale-105 active:scale-95 transition-all duration-300 shadow-sm cursor-pointer">
+                  Explore School Solutions
+                </button>
+              </Link>
             </div>
           </motion.div>
         </div>
@@ -386,12 +390,16 @@ export default function K12Solution() {
               </p>
               
               <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-                <button className="px-8 py-4 bg-white text-slate-500 rounded-full font-bold text-lg hover:scale-105 transition-transform shadow-xl">
-                  Schedule a Demo
-                </button>
-                <button className="px-8 py-4 bg-accent/20 text-white border border-accent/30 rounded-full font-bold text-lg hover:bg-accent/30 transition-colors backdrop-blur-sm">
-                  Contact Our Team
-                </button>
+                <Link href="/#contact">
+                  <button className="px-8 py-4 bg-white text-slate-500 rounded-full font-bold text-lg hover:scale-105 active:scale-95 transition-all duration-300 shadow-xl cursor-pointer">
+                    Schedule a Demo
+                  </button>
+                </Link>
+                <Link href="/#contact">
+                  <button className="px-8 py-4 bg-accent/20 text-white border border-accent/30 rounded-full font-bold text-lg hover:bg-accent/30 hover:scale-105 active:scale-95 transition-all duration-300 backdrop-blur-sm cursor-pointer">
+                    Contact Our Team
+                  </button>
+                </Link>
               </div>
             </div>
           </motion.div>
