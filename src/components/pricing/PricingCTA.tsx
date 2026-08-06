@@ -1,6 +1,7 @@
 "use client"
 
 import { Button } from "@/components/ui/button"
+import Link from "next/link"
 
 export function PricingCTA() {
   return (
@@ -18,8 +19,12 @@ export function PricingCTA() {
           Join institutions that are simplifying attendance, classroom management, and academic operations with IntelliAttend.
         </p>
         <div className="flex flex-col sm:flex-row justify-center items-center gap-4">
-          <Button size="lg" className="w-full sm:w-auto shadow-lg shadow-primary/20">Schedule a Demo</Button>
-          <Button size="lg" variant="outline" className="w-full sm:w-auto bg-white hover:bg-slate-50 :bg-slate-800">Talk to Sales</Button>
+          <Link href="/#contact">
+            <Button size="lg" className="w-full sm:w-auto shadow-lg shadow-primary/20 hover:scale-105 active:scale-95 transition-all duration-300 cursor-pointer">Schedule a Demo</Button>
+          </Link>
+          <Link href="/#contact">
+            <Button size="lg" variant="outline" className="w-full sm:w-auto bg-white hover:bg-slate-50 hover:scale-105 active:scale-95 transition-all duration-300 cursor-pointer">Talk to Sales</Button>
+          </Link>
         </div>
       </div>
     </section>
