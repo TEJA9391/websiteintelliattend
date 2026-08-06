@@ -33,8 +33,8 @@ export function Footer() {
               <li><Link href="/features" className="text-sm text-[#64748B] hover:text-[#0F172A] transition-colors">Features</Link></li>
               <li><Link href="/pricing" className="text-sm text-[#64748B] hover:text-[#0F172A] transition-colors">Join</Link></li>
               <li><Link href="/products/smartboard" className="text-sm text-[#64748B] hover:text-[#0F172A] transition-colors">SmartBoard</Link></li>
-              <li><Link href="/products/faculty" className="text-sm text-[#64748B] hover:text-[#0F172A] transition-colors">Faculty Portal</Link></li>
-              <li><Link href="/products/student" className="text-sm text-[#64748B] hover:text-[#0F172A] transition-colors">Student App</Link></li>
+              <li><Link href="/products/faculty" className="text-sm text-[#64748B] hover:text-[#0F172A] transition-colors">Faculty</Link></li>
+              <li><Link href="/products/student" className="text-sm text-[#64748B] hover:text-[#0F172A] transition-colors">Student</Link></li>
             </ul>
           </div>
 
