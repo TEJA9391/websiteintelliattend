@@ -5,6 +5,7 @@ import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { SmoothScrollProvider } from "@/components/layout/SmoothScrollProvider";
 import { OrganizationJsonLd, WebsiteJsonLd } from "@/components/seo/JsonLd";
+import { ChatWidget } from "@/components/layout/ChatWidget";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -116,6 +117,7 @@ export default function RootLayout({
         <SmoothScrollProvider>
           <Navbar />
           <main className="flex-1 relative overflow-x-hidden">{children}</main>
+          <ChatWidget />
           <Footer />
         </SmoothScrollProvider>
       </body>
