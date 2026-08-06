@@ -17,8 +17,10 @@ import {
   ShieldCheck,
   TrendingUp,
   MessageSquare,
-  Laptop
+  Laptop,
+  ChevronRight
 } from "lucide-react";
+import Link from "next/link";
 import { Navbar } from "@/components/layout/Navbar";
 
 // Counter Component
@@ -267,12 +269,16 @@ export default function FacultyPage() {
               </p>
               
               <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-                <button className="px-8 py-4 bg-white text-slate-500 rounded-full font-bold text-lg hover:scale-105 transition-transform shadow-xl">
-                  Get Started
-                </button>
-                <button className="px-8 py-4 bg-accent/20 text-white border border-accent/30 rounded-full font-bold text-lg hover:bg-accent/30 transition-colors backdrop-blur-sm">
-                  Schedule a Demo
-                </button>
+                <Link href="/get-started">
+                  <button className="px-8 py-4 bg-white text-slate-500 rounded-full font-bold text-lg hover:scale-105 active:scale-95 transition-all duration-300 shadow-xl cursor-pointer">
+                    Get Started
+                  </button>
+                </Link>
+                <Link href="/#contact">
+                  <button className="px-8 py-4 bg-accent/20 text-white border border-accent/30 rounded-full font-bold text-lg hover:bg-accent/30 hover:scale-105 active:scale-95 transition-all duration-300 backdrop-blur-sm cursor-pointer">
+                    Schedule a Demo
+                  </button>
+                </Link>
               </div>
             </div>
           </motion.div>
