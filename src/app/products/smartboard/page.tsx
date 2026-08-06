@@ -61,7 +61,7 @@ export default function SmartBoardPage() {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+            transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
           >
             <div className="inline-flex items-center rounded-full px-4 py-1.5 text-sm font-semibold text-slate-500 bg-primary/10 mb-8 border border-primary/20">
               <MonitorPlay className="w-4 h-4 mr-2" />
@@ -93,7 +93,7 @@ export default function SmartBoardPage() {
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ delay: i * 0.1, duration: 0.5 }}
+                transition={{ delay: i * 0.1, duration: 0.2 }}
                 className="text-center px-4"
               >
                 <div className="text-4xl md:text-5xl font-bold text-[#0F172A] mb-2 font-mono tracking-tight">
@@ -131,7 +131,7 @@ export default function SmartBoardPage() {
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true, margin: "-50px" }}
-                    transition={{ delay: i * 0.15, duration: 0.5 }}
+                    transition={{ delay: i * 0.15, duration: 0.2 }}
                     className={`w-full max-w-md p-6 rounded-2xl border flex items-center gap-6 relative z-10 ${
                       step.highlight 
                         ? "bg-primary/10 border-primary/30 shadow-[0_0_30px_rgba(45,212,191,0.2)]" 
@@ -192,7 +192,7 @@ export default function SmartBoardPage() {
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ delay: i * 0.05, duration: 0.5 }}
+                transition={{ delay: i * 0.05, duration: 0.2 }}
                 className="apple-card p-8 group"
               >
                 <div className="w-12 h-12 rounded-2xl bg-white shadow-sm flex items-center justify-center mb-6 group-hover:scale-110 transition-transform text-slate-500 border border-slate-100">
@@ -289,12 +289,12 @@ export default function SmartBoardPage() {
               
               <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
                 <Link href="/#contact">
-                  <button className="px-8 py-4 bg-white text-slate-500 rounded-full font-bold text-lg hover:scale-105 active:scale-95 transition-all duration-300 shadow-xl cursor-pointer">
+                  <button className="px-8 py-4 bg-white text-slate-500 rounded-full font-bold text-lg hover:scale-105 active:scale-95 transition-all duration-150 shadow-xl cursor-pointer">
                     Book a Demo
                   </button>
                 </Link>
                 <Link href="/pricing">
-                  <button className="px-8 py-4 bg-accent/20 text-white border border-accent/30 rounded-full font-bold text-lg hover:bg-accent/30 hover:scale-105 active:scale-95 transition-all duration-300 backdrop-blur-sm cursor-pointer">
+                  <button className="px-8 py-4 bg-accent/20 text-white border border-accent/30 rounded-full font-bold text-lg hover:bg-accent/30 hover:scale-105 active:scale-95 transition-all duration-150 backdrop-blur-sm cursor-pointer">
                     View Pricing
                   </button>
                 </Link>

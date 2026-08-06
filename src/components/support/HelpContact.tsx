@@ -1,34 +1,39 @@
 "use client";
 
 import { MessageCircle, Mail, Building2, Users2, ArrowRight } from 'lucide-react';
+import Link from 'next/link';
 
 const CONTACTS = [
   {
     title: "Live Chat",
     desc: "Average response: < 2 minutes",
     icon: <MessageCircle className="w-8 h-8 text-slate-500" />,
-    action: "Start Chat",
+    action: "Chat with Support →",
+    isWidgetTrigger: true,
     badge: "Fastest"
   },
   {
     title: "Email Support",
-    desc: "support@intelliattend.ai",
+    desc: "support@intelliattend.com",
     icon: <Mail className="w-8 h-8 text-emerald-500" />,
-    action: "Send Email",
+    action: "Submit a Ticket →",
+    href: "/support/email",
     badge: "24/7"
   },
   {
     title: "Enterprise Support",
     desc: "Dedicated onboarding and technical assistance.",
     icon: <Building2 className="w-8 h-8 text-teal-500" />,
-    action: "Contact Manager",
+    action: "Talk to Enterprise Team →",
+    href: "/enterprise-support",
     badge: "Priority"
   },
   {
     title: "Community Forum",
     desc: "Ask questions and share best practices.",
     icon: <Users2 className="w-8 h-8 text-rose-500" />,
-    action: "Join Forum"
+    action: "Explore Community →",
+    href: "/community"
   }
 ];
 
@@ -58,12 +63,21 @@ export function HelpContact() {
               </div>
               <h3 className="text-lg font-bold text-[#0F172A] mb-2">{contact.title}</h3>
               <p className="text-sm text-[#64748B] mb-6 flex-1">{contact.desc}</p>
-              <button 
-                onClick={contact.title === "Live Chat" ? handleOpenChat : undefined}
-                className="text-sm font-bold text-primary flex items-center gap-1 hover:gap-2 transition-all"
-              >
-                {contact.action} <ArrowRight className="w-4 h-4" />
-              </button>
+              {contact.isWidgetTrigger ? (
+                <button 
+                  onClick={handleOpenChat}
+                  className="text-sm font-bold text-primary flex items-center gap-1 hover:gap-2 transition-all"
+                >
+                  {contact.action}
+                </button>
+              ) : (
+                <Link 
+                  href={contact.href || "#"}
+                  className="text-sm font-bold text-primary flex items-center gap-1 hover:gap-2 transition-all"
+                >
+                  {contact.action}
+                </Link>
+              )}
             </div>
           ))}
         </div>
@@ -82,7 +96,7 @@ export function HelpContact() {
                onClick={handleOpenChat}
                className="bg-primary text-white font-bold py-3 px-8 rounded-xl shadow-md hover:bg-primary/90 transition-colors cursor-pointer"
              >
-               Start Live Chat
+               Chat with Support →
              </button>
           </div>
         </div>

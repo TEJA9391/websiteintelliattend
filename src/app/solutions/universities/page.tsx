@@ -64,7 +64,7 @@ export default function UniversitiesSolution() {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+            transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
           >
             <div className="inline-flex items-center rounded-full px-4 py-1.5 text-sm font-semibold text-slate-500 bg-primary/10 mb-8 border border-primary/20">
               <Building2 className="w-4 h-4 mr-2" />
@@ -205,7 +205,7 @@ export default function UniversitiesSolution() {
             <h2 className="text-3xl md:text-5xl font-bold text-text-main">The Connected Ecosystem</h2>
           </div>
           
-          <div className="relative h-[500px] w-full max-w-3xl mx-auto flex items-center justify-center">
+          <div className="relative h-[1000px] w-full max-w-3xl mx-auto flex items-center justify-center">
             {/* Center */}
             <motion.div 
               initial={{ scale: 0 }}
@@ -218,12 +218,27 @@ export default function UniversitiesSolution() {
 
             {/* Orbiting nodes */}
             {[
-              "Students", "Faculty", "Departments", "SmartBoards", "Library", "Administration", "AI Analytics", "Cloud"
-            ].map((label, i, arr) => {
+              { label: "Students", desc: "Mobile App Access", subDesc: "iOS & Android" },
+              { label: "Faculty", desc: "Digital Workflows", subDesc: "Automated Grading" },
+              { label: "Departments", desc: "Resource Allocation", subDesc: "Budget Optimization" },
+              { label: "SmartBoards", desc: "Interactive Displays", subDesc: "Real-time Sync" },
+              { label: "Library", desc: "Digital Repository", subDesc: "E-books & Journals" },
+              { label: "Administration", desc: "Central Control", subDesc: "Unified Dashboard" },
+              { label: "AI Analytics", desc: "Predictive Insights", subDesc: "Dropout Prevention" },
+              { label: "Cloud", desc: "Secure Sync", subDesc: "End-to-End Encrypted" }
+            ].map((node, i, arr) => {
               const angle = (i / arr.length) * Math.PI * 2;
               const radius = 200; // px
               const x = Math.cos(angle) * radius;
               const y = Math.sin(angle) * radius;
+              
+              const extRadius = 140;
+              const extX = Math.cos(angle) * extRadius;
+              const extY = Math.sin(angle) * extRadius;
+              
+              const extRadius2 = 120;
+              const extX2 = Math.cos(angle) * (extRadius + extRadius2);
+              const extY2 = Math.sin(angle) * (extRadius + extRadius2);
               
               return (
                 <motion.div
@@ -231,30 +246,88 @@ export default function UniversitiesSolution() {
                   initial={{ opacity: 0, x: 0, y: 0 }}
                   whileInView={{ opacity: 1, x, y }}
                   viewport={{ once: true }}
-                  transition={{ delay: 0.3 + (i * 0.1), type: "spring" }}
-                  className="absolute w-32 h-32 bg-white border border-slate-200 rounded-full flex flex-col items-center justify-center text-center shadow-lg z-10"
+                  transition={{ delay: 0.1 + (i * 0.1), type: "spring" }}
+                  className="absolute flex items-center justify-center z-10"
                 >
-                  <span className="text-sm font-bold text-text-main">{label}</span>
+
+                  <motion.div
+                    initial={{ opacity: 0, scale: 0, x: extX, y: extY }}
+                    whileInView={{ opacity: 1, scale: 1, x: extX2, y: extY2 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: 2 + (i * 0.1), type: "spring", bounce: 0.4 }}
+                    className="absolute w-20 h-20 bg-slate-50 border border-slate-200 rounded-full flex items-center justify-center text-center shadow-sm z-[-1] p-2"
+                  >
+                    <span className="text-[9px] font-medium leading-tight text-slate-500">{node.subDesc}</span>
+                  </motion.div>
+
+                  <motion.div
+                    initial={{ opacity: 0, scale: 0, x: 0, y: 0 }}
+                    whileInView={{ opacity: 1, scale: 1, x: extX, y: extY }}
+                    viewport={{ once: true }}
+                    transition={{ delay: 1 + (i * 0.1), type: "spring", bounce: 0.4 }}
+                    className="absolute w-24 h-24 bg-teal-50 border border-teal-100 rounded-full flex items-center justify-center text-center shadow-sm z-0 p-3"
+                  >
+                    <span className="text-[11px] font-medium leading-tight text-teal-800">{node.desc}</span>
+                  </motion.div>
+                  
+                  <div className="relative w-32 h-32 bg-white border border-slate-200 rounded-full flex flex-col items-center justify-center text-center shadow-lg z-10">
+                    <span className="text-sm font-bold text-text-main">{node.label}</span>
+                  </div>
                 </motion.div>
               );
             })}
             
             {/* Connecting Lines (svg) */}
-            <svg className="absolute inset-0 w-full h-full pointer-events-none" style={{ zIndex: 0 }}>
+            <svg className="absolute inset-0 w-full h-full pointer-events-none overflow-visible" style={{ zIndex: 0 }}>
                {[0,1,2,3,4,5,6,7].map((i) => {
                   const angle = (i / 8) * Math.PI * 2;
-                  const x2 = 50 + Math.cos(angle) * 30; // percentage
-                  const y2 = 50 + Math.sin(angle) * 45; // percentage roughly based on aspect ratio
+                  
+                  // Main circle center
+                  const dx = Math.cos(angle) * 200;
+                  const dy = Math.sin(angle) * 200;
+                  
+                  // Sub circle center
+                  const extRadius = 140;
+                  const subDx = Math.cos(angle) * (200 + extRadius);
+                  const subDy = Math.sin(angle) * (200 + extRadius);
+                  
+                  // Level 3 circle center
+                  const extRadius2 = 120;
+                  const sub2Dx = Math.cos(angle) * (200 + extRadius + extRadius2);
+                  const sub2Dy = Math.sin(angle) * (200 + extRadius + extRadius2);
+                  
                   return (
-                    <motion.line 
-                      key={i}
-                      x1="50%" y1="50%" x2={`${x2}%`} y2={`${y2}%`}
-                      stroke="rgba(45,212,191,0.2)" strokeWidth="2" strokeDasharray="5,5"
-                      initial={{ pathLength: 0 }}
-                      whileInView={{ pathLength: 1 }}
-                      viewport={{ once: true }}
-                      transition={{ delay: 0.5, duration: 1 }}
-                    />
+                    <g key={i}>
+                      {/* Center to Main Circle */}
+                      <motion.line 
+                        x1="50%" y1="50%" x2={`calc(50% + ${dx}px)`} y2={`calc(50% + ${dy}px)`}
+                        stroke="rgba(45,212,191,0.2)" strokeWidth="2" strokeDasharray="5,5"
+                        initial={{ pathLength: 0 }}
+                        whileInView={{ pathLength: 1 }}
+                        viewport={{ once: true }}
+                        transition={{ delay: 0.5, duration: 1 }}
+                      />
+                      {/* Main Circle to Sub Circle */}
+                      <motion.line 
+                        x1={`calc(50% + ${dx}px)`} y1={`calc(50% + ${dy}px)`}
+                        x2={`calc(50% + ${subDx}px)`} y2={`calc(50% + ${subDy}px)`}
+                        stroke="rgba(45,212,191,0.4)" strokeWidth="2"
+                        initial={{ pathLength: 0 }}
+                        whileInView={{ pathLength: 1 }}
+                        viewport={{ once: true }}
+                        transition={{ delay: 1 + (i * 0.1), duration: 0.4 }}
+                      />
+                      {/* Sub Circle to Sub-Sub Circle */}
+                      <motion.line 
+                        x1={`calc(50% + ${subDx}px)`} y1={`calc(50% + ${subDy}px)`}
+                        x2={`calc(50% + ${sub2Dx}px)`} y2={`calc(50% + ${sub2Dy}px)`}
+                        stroke="rgba(45,212,191,0.6)" strokeWidth="1" strokeDasharray="2,2"
+                        initial={{ pathLength: 0 }}
+                        whileInView={{ pathLength: 1 }}
+                        viewport={{ once: true }}
+                        transition={{ delay: 2 + (i * 0.1), duration: 0.4 }}
+                      />
+                    </g>
                   )
                })}
             </svg>

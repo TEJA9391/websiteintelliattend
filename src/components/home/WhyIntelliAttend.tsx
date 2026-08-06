@@ -71,7 +71,7 @@ export function WhyIntelliAttend() {
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
                     exit={{ opacity: 0, x: -20 }}
-                    transition={{ duration: 0.3 }}
+                    transition={{ duration: 0.15 }}
                     className="flex items-center gap-4 w-full text-slate-500"
                   >
                     <div className="w-12 h-12 rounded-xl bg-slate-100 flex items-center justify-center shrink-0">
@@ -85,7 +85,7 @@ export function WhyIntelliAttend() {
                     initial={{ opacity: 0, x: 20 }}
                     animate={{ opacity: 1, x: 0 }}
                     exit={{ opacity: 0, x: 20 }}
-                    transition={{ duration: 0.3, delay: i * 0.05 }}
+                    transition={{ duration: 0.15, delay: i * 0.05 }}
                     className="flex items-center gap-4 w-full text-[#0F172A]"
                   >
                     <div className="w-12 h-12 rounded-xl bg-teal-50 flex items-center justify-center shrink-0">

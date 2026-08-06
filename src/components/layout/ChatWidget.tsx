@@ -1,10 +1,11 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
-import { useChat } from "ai/react";
+
 import ReactMarkdown from "react-markdown";
 import { X, Send, Bot, User, Mic, MicOff, RefreshCw } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import { generateMockResponse } from "@/lib/bot-logic";
 
 const QUICK_REPLIES = [
   "How much does it cost?",
@@ -14,17 +15,47 @@ const QUICK_REPLIES = [
 ];
 
 export function ChatWidget() {
+  const [isTyping, setIsTyping] = useState(false);
+  const [mounted, setMounted] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
-  const messagesEndRef = useRef<HTMLDivElement>(null);
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
-  // Vercel AI SDK Hook
-  const { messages, input, handleInputChange, handleSubmit, setMessages, isLoading, setInput } = useChat({
-    api: '/api/chat',
-    initialMessages: [
-      { id: "system-1", role: "assistant", content: "Hi! I'm IntelliAttend's Enterprise AI Assistant. How can I help you today?" }
-    ]
-  });
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  const [messages, setMessages] = useState<Array<{id: string, role: string, content: string}>>([
+    { id: "system-1", role: "assistant", content: "Hi! I'm IntelliAttend's AI Assistant. How can I help you today?" }
+  ]);
+  const [input, setInput] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => setInput(e.target.value);
+  
+  const append = async (msg: { role: string, content: string }) => {
+    const newMessages = [...messages, { ...msg, id: Date.now().toString() }];
+    setMessages(newMessages);
+    setIsLoading(true);
+    
+    // Simulate network delay
+    setTimeout(() => {
+      const responseText = generateMockResponse(msg.content);
+      
+      setMessages(prev => [
+        ...prev, 
+        { id: (Date.now() + 1).toString(), role: "assistant", content: responseText }
+      ]);
+      setIsLoading(false);
+    }, 1200);
+  };
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (!input.trim() || isLoading) return;
+    append({ role: 'user', content: input });
+    setInput("");
+  };
 
   // Listen for the custom event to open chat globally
   useEffect(() => {
@@ -35,8 +66,11 @@ export function ChatWidget() {
 
   // Auto-scroll to bottom of messages and auto-focus
   useEffect(() => {
-    if (messagesEndRef.current) {
-      messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
+    if (scrollContainerRef.current) {
+      scrollContainerRef.current.scrollTo({
+        top: scrollContainerRef.current.scrollHeight,
+        behavior: "smooth"
+      });
     }
     if (isOpen && inputRef.current) {
       inputRef.current.focus();
@@ -50,12 +84,7 @@ export function ChatWidget() {
   };
 
   const handleQuickReply = (reply: string) => {
-    setInput(reply);
-    // Give state a moment to update before submitting
-    setTimeout(() => {
-      const fakeEvent = { preventDefault: () => {} } as React.FormEvent<HTMLFormElement>;
-      handleSubmit(fakeEvent);
-    }, 50);
+    append({ role: 'user', content: reply });
   };
 
   if (!isOpen) return null;
@@ -66,8 +95,8 @@ export function ChatWidget() {
         initial={{ opacity: 0, y: 50, scale: 0.95 }}
         animate={{ opacity: 1, y: 0, scale: 1 }}
         exit={{ opacity: 0, y: 50, scale: 0.95 }}
-        transition={{ duration: 0.3, type: "spring", bounce: 0.3 }}
-        className="fixed bottom-6 right-6 z-50 w-full max-w-sm bg-white/90 backdrop-blur-xl rounded-3xl shadow-2xl border border-white/40 overflow-hidden flex flex-col h-[550px]"
+        transition={{ duration: 0.15, type: "spring", bounce: 0.3 }}
+        className="fixed bottom-6 right-6 z-50 w-full max-w-sm bg-white/90 backdrop-blur-xl rounded-3xl shadow-2xl border border-white/40 overflow-hidden flex flex-col h-[550px] overscroll-contain"
       >
         {/* Header */}
         <div className="bg-gradient-to-r from-slate-900 to-slate-800 px-5 py-4 flex items-center justify-between text-white border-b border-slate-700/50 relative overflow-hidden">
@@ -100,8 +129,11 @@ export function ChatWidget() {
           </div>
         </div>
 
-        {/* Messages */}
-        <div className="flex-1 overflow-y-auto p-5 space-y-6 bg-slate-50/50 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+        {/* Messages Area */}
+        <div ref={scrollContainerRef} className="flex-1 overflow-y-auto overscroll-none p-5 bg-slate-50/50 flex flex-col gap-4 relative [&::-webkit-scrollbar]:w-1.5 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:bg-slate-200 [&::-webkit-scrollbar-thumb]:rounded-full hover:[&::-webkit-scrollbar-thumb]:bg-slate-300">
+          <div className="text-center text-[10px] font-bold tracking-wider text-slate-400 uppercase mt-2 mb-4">
+            Today at {mounted ? new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}) : "..."}
+          </div>
           {messages.map((msg) => (
             <motion.div 
               initial={{ opacity: 0, y: 10 }}
@@ -139,7 +171,6 @@ export function ChatWidget() {
               </div>
             </motion.div>
           )}
-          <div ref={messagesEndRef} />
         </div>
 
         {/* Quick Replies */}

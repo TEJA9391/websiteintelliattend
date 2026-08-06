@@ -47,11 +47,11 @@ export function HowItWorks() {
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-100px" }}
-                transition={{ duration: 0.6, delay: i * 0.2, ease: [0.16, 1, 0.3, 1] }}
+                transition={{ duration: 0.25, delay: i * 0.2, ease: [0.16, 1, 0.3, 1] }}
                 className="relative z-10 flex flex-col items-center text-center"
               >
                 <div className="apple-card w-20 h-20 flex items-center justify-center mb-6 group">
-                  <step.icon className="w-8 h-8 text-slate-500 group-hover:scale-110 transition-transform duration-300" />
+                  <step.icon className="w-8 h-8 text-slate-500 group-hover:scale-110 transition-transform duration-150" />
                 </div>
                 
                 <h3 className="text-xl font-bold text-[#0F172A] mb-3">{step.title}</h3>

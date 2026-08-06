@@ -8,7 +8,7 @@ export function PricingHero() {
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
+        transition={{ duration: 0.2 }}
       >
         <h1 className="text-4xl md:text-6xl font-bold tracking-tight text-[#0F172A] mb-6">
           Simple Pricing.<br /><span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent">Built for Every Institution.</span>

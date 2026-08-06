@@ -262,7 +262,7 @@ export function MegaMenuProducts3D({ isOpen }: { isOpen: boolean }) {
           ? { opacity: 1, y: 0, filter: "blur(0px)", pointerEvents: "auto" }
           : { opacity: 0, y: -15, filter: "blur(8px)", pointerEvents: "none" }
       }
-      transition={{ duration: 0.5, ease: [0.19, 1, 0.22, 1] }}
+      transition={{ duration: 0.2, ease: [0.19, 1, 0.22, 1] }}
       className="absolute top-full left-0 right-0 w-full z-50 overflow-hidden bg-white shadow-[0_20px_40px_rgba(0,0,0,0.08)]"
     >
       {/* Reduced padding from py-6 to py-4, and no hardcoded height */}
@@ -283,7 +283,7 @@ export function MegaMenuProducts3D({ isOpen }: { isOpen: boolean }) {
           <motion.div
             initial={{ opacity: 0, y: 10 }} 
             animate={{ opacity: 1, y: 0 }} 
-            transition={{ delay: 0.2 }}
+            transition={{ delay: 0.1 }}
             className="mb-2"
           >
             <Link href="/products" className="inline-flex items-center justify-center px-4 py-2 bg-slate-50 hover:bg-slate-100 text-sm font-semibold text-slate-700 rounded-full transition-colors">

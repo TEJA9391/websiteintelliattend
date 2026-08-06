@@ -44,51 +44,21 @@ const navLinks = [
   },
 ];
 
-function MagneticButton({ children, className, variant = "primary" }: { children: React.ReactNode, className?: string, variant?: "primary" | "ghost" }) {
-  const ref = useRef<HTMLButtonElement>(null);
-  const x = useMotionValue(0);
-  const y = useMotionValue(0);
-  
-  const springConfig = { damping: 15, stiffness: 150, mass: 0.1 };
-  const xSpring = useSpring(x, springConfig);
-  const ySpring = useSpring(y, springConfig);
-
-  const handleMouseMove = (e: React.MouseEvent<HTMLButtonElement>) => {
-    if (!ref.current) return;
-    const { clientX, clientY } = e;
-    const { left, top, width, height } = ref.current.getBoundingClientRect();
-    
-    const xPos = (clientX - (left + width / 2)) * 0.2;
-    const yPos = (clientY - (top + height / 2)) * 0.2;
-    
-    x.set(xPos);
-    y.set(yPos);
-  };
-
-  const handleMouseLeave = () => {
-    x.set(0);
-    y.set(0);
-  };
-
+function NavButton({ children, className, variant = "primary" }: { children: React.ReactNode, className?: string, variant?: "primary" | "ghost" | "outline" }) {
   return (
-    <motion.button
-      ref={ref}
-      onMouseMove={handleMouseMove}
-      onMouseLeave={handleMouseLeave}
-      style={{ x: xSpring, y: ySpring }}
+    <button
       className={cn(
-        "relative px-6 py-2.5 rounded-full font-medium text-sm transition-colors overflow-hidden group",
+        "relative px-6 py-2.5 rounded-full font-semibold text-sm transition-all duration-150 overflow-hidden hover:scale-105 active:scale-95 cursor-pointer",
         variant === "primary" 
-          ? "bg-[#0F172A] text-white hover:bg-[#1E293B]" 
+          ? "bg-[#0F172A] text-white shadow-lg" 
+          : variant === "outline"
+          ? "border border-slate-200 text-slate-700 bg-white hover:bg-slate-50 hover:border-slate-300 shadow-sm"
           : "text-[#64748B] hover:text-[#0F172A]",
         className
       )}
     >
       <span className="relative z-10">{children}</span>
-      {variant === "primary" && (
-        <span className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out" />
-      )}
-    </motion.button>
+    </button>
   );
 }
 
@@ -96,6 +66,7 @@ export function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [activeMenu, setActiveMenu] = useState<string | null>(null);
+  const [expandedMobile, setExpandedMobile] = useState<string | null>(null);
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
   const { scrollY } = useScroll();
   const headerHeight = useTransform(scrollY, [0, 100], [100, 80]);
@@ -104,7 +75,9 @@ export function Navbar() {
   const handleMouseEnter = (link: any) => {
     if (timeoutRef.current) clearTimeout(timeoutRef.current);
     if (!link.dropdown) {
-      setActiveMenu(null);
+      timeoutRef.current = setTimeout(() => {
+        setActiveMenu(null);
+      }, 200);
       return;
     }
     if (activeMenu) {
@@ -120,7 +93,7 @@ export function Navbar() {
     if (timeoutRef.current) clearTimeout(timeoutRef.current);
     timeoutRef.current = setTimeout(() => {
       setActiveMenu(null);
-    }, 200); // Slight delay before closing to allow moving to dropdown
+    }, 300); // Increased delay for more forgiving diagonal movement
   };
 
   useEffect(() => {
@@ -131,6 +104,11 @@ export function Navbar() {
       });
     });
   }, [scrollY]);
+
+  useEffect(() => {
+    setActiveMenu(null);
+    setIsMobileMenuOpen(false);
+  }, [pathname]);
 
   if (pathname?.startsWith('/login') || pathname?.startsWith('/register') || pathname?.startsWith('/get-started') || pathname?.startsWith('/portal')) {
     return null;
@@ -145,7 +123,7 @@ export function Navbar() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+            transition={{ duration: 0.15, ease: [0.16, 1, 0.3, 1] }}
             className="fixed inset-x-0 bottom-0 z-40 bg-[#0F172A]/20 backdrop-blur-[24px] pointer-events-none"
           />
         )}
@@ -153,7 +131,7 @@ export function Navbar() {
       <motion.header
         style={{ height: headerHeight }}
         className={cn(
-          "fixed top-0 inset-x-0 z-50 flex items-center transition-all duration-300",
+          "fixed top-0 inset-x-0 z-50 flex items-center transition-all duration-150",
           (activeMenu || isMobileMenuOpen) ? "bg-white" :
           isScrolled ? "bg-white/70 backdrop-blur-[18px] border-b border-[#0F172A]/[0.08]" : "bg-transparent"
         )}
@@ -182,7 +160,7 @@ export function Navbar() {
                 className="flex items-center gap-1.5 text-sm font-medium text-[#64748B] hover:text-[#0F172A] hover:bg-slate-100 transition-colors px-4 py-2 rounded-full"
               >
                 {link.name}
-                {link.dropdown && <ChevronDown className="w-4 h-4 transition-transform group-hover/nav:rotate-180 opacity-50" />}
+                {link.dropdown && <ChevronDown className={cn("w-4 h-4 transition-transform duration-300 opacity-50", activeMenu === link.name && "rotate-180")} />}
               </Link>
               
               {link.dropdown && (
@@ -197,7 +175,7 @@ export function Navbar() {
                           initial={{ opacity: 0, y: -15, filter: "blur(8px)" }}
                           animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
                           exit={{ opacity: 0, y: -5, filter: "blur(4px)" }}
-                          transition={{ duration: 0.5, ease: [0.19, 1, 0.22, 1] }}
+                          transition={{ duration: 0.3, ease: [0.19, 1, 0.22, 1] }}
                           className="absolute top-full left-0 right-0 w-full z-50 overflow-hidden bg-white shadow-[0_20px_50px_rgba(0,0,0,0.1)]"
                         >
                           <div className="mx-auto max-w-7xl px-6 lg:px-8 py-6 flex gap-12">
@@ -214,7 +192,7 @@ export function Navbar() {
                               <motion.div
                                 initial={{ opacity: 0, y: 10 }} 
                                 animate={{ opacity: 1, y: 0 }} 
-                                transition={{ delay: 0.2 }}
+                                transition={{ delay: 0.1 }}
                               >
                                 <Link href={link.overviewHref || link.href} className="mt-4 inline-flex items-center justify-center px-5 py-2 bg-slate-50 hover:bg-slate-100 text-sm font-semibold text-slate-700 rounded-full transition-colors self-start">
                                   See overview
@@ -250,12 +228,12 @@ export function Navbar() {
         </nav>
 
         {/* Desktop CTA */}
-        <div className="hidden md:flex items-center gap-2">
+        <div className="hidden md:flex items-center gap-3">
           <Link href="/login">
-            <MagneticButton variant="ghost">Login</MagneticButton>
+            <NavButton variant="outline">Login</NavButton>
           </Link>
           <Link href="/get-started">
-            <MagneticButton variant="primary">Get Started</MagneticButton>
+            <NavButton variant="primary">Get Started</NavButton>
           </Link>
         </div>
 
@@ -277,7 +255,7 @@ export function Navbar() {
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
-            transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+            transition={{ duration: 0.15, ease: [0.16, 1, 0.3, 1] }}
             className="fixed inset-x-0 bottom-0 z-40 bg-white md:hidden overflow-y-auto border-t border-slate-100/50"
           >
             <div className="px-8 py-8 flex flex-col gap-6">
@@ -287,15 +265,60 @@ export function Navbar() {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -10 }}
-                  transition={{ delay: idx * 0.04, duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+                  transition={{ delay: idx * 0.02, duration: 0.2, ease: [0.16, 1, 0.3, 1] }}
+                  className="border-b border-slate-100/60 pb-4"
                 >
-                  <Link
-                    href={link.href}
-                    className="text-[28px] font-bold text-[#0F172A] tracking-tight block"
-                    onClick={() => setIsMobileMenuOpen(false)}
-                  >
-                    {link.name}
-                  </Link>
+                  {link.dropdown ? (
+                    <div>
+                      <button
+                        onClick={() => setExpandedMobile(expandedMobile === link.name ? null : link.name)}
+                        className="w-full flex items-center justify-between text-[24px] font-bold text-[#0F172A] tracking-tight"
+                      >
+                        {link.name}
+                        <ChevronDown className={cn("w-6 h-6 text-slate-400 transition-transform duration-300", expandedMobile === link.name && "rotate-180")} />
+                      </button>
+                      <AnimatePresence>
+                        {expandedMobile === link.name && (
+                          <motion.div
+                            initial={{ height: 0, opacity: 0 }}
+                            animate={{ height: "auto", opacity: 1 }}
+                            exit={{ height: 0, opacity: 0 }}
+                            transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+                            className="overflow-hidden"
+                          >
+                            <div className="pt-4 pb-2 flex flex-col gap-4 pl-2">
+                              <Link 
+                                href={link.overviewHref || link.href}
+                                className="text-sm font-semibold text-primary mb-2"
+                                onClick={() => setIsMobileMenuOpen(false)}
+                              >
+                                View All {link.name} &rarr;
+                              </Link>
+                              {link.dropdown.map(sub => (
+                                <Link
+                                  key={sub.name}
+                                  href={sub.href}
+                                  className="group flex flex-col"
+                                  onClick={() => setIsMobileMenuOpen(false)}
+                                >
+                                  <span className="text-lg font-semibold text-slate-800 group-hover:text-primary transition-colors">{sub.name}</span>
+                                  <span className="text-sm text-slate-500">{sub.desc}</span>
+                                </Link>
+                              ))}
+                            </div>
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
+                    </div>
+                  ) : (
+                    <Link
+                      href={link.href}
+                      className="text-[24px] font-bold text-[#0F172A] tracking-tight block"
+                      onClick={() => setIsMobileMenuOpen(false)}
+                    >
+                      {link.name}
+                    </Link>
+                  )}
                 </motion.div>
               ))}
               
@@ -303,7 +326,7 @@ export function Navbar() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -10 }}
-                transition={{ delay: navLinks.length * 0.04, duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+                transition={{ delay: navLinks.length * 0.02, duration: 0.2, ease: [0.16, 1, 0.3, 1] }}
                 className="mt-8 pt-8 border-t border-slate-100 flex flex-col gap-4"
               >
                 <Link href="/login" onClick={() => setIsMobileMenuOpen(false)}>
