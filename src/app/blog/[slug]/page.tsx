@@ -49,7 +49,7 @@ export default function BlogPost({ params }: { params: { slug: string } }) {
               <div>
                 <div className="font-bold text-slate-900">IntelliAttend Team</div>
                 <div className="flex items-center gap-2 text-sm text-slate-500 mt-0.5">
-                  <span>Oct 24, 2026</span>
+                  <span>Aug 24, 2026</span>
                   <span>•</span>
                   <span className="flex items-center gap-1"><Clock className="w-3.5 h-3.5" /> {article.read} read</span>
                 </div>

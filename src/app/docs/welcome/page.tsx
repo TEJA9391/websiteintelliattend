@@ -62,7 +62,7 @@ export default function WelcomeDocPage() {
             </ul>
 
             <div className="mt-12 pt-8 border-t border-slate-100 flex items-center justify-between text-sm text-slate-500">
-              <span>Last updated: October 2026</span>
+              <span>Last updated: August 2026</span>
               <button className="hover:text-slate-900 font-medium transition-colors">Was this helpful?</button>
             </div>
           </div>
