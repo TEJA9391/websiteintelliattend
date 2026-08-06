@@ -1,4 +1,4 @@
-import { ARTICLES } from "@/components/blog/LatestArticles";
+import { ARTICLES } from "@/lib/blog-data";
 import { notFound } from "next/navigation";
 import { Clock, ArrowLeft, Share2, Bookmark } from "lucide-react";
 import Link from "next/link";
