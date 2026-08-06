@@ -1,6 +1,23 @@
+"use client";
+
 import { Search, Book } from 'lucide-react';
+import { useRouter, useSearchParams } from 'next/navigation';
 
 export function DocsHero() {
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const currentQuery = searchParams.get('q') || '';
+
+  const updateSearch = (query: string) => {
+    const params = new URLSearchParams(searchParams.toString());
+    if (query) {
+      params.set('q', query);
+    } else {
+      params.delete('q');
+    }
+    router.push(`?${params.toString()}`, { scroll: false });
+  };
+
   return (
     <section className="pt-24 pb-12 bg-slate-50 border-b border-slate-200">
       <div className="container mx-auto px-4 max-w-7xl">
@@ -23,6 +40,8 @@ export function DocsHero() {
               <input 
                 type="text" 
                 placeholder="Search guides..." 
+                value={currentQuery}
+                onChange={(e) => updateSearch(e.target.value)}
                 className="w-full bg-white border border-slate-300 rounded-xl py-3 pl-12 pr-4 text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition-all shadow-sm"
               />
             </div>
