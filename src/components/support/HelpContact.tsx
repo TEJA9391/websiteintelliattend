@@ -1,3 +1,5 @@
+"use client";
+
 import { MessageCircle, Mail, Building2, Users2, ArrowRight } from 'lucide-react';
 
 const CONTACTS = [
@@ -31,6 +33,10 @@ const CONTACTS = [
 ];
 
 export function HelpContact() {
+  const handleOpenChat = () => {
+    window.dispatchEvent(new Event("open-chat"));
+  };
+
   return (
     <section className="py-20 bg-[#F8FAFC] border-t border-slate-200">
       <div className="container mx-auto px-4 max-w-7xl">
@@ -52,7 +58,10 @@ export function HelpContact() {
               </div>
               <h3 className="text-lg font-bold text-[#0F172A] mb-2">{contact.title}</h3>
               <p className="text-sm text-[#64748B] mb-6 flex-1">{contact.desc}</p>
-              <button className="text-sm font-bold text-primary flex items-center gap-1 hover:gap-2 transition-all">
+              <button 
+                onClick={contact.title === "Live Chat" ? handleOpenChat : undefined}
+                className="text-sm font-bold text-primary flex items-center gap-1 hover:gap-2 transition-all"
+              >
                 {contact.action} <ArrowRight className="w-4 h-4" />
               </button>
             </div>
@@ -69,7 +78,10 @@ export function HelpContact() {
              <button className="bg-white text-[#0F172A] font-bold py-3 px-8 rounded-xl shadow-lg hover:bg-white/90 transition-colors">
                Contact Sales
              </button>
-             <button className="bg-primary text-white font-bold py-3 px-8 rounded-xl shadow-md hover:bg-primary/90 transition-colors">
+             <button 
+               onClick={handleOpenChat}
+               className="bg-primary text-white font-bold py-3 px-8 rounded-xl shadow-md hover:bg-primary/90 transition-colors"
+             >
                Start Live Chat
              </button>
           </div>
