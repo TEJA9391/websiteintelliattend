@@ -79,10 +79,8 @@ export function AIFeatures() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.05, duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-              whileHover={{ y: -8, transition: { duration: 0.2 } }}
-              className="glass-card p-8 group relative overflow-hidden rounded-[28px] bg-white border border-[#0F172A]/[0.08] cursor-pointer"
+              className="apple-card p-8 group relative cursor-pointer"
             >
-              <div className="absolute inset-0 bg-gradient-to-br from-white/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-0 pointer-events-none" />
               
               <div className="relative z-10 pointer-events-none">
                 <motion.div layoutId={`icon-${feature.title}`} className="w-12 h-12 rounded-2xl bg-teal-50 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300 ease-out">

@@ -17,6 +17,7 @@ import {
   XCircle,
   CheckCircle2
 } from "lucide-react";
+import Link from "next/link";
 import { Navbar } from "@/components/layout/Navbar";
 
 // Counter Component
@@ -192,7 +193,7 @@ export default function SmartBoardPage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.05, duration: 0.5 }}
-                className="bg-slate-50 rounded-[28px] p-8 border border-slate-100 hover:shadow-xl hover:shadow-slate-200/50 transition-all duration-300 group"
+                className="apple-card p-8 group"
               >
                 <div className="w-12 h-12 rounded-2xl bg-white shadow-sm flex items-center justify-center mb-6 group-hover:scale-110 transition-transform text-slate-500 border border-slate-100">
                   <feature.icon className="w-6 h-6" />
@@ -287,12 +288,16 @@ export default function SmartBoardPage() {
               </p>
               
               <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-                <button className="px-8 py-4 bg-white text-slate-500 rounded-full font-bold text-lg hover:scale-105 transition-transform shadow-xl">
-                  Book a Demo
-                </button>
-                <button className="px-8 py-4 bg-accent/20 text-white border border-accent/30 rounded-full font-bold text-lg hover:bg-accent/30 transition-colors backdrop-blur-sm">
-                  View Pricing
-                </button>
+                <Link href="/contact">
+                  <button className="px-8 py-4 bg-white text-slate-500 rounded-full font-bold text-lg hover:scale-105 transition-transform shadow-xl">
+                    Book a Demo
+                  </button>
+                </Link>
+                <Link href="/pricing">
+                  <button className="px-8 py-4 bg-accent/20 text-white border border-accent/30 rounded-full font-bold text-lg hover:bg-accent/30 transition-colors backdrop-blur-sm">
+                    View Pricing
+                  </button>
+                </Link>
               </div>
             </div>
           </motion.div>

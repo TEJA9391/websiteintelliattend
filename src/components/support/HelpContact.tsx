@@ -41,7 +41,7 @@ export function HelpContact() {
 
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-20">
           {CONTACTS.map((contact, idx) => (
-            <div key={idx} className="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm flex flex-col items-center text-center hover:shadow-md transition-shadow relative">
+            <div key={idx} className="apple-card p-6 flex flex-col items-center text-center relative">
               {contact.badge && (
                 <div className="absolute -top-3 bg-primary/10 text-primary text-xs font-bold px-3 py-1 rounded-full border border-primary/20">
                   {contact.badge}

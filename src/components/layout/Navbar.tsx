@@ -30,7 +30,7 @@ const navLinks = [
       { name: "K-12 Schools", href: "/solutions/k12", desc: "Streamline daily operations" },
     ]
   },
-  { name: "Pricing", href: "/pricing" },
+  { name: "Join", href: "/pricing" },
   { name: "Blog", href: "/blog" },
   { 
     name: "Resources", 
@@ -101,13 +101,17 @@ export function Navbar() {
   const headerHeight = useTransform(scrollY, [0, 100], [100, 80]);
   const pathname = usePathname();
 
-  const handleMouseEnter = (menuName: string) => {
+  const handleMouseEnter = (link: any) => {
     if (timeoutRef.current) clearTimeout(timeoutRef.current);
+    if (!link.dropdown) {
+      setActiveMenu(null);
+      return;
+    }
     if (activeMenu) {
-      setActiveMenu(menuName);
+      setActiveMenu(link.name);
     } else {
       timeoutRef.current = setTimeout(() => {
-        setActiveMenu(menuName);
+        setActiveMenu(link.name);
       }, 150);
     }
   };
@@ -133,13 +137,27 @@ export function Navbar() {
   }
 
   return (
-    <motion.header
-      style={{ height: headerHeight }}
-      className={cn(
-        "fixed top-0 inset-x-0 z-50 flex items-center transition-all duration-300",
-        isScrolled ? "bg-white/70 backdrop-blur-[18px] border-b border-[#0F172A]/[0.08]" : "bg-transparent"
-      )}
-    >
+    <>
+      <AnimatePresence>
+        {activeMenu && (
+          <motion.div
+            style={{ top: headerHeight }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+            className="fixed inset-x-0 bottom-0 z-40 bg-[#0F172A]/20 backdrop-blur-[24px] pointer-events-none"
+          />
+        )}
+      </AnimatePresence>
+      <motion.header
+        style={{ height: headerHeight }}
+        className={cn(
+          "fixed top-0 inset-x-0 z-50 flex items-center transition-all duration-300",
+          (activeMenu || isMobileMenuOpen) ? "bg-white" :
+          isScrolled ? "bg-white/70 backdrop-blur-[18px] border-b border-[#0F172A]/[0.08]" : "bg-transparent"
+        )}
+      >
       <div className="mx-auto max-w-7xl px-6 lg:px-8 w-full h-full flex items-center justify-between">
         
         {/* Logo */}
@@ -160,7 +178,7 @@ export function Navbar() {
             >
               <Link 
                 href={link.href}
-                onMouseEnter={() => handleMouseEnter(link.name)}
+                onMouseEnter={() => handleMouseEnter(link)}
                 className="flex items-center gap-1.5 text-sm font-medium text-[#64748B] hover:text-[#0F172A] hover:bg-slate-100 transition-colors px-4 py-2 rounded-full"
               >
                 {link.name}
@@ -180,7 +198,7 @@ export function Navbar() {
                           animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
                           exit={{ opacity: 0, y: -5, filter: "blur(4px)" }}
                           transition={{ duration: 0.5, ease: [0.19, 1, 0.22, 1] }}
-                          className="absolute top-full left-0 right-0 w-full z-50 overflow-hidden bg-white shadow-[0_20px_50px_rgba(0,0,0,0.1)] border-t border-slate-100"
+                          className="absolute top-full left-0 right-0 w-full z-50 overflow-hidden bg-white shadow-[0_20px_50px_rgba(0,0,0,0.1)]"
                         >
                           <div className="mx-auto max-w-7xl px-6 lg:px-8 py-6 flex gap-12">
                             {/* Left Column */}
@@ -251,5 +269,58 @@ export function Navbar() {
 
       </div>
     </motion.header>
+    
+      <AnimatePresence>
+        {isMobileMenuOpen && (
+          <motion.div
+            style={{ top: headerHeight }}
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+            className="fixed inset-x-0 bottom-0 z-40 bg-white md:hidden overflow-y-auto border-t border-slate-100/50"
+          >
+            <div className="px-8 py-8 flex flex-col gap-6">
+              {navLinks.map((link, idx) => (
+                <motion.div
+                  key={link.name}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -10 }}
+                  transition={{ delay: idx * 0.04, duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+                >
+                  <Link
+                    href={link.href}
+                    className="text-[28px] font-bold text-[#0F172A] tracking-tight block"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                  >
+                    {link.name}
+                  </Link>
+                </motion.div>
+              ))}
+              
+              <motion.div 
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -10 }}
+                transition={{ delay: navLinks.length * 0.04, duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+                className="mt-8 pt-8 border-t border-slate-100 flex flex-col gap-4"
+              >
+                <Link href="/login" onClick={() => setIsMobileMenuOpen(false)}>
+                  <div className="w-full py-4 text-center font-semibold text-[#0F172A] bg-slate-50 hover:bg-slate-100 transition-colors rounded-2xl">
+                    Login
+                  </div>
+                </Link>
+                <Link href="/get-started" onClick={() => setIsMobileMenuOpen(false)}>
+                  <div className="w-full py-4 text-center font-semibold text-white bg-[#0F172A] rounded-2xl">
+                    Get Started
+                  </div>
+                </Link>
+              </motion.div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </>
   );
 }

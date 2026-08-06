@@ -45,9 +45,11 @@ export function CTASection() {
               Get Started Now
             </button>
           </Link>
-          <button className="h-14 px-8 text-base font-semibold rounded-full border-2 border-white text-white hover:bg-white/10 transition-colors">
-            Contact Sales
-          </button>
+          <Link href="/contact">
+            <button className="h-14 px-8 text-base font-semibold rounded-full border-2 border-white text-white hover:bg-white/10 transition-colors">
+              Contact Sales
+            </button>
+          </Link>
         </motion.div>
       </div>
 

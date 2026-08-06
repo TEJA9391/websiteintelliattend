@@ -104,7 +104,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${inter.variable} h-full antialiased`}>
+    <html lang="en" className={`${inter.variable} antialiased`}>
       <head>
         <OrganizationJsonLd />
         <WebsiteJsonLd />
@@ -112,10 +112,10 @@ export default function RootLayout({
         <link rel="apple-touch-icon" href="/images/logo.png" />
         <link rel="manifest" href="/manifest.json" />
       </head>
-      <body className="min-h-full flex flex-col font-sans">
+      <body className="flex flex-col font-sans">
         <SmoothScrollProvider>
           <Navbar />
-          <main className="flex-1 relative">{children}</main>
+          <main className="flex-1 relative overflow-x-hidden">{children}</main>
           <Footer />
         </SmoothScrollProvider>
       </body>

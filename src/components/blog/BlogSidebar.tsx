@@ -20,7 +20,7 @@ export function BlogSidebar() {
   return (
     <div className="space-y-8">
       {/* Popular Topics */}
-      <div className="bg-white rounded-[1.5rem] p-6 border border-slate-100 shadow-xl shadow-slate-200/20">
+      <div className="apple-card p-8">
         <h3 className="text-lg font-extrabold text-[#0F172A] mb-5 tracking-tight">Popular Topics</h3>
         <div className="flex flex-wrap gap-2">
           {TOPICS.map((topic, i) => (
@@ -32,7 +32,7 @@ export function BlogSidebar() {
       </div>
 
       {/* Free Resources */}
-      <div className="bg-[#0F172A] rounded-[1.5rem] p-6 text-white shadow-xl relative overflow-hidden">
+      <div className="bg-[#0F172A] rounded-[32px] p-8 text-white relative overflow-hidden transition-transform duration-400 ease-out hover:scale-[1.02] hover:shadow-2xl">
         <div className="absolute top-0 right-0 w-32 h-32 bg-white opacity-5 rounded-full blur-2xl -mr-10 -mt-10 pointer-events-none"></div>
         <h3 className="text-lg font-extrabold mb-5 flex items-center gap-2 relative z-10">
           <Download className="w-5 h-5 text-primary" /> Free Downloads
@@ -50,7 +50,7 @@ export function BlogSidebar() {
       </div>
 
       {/* Newsletter */}
-      <div className="bg-gradient-to-br from-primary to-primary/80 rounded-[1.5rem] p-8 text-white shadow-xl shadow-primary/20 relative overflow-hidden">
+      <div className="bg-gradient-to-br from-primary to-primary/80 rounded-[32px] p-8 text-white relative overflow-hidden transition-transform duration-400 ease-out hover:scale-[1.02] hover:shadow-2xl">
         <div className="absolute top-0 right-0 w-48 h-48 bg-white opacity-10 rounded-full blur-3xl -mr-16 -mt-16 pointer-events-none"></div>
         <Mail className="w-8 h-8 mb-5 text-white/80 relative z-10" />
         <h3 className="text-xl font-extrabold mb-3 tracking-tight relative z-10">Stay Ahead of Education Innovation</h3>

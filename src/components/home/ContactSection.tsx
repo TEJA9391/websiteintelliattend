@@ -79,7 +79,7 @@ export function ContactSection() {
             className="relative"
           >
             <div className="absolute inset-0 bg-teal-50/50 rounded-[32px] transform rotate-3 scale-105" />
-            <div className="glass-card p-10 rounded-[32px] border border-[#0F172A]/[0.08] relative bg-white shadow-2xl shadow-slate-200/50">
+            <div className="apple-card p-10 relative">
 
               <AnimatePresence mode="wait">
                 {!isSuccess ? (

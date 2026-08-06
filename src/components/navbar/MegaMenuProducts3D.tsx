@@ -260,7 +260,7 @@ export function MegaMenuProducts3D({ isOpen }: { isOpen: boolean }) {
           : { opacity: 0, y: -15, filter: "blur(8px)", pointerEvents: "none" }
       }
       transition={{ duration: 0.5, ease: [0.19, 1, 0.22, 1] }}
-      className="absolute top-full left-0 right-0 w-full z-50 overflow-hidden bg-white shadow-[0_20px_40px_rgba(0,0,0,0.08)] border-t border-slate-100"
+      className="absolute top-full left-0 right-0 w-full z-50 overflow-hidden bg-white shadow-[0_20px_40px_rgba(0,0,0,0.08)]"
     >
       {/* Reduced padding from py-6 to py-4, and no hardcoded height */}
       <div className="mx-auto max-w-7xl px-6 lg:px-8 py-4 flex gap-10">

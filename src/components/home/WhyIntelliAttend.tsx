@@ -63,7 +63,7 @@ export function WhyIntelliAttend() {
 
         <div className="max-w-4xl mx-auto space-y-6">
           {comparisons.map((item, i) => (
-            <div key={i} className="glass-card rounded-[20px] p-5 flex items-center justify-between border border-[#0F172A]/[0.08] relative overflow-hidden">
+            <div key={i} className="apple-card p-6 flex items-center justify-between relative">
               <AnimatePresence mode="popLayout">
                 {!isModern ? (
                   <motion.div

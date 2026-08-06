@@ -50,7 +50,7 @@ export function HowItWorks() {
                 transition={{ duration: 0.6, delay: i * 0.2, ease: [0.16, 1, 0.3, 1] }}
                 className="relative z-10 flex flex-col items-center text-center"
               >
-                <div className="w-20 h-20 rounded-[24px] bg-white border border-[#0F172A]/[0.08] flex items-center justify-center shadow-lg shadow-[#0F172A]/[0.03] mb-6 group hover:scale-110 transition-transform duration-300">
+                <div className="apple-card w-20 h-20 flex items-center justify-center mb-6 group">
                   <step.icon className="w-8 h-8 text-slate-500 group-hover:scale-110 transition-transform duration-300" />
                 </div>
                 
