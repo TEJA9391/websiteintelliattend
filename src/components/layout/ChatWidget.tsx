@@ -155,14 +155,14 @@ export function ChatWidget() {
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               key={msg.id} 
-              className={\`flex \${msg.role === "user" ? "justify-end" : "justify-start"}\`}
+              className={`flex ${msg.role === "user" ? "justify-end" : "justify-start"}`}
             >
-              <div className={\`flex gap-3 max-w-[85%] \${msg.role === "user" ? "flex-row-reverse" : ""}\`}>
-                <div className={\`w-8 h-8 rounded-full flex items-center justify-center shrink-0 shadow-sm border \${msg.role === "user" ? "bg-white border-slate-200 text-slate-600" : "bg-gradient-to-br from-teal-400 to-emerald-500 border-transparent text-white"}\`}>
+              <div className={`flex gap-3 max-w-[85%] ${msg.role === "user" ? "flex-row-reverse" : ""}`}>
+                <div className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 shadow-sm border ${msg.role === "user" ? "bg-white border-slate-200 text-slate-600" : "bg-gradient-to-br from-teal-400 to-emerald-500 border-transparent text-white"}`}>
                   {msg.role === "user" ? <User className="w-4 h-4" /> : <Bot className="w-4 h-4" />}
                 </div>
                 <div className="flex flex-col gap-1.5">
-                  <div className={\`px-5 py-3.5 rounded-2xl text-[15px] shadow-sm \${msg.role === "user" ? "bg-slate-900 text-white rounded-tr-sm" : "bg-white text-slate-800 border border-slate-200/60 rounded-tl-sm"}\`}>
+                  <div className={`px-5 py-3.5 rounded-2xl text-[15px] shadow-sm ${msg.role === "user" ? "bg-slate-900 text-white rounded-tr-sm" : "bg-white text-slate-800 border border-slate-200/60 rounded-tl-sm"}`}>
                     <ReactMarkdown 
                       className="prose prose-sm prose-p:leading-relaxed prose-a:text-teal-600 prose-a:font-semibold hover:prose-a:text-teal-700 prose-strong:text-slate-900 prose-code:bg-slate-100 prose-code:text-slate-800 prose-code:px-1 prose-code:py-0.5 prose-code:rounded prose-ul:my-2 prose-li:my-0.5 max-w-none"
                     >
@@ -210,7 +210,7 @@ export function ChatWidget() {
           <button 
             type="button"
             onClick={toggleListen}
-            className={\`p-2.5 rounded-full transition-all shrink-0 \${isListening ? 'bg-rose-100 text-rose-500 animate-pulse' : 'bg-slate-50 text-slate-400 hover:bg-slate-100 hover:text-slate-600'}\`}
+            className={`p-2.5 rounded-full transition-all shrink-0 ${isListening ? 'bg-rose-100 text-rose-500 animate-pulse' : 'bg-slate-50 text-slate-400 hover:bg-slate-100 hover:text-slate-600'}`}
           >
             {isListening ? <Mic className="w-5 h-5" /> : <MicOff className="w-5 h-5" />}
           </button>
