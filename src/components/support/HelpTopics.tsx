@@ -1,4 +1,8 @@
+"use client";
+
 import { UserCircle, CheckCircle, MonitorPlay, GraduationCap, School, Shield, CreditCard, ChevronRight } from 'lucide-react';
+import Link from 'next/link';
+import { useSearchParams } from 'next/navigation';
 
 const TOPICS = [
   {
@@ -46,31 +50,48 @@ const TOPICS = [
 ];
 
 export function HelpTopics() {
+  const searchParams = useSearchParams();
+  const query = searchParams.get('q')?.toLowerCase() || '';
+
+  const filteredTopics = TOPICS.filter(topic => 
+    topic.title.toLowerCase().includes(query) || 
+    topic.desc.toLowerCase().includes(query) || 
+    topic.links.some(link => link.toLowerCase().includes(query))
+  );
+
   return (
     <section className="py-16 bg-white">
       <div className="container mx-auto px-4 max-w-7xl">
         <h2 className="text-2xl font-bold text-[#0F172A] mb-8 text-center">Popular Help Topics</h2>
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {TOPICS.map((topic, idx) => (
-            <div key={idx} className="bg-[#F8FAFC] rounded-2xl p-6 border border-slate-200 hover:border-primary/30 hover:bg-primary/5 transition-colors group cursor-pointer">
-              <div className="flex items-center gap-4 mb-4">
-                <div className="w-12 h-12 rounded-full bg-white border border-slate-200 shadow-sm flex items-center justify-center">
-                  {topic.icon}
+        {filteredTopics.length > 0 ? (
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {filteredTopics.map((topic, idx) => (
+              <div key={idx} className="bg-[#F8FAFC] rounded-2xl p-6 border border-slate-200 hover:border-primary/30 hover:bg-primary/5 transition-colors group cursor-pointer">
+                <div className="flex items-center gap-4 mb-4">
+                  <div className="w-12 h-12 rounded-full bg-white border border-slate-200 shadow-sm flex items-center justify-center">
+                    {topic.icon}
+                  </div>
+                  <h3 className="text-xl font-bold text-[#0F172A] group-hover:text-primary transition-colors">{topic.title}</h3>
                 </div>
-                <h3 className="text-xl font-bold text-[#0F172A] group-hover:text-primary transition-colors">{topic.title}</h3>
+                <p className="text-sm text-[#64748B] mb-4">{topic.desc}</p>
+                <ul className="space-y-2">
+                  {topic.links.map((link, i) => (
+                    <li key={i}>
+                      <Link href={`/support/article/${link.toLowerCase().replace(/ /g, '-')}`} className="text-sm font-medium text-[#64748B] flex items-center gap-1 hover:text-primary group-hover:text-[#0F172A]">
+                        <ChevronRight className="w-3.5 h-3.5 text-primary opacity-0 group-hover:opacity-100 transition-opacity" />
+                        {link}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
               </div>
-              <p className="text-sm text-[#64748B] mb-4">{topic.desc}</p>
-              <ul className="space-y-2">
-                {topic.links.map((link, i) => (
-                  <li key={i} className="text-sm font-medium text-[#64748B] flex items-center gap-1 group-hover:text-[#0F172A]">
-                    <ChevronRight className="w-3.5 h-3.5 text-primary opacity-0 group-hover:opacity-100 transition-opacity" />
-                    {link}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
+        ) : (
+          <div className="text-center py-12">
+            <p className="text-slate-500 font-medium">No help topics found matching your search.</p>
+          </div>
+        )}
       </div>
     </section>
   );
