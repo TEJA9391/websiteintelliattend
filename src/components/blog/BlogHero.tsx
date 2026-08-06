@@ -31,7 +31,7 @@ export function BlogHero() {
         {/* Categories */}
         <div className="flex flex-wrap justify-center gap-2 md:gap-3">
           {CATEGORIES.map((cat, i) => (
-            <button key={i} className={`px-4 py-2 rounded-full text-sm font-bold transition-all ${i === 0 ? 'bg-primary text-white shadow-lg shadow-primary/30' : 'bg-white text-[#64748B] border border-slate-200 hover:bg-slate-50 hover:text-[#0F172A] shadow-sm'}`}>
+            <button key={i} className={`px-4 py-2 rounded-full text-sm font-bold transition-all hover:scale-105 active:scale-95 cursor-pointer ${i === 0 ? 'bg-primary text-white shadow-lg shadow-primary/30' : 'bg-white text-[#64748B] border border-slate-200 hover:bg-slate-50 hover:text-[#0F172A] shadow-sm'}`}>
               {cat}
             </button>
           ))}
