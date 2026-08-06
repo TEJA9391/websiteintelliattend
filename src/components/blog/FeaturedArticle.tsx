@@ -14,9 +14,9 @@ export function FeaturedArticle() {
                src="/images/featured_ai_campus.png" 
                alt="AI Transforming Campus Management" 
                fill
-               className="object-cover transform group-hover:scale-105 transition-transform duration-700"
+               className="object-cover transform group-hover:scale-105 transition-transform duration-150"
              />
-             <div className="absolute inset-0 bg-teal-900/10 mix-blend-overlay group-hover:bg-transparent transition-colors duration-700 z-10"></div>
+             <div className="absolute inset-0 bg-teal-900/10 mix-blend-overlay group-hover:bg-transparent transition-colors duration-150 z-10"></div>
              <div className="absolute top-6 left-6 bg-white/90 backdrop-blur px-4 py-1.5 rounded-full text-xs font-black tracking-widest uppercase text-slate-500 shadow-sm z-20 flex items-center gap-2">
                <span className="w-2 h-2 rounded-full bg-teal-600 animate-pulse"></span> Featured Article
              </div>

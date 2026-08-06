@@ -37,16 +37,16 @@ export function CTASection() {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ delay: 0.2 }}
+          transition={{ delay: 0.1 }}
           className="flex flex-col sm:flex-row gap-4 justify-center"
         >
           <Link href="/get-started">
-            <button className="h-14 px-8 text-base font-semibold rounded-full bg-white text-slate-600 hover:bg-slate-50 hover:scale-105 active:scale-95 transition-all duration-300 shadow-xl hover:shadow-2xl cursor-pointer">
+            <button className="h-14 px-8 text-base font-semibold rounded-full bg-white text-slate-600 hover:bg-slate-50 hover:scale-105 active:scale-95 transition-all duration-150 shadow-xl hover:shadow-2xl cursor-pointer">
               Get Started Now
             </button>
           </Link>
           <Link href="/#contact">
-            <button className="h-14 px-8 text-base font-semibold rounded-full border-2 border-white text-white hover:bg-white hover:text-primary hover:scale-105 active:scale-95 transition-all duration-300 cursor-pointer">
+            <button className="h-14 px-8 text-base font-semibold rounded-full border-2 border-white text-white hover:bg-white hover:text-primary hover:scale-105 active:scale-95 transition-all duration-150 cursor-pointer">
               Contact Sales
             </button>
           </Link>

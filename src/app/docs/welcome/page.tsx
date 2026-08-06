@@ -70,7 +70,7 @@ export default function WelcomeDocPage() {
               <span>Last updated: August 2026</span>
               
               {feedbackState === 'submitted' ? (
-                <div className="flex items-center gap-2 text-slate-700 animate-in fade-in zoom-in duration-300">
+                <div className="flex items-center gap-2 text-slate-700 animate-in fade-in zoom-in duration-150">
                   <CheckCircle2 className="w-4 h-4 text-emerald-500" />
                   <span className="font-medium">Thanks for your feedback.</span>
                 </div>

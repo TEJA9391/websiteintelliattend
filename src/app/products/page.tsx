@@ -56,7 +56,7 @@ export default function ProductsOverview() {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+            transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
           >
             <div className="inline-flex items-center rounded-full px-4 py-1.5 text-sm font-semibold text-slate-500 bg-primary/10 mb-8 border border-primary/20">
               <Sparkles className="w-4 h-4 mr-2" />
@@ -88,8 +88,8 @@ export default function ProductsOverview() {
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ delay: i * 0.1, duration: 0.5 }}
-                className="bg-slate-50 rounded-[28px] p-8 border border-slate-100 hover:shadow-xl hover:shadow-primary/10 transition-all duration-300 group"
+                transition={{ delay: i * 0.1, duration: 0.2 }}
+                className="bg-slate-50 rounded-[28px] p-8 border border-slate-100 hover:shadow-xl hover:shadow-primary/10 transition-all duration-150 group"
               >
                 <div className="w-12 h-12 rounded-2xl bg-white shadow-sm flex items-center justify-center mb-6 group-hover:scale-110 transition-transform text-slate-500 border border-slate-100">
                   <highlight.icon className="w-6 h-6" />
@@ -120,7 +120,7 @@ export default function ProductsOverview() {
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ delay: i * 0.1, duration: 0.5 }}
+                transition={{ delay: i * 0.1, duration: 0.2 }}
                 className="text-center px-4"
               >
                 <div className="text-4xl md:text-5xl font-bold text-text-main mb-2 font-mono tracking-tight">
@@ -177,9 +177,9 @@ export default function ProductsOverview() {
             {/* Middle Row Nodes with short vertical connectors */}
             <div className="flex justify-between w-full max-w-4xl">
               {[
-                { icon: Users, title: "Faculty", delay: 0.2 },
-                { icon: GraduationCap, title: "Students", delay: 0.3 },
-                { icon: MonitorPlay, title: "SmartBoard", delay: 0.4 },
+                { icon: Users, title: "Faculty", delay: 0.1 },
+                { icon: GraduationCap, title: "Students", delay: 0.1 },
+                { icon: MonitorPlay, title: "SmartBoard", delay: 0.15 },
                 { icon: BarChart3, title: "Analytics", delay: 0.5 },
               ].map((node, i) => (
                 <div key={i} className="flex flex-col items-center relative">
@@ -295,12 +295,12 @@ export default function ProductsOverview() {
               
               <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
                 <Link href="/get-started">
-                  <button className="px-8 py-4 bg-white text-slate-500 rounded-full font-bold text-lg hover:scale-105 active:scale-95 transition-all duration-300 shadow-xl cursor-pointer">
+                  <button className="px-8 py-4 bg-white text-slate-500 rounded-full font-bold text-lg hover:scale-105 active:scale-95 transition-all duration-150 shadow-xl cursor-pointer">
                     Get Started
                   </button>
                 </Link>
                 <Link href="/#contact">
-                  <button className="px-8 py-4 bg-accent/20 text-white border border-accent/30 rounded-full font-bold text-lg hover:bg-accent/30 hover:scale-105 active:scale-95 transition-all duration-300 backdrop-blur-sm cursor-pointer">
+                  <button className="px-8 py-4 bg-accent/20 text-white border border-accent/30 rounded-full font-bold text-lg hover:bg-accent/30 hover:scale-105 active:scale-95 transition-all duration-150 backdrop-blur-sm cursor-pointer">
                     Schedule a Demo
                   </button>
                 </Link>

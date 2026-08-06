@@ -67,7 +67,7 @@ export default function K12Solution() {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+            transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
           >
             <div className="inline-flex items-center rounded-full px-4 py-1.5 text-sm font-semibold text-slate-500 bg-primary/10 mb-8 border border-primary/20">
               <School className="w-4 h-4 mr-2" />
@@ -82,12 +82,12 @@ export default function K12Solution() {
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
               <Link href="/#contact">
-                <button className="px-8 py-4 bg-primary text-white rounded-full font-bold text-lg hover:bg-accent hover:scale-105 active:scale-95 transition-all duration-300 shadow-xl shadow-primary/20 cursor-pointer">
+                <button className="px-8 py-4 bg-primary text-white rounded-full font-bold text-lg hover:bg-accent hover:scale-105 active:scale-95 transition-all duration-150 shadow-xl shadow-primary/20 cursor-pointer">
                   Request a Demo
                 </button>
               </Link>
               <Link href="/solutions">
-                <button className="px-8 py-4 bg-white text-text-main border border-slate-200 rounded-full font-bold text-lg hover:bg-slate-50 hover:scale-105 active:scale-95 transition-all duration-300 shadow-sm cursor-pointer">
+                <button className="px-8 py-4 bg-white text-text-main border border-slate-200 rounded-full font-bold text-lg hover:bg-slate-50 hover:scale-105 active:scale-95 transition-all duration-150 shadow-sm cursor-pointer">
                   Explore School Solutions
                 </button>
               </Link>
@@ -229,7 +229,7 @@ export default function K12Solution() {
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true, margin: "-50px" }}
-                    transition={{ delay: i * 0.1, duration: 0.5 }}
+                    transition={{ delay: i * 0.1, duration: 0.2 }}
                     className={`w-full max-w-sm p-5 rounded-2xl border backdrop-blur-md flex items-center justify-center relative z-10 ${
                       step.highlight 
                         ? "bg-primary/20 border-primary/50 shadow-[0_0_30px_rgba(45,212,191,0.2)]" 
@@ -392,12 +392,12 @@ export default function K12Solution() {
               
               <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
                 <Link href="/#contact">
-                  <button className="px-8 py-4 bg-white text-slate-500 rounded-full font-bold text-lg hover:scale-105 active:scale-95 transition-all duration-300 shadow-xl cursor-pointer">
+                  <button className="px-8 py-4 bg-white text-slate-500 rounded-full font-bold text-lg hover:scale-105 active:scale-95 transition-all duration-150 shadow-xl cursor-pointer">
                     Schedule a Demo
                   </button>
                 </Link>
                 <Link href="/#contact">
-                  <button className="px-8 py-4 bg-accent/20 text-white border border-accent/30 rounded-full font-bold text-lg hover:bg-accent/30 hover:scale-105 active:scale-95 transition-all duration-300 backdrop-blur-sm cursor-pointer">
+                  <button className="px-8 py-4 bg-accent/20 text-white border border-accent/30 rounded-full font-bold text-lg hover:bg-accent/30 hover:scale-105 active:scale-95 transition-all duration-150 backdrop-blur-sm cursor-pointer">
                     Contact Our Team
                   </button>
                 </Link>

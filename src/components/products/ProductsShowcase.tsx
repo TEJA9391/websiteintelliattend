@@ -70,7 +70,7 @@ export function ProductsShowcase() {
                 initial={{ opacity: 0, x: item.reverse ? 40 : -40 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true, margin: "-100px" }}
-                transition={{ duration: 0.6, ease: "easeOut" }}
+                transition={{ duration: 0.25, ease: "easeOut" }}
                 className="w-full lg:w-1/2 flex flex-col justify-center"
               >
                 <div className="inline-flex items-center rounded-full px-3 py-1 text-sm font-semibold text-primary bg-primary/10 border border-primary/20 mb-6 w-fit">
@@ -90,7 +90,7 @@ export function ProductsShowcase() {
                 initial={{ opacity: 0, x: item.reverse ? -40 : 40, scale: 0.95 }}
                 whileInView={{ opacity: 1, x: 0, scale: 1 }}
                 viewport={{ once: true, margin: "-100px" }}
-                transition={{ duration: 0.6, ease: "easeOut", delay: 0.2 }}
+                transition={{ duration: 0.25, ease: "easeOut", delay: 0.1 }}
                 className="w-full lg:w-1/2 relative"
               >
                 <div className="relative aspect-[4/3] w-full bg-slate-50 rounded-3xl overflow-hidden shadow-2xl shadow-primary/5 border border-slate-100">
@@ -98,7 +98,7 @@ export function ProductsShowcase() {
                     src={item.image}
                     alt={item.title}
                     fill
-                    className="object-cover transition-transform duration-700 hover:scale-105"
+                    className="object-cover transition-transform duration-150 hover:scale-105"
                   />
                   {/* Subtle glare effect */}
                   <div className="absolute inset-0 bg-gradient-to-tr from-white/0 via-white/20 to-white/0 pointer-events-none" />

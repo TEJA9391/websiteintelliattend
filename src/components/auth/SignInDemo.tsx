@@ -253,7 +253,7 @@ const SignInCard = () => {
       <motion.div
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 0.5 }}
+        transition={{ duration: 0.2 }}
         className="w-full max-w-4xl overflow-hidden rounded-2xl flex bg-white shadow-xl"
       >
         {/* Left side - Map */}
@@ -266,7 +266,7 @@ const SignInCard = () => {
               <motion.div 
                 initial={{ opacity: 0, y: -20 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.6, duration: 0.5 }}
+                transition={{ delay: 0.6, duration: 0.2 }}
                 className="mb-6"
               >
                 <div className="h-12 w-12 rounded-full bg-gradient-to-br from-teal-500 to-teal-600 flex items-center justify-center shadow-lg shadow-teal-200">
@@ -276,7 +276,7 @@ const SignInCard = () => {
               <motion.h2 
                 initial={{ opacity: 0, y: -20 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.7, duration: 0.5 }}
+                transition={{ delay: 0.7, duration: 0.2 }}
                 className="text-3xl font-bold mb-2 text-center text-transparent bg-clip-text bg-gradient-to-r from-teal-600 to-teal-600"
               >
                 IntelliAttend
@@ -284,7 +284,7 @@ const SignInCard = () => {
               <motion.p 
                 initial={{ opacity: 0, y: -20 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.8, duration: 0.5 }}
+                transition={{ delay: 0.8, duration: 0.2 }}
                 className="text-sm text-center text-gray-600 max-w-xs"
               >
                 Sign in to access your campus management dashboard
@@ -298,14 +298,14 @@ const SignInCard = () => {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
+            transition={{ duration: 0.2 }}
           >
             <h1 className="text-2xl md:text-3xl font-bold mb-1 text-gray-800">Welcome back</h1>
             <p className="text-gray-500 mb-8">Sign in to your account</p>
             
             <div className="mb-6">
               <button 
-                className="w-full flex items-center justify-center gap-2 bg-gray-50 border border-gray-200 rounded-lg p-3 hover:bg-gray-100 transition-all duration-300 text-gray-700 shadow-sm"
+                className="w-full flex items-center justify-center gap-2 bg-gray-50 border border-gray-200 rounded-lg p-3 hover:bg-gray-100 transition-all duration-150 text-gray-700 shadow-sm"
                 onClick={() => console.log("Google sign-in")}
               >
                 <svg className="h-5 w-5" viewBox="0 0 24 24">
@@ -391,7 +391,7 @@ const SignInCard = () => {
                 <Button
                   type="submit"
                   className={cn(
-                    "w-full bg-gradient-to-r relative overflow-hidden from-teal-500 to-teal-600 hover:from-teal-600 hover:to-teal-700 text-white py-2 rounded-lg transition-all duration-300",
+                    "w-full bg-gradient-to-r relative overflow-hidden from-teal-500 to-teal-600 hover:from-teal-600 hover:to-teal-700 text-white py-2 rounded-lg transition-all duration-150",
                     isHovered ? "shadow-lg shadow-teal-200" : ""
                   )}
                   onClick={(e) => {

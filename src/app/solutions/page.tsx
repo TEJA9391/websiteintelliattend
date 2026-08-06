@@ -10,7 +10,7 @@ export default function SolutionsOverview() {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
+            transition={{ duration: 0.2 }}
           >
             <div className="inline-flex items-center rounded-full px-3 py-1 text-sm font-semibold text-slate-500 bg-primary/10 mb-6">
               Solutions Overview

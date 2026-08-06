@@ -15,7 +15,7 @@ export function BlogCTA() {
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-gradient-to-b from-teal-50 to-transparent rounded-full blur-3xl opacity-50 pointer-events-none"></div>
       
       <div className="container mx-auto px-4 text-center max-w-4xl relative z-10">
-        <div className="w-20 h-20 bg-white shadow-xl shadow-slate-200/50 border border-slate-100 text-primary rounded-[1.5rem] flex items-center justify-center mx-auto mb-8 transform -rotate-3 hover:rotate-0 hover:scale-110 transition-all duration-300">
+        <div className="w-20 h-20 bg-white shadow-xl shadow-slate-200/50 border border-slate-100 text-primary rounded-[1.5rem] flex items-center justify-center mx-auto mb-8 transform -rotate-3 hover:rotate-0 hover:scale-110 transition-all duration-150">
           <BrainCircuit className="w-10 h-10" />
         </div>
         <h2 className="text-4xl md:text-5xl font-extrabold text-[#0F172A] mb-6 tracking-tight">

@@ -44,6 +44,7 @@ export function AIFeatures() {
         
         <div className="text-center max-w-3xl mx-auto mb-20">
           <motion.h2 
+            layout
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -51,13 +52,14 @@ export function AIFeatures() {
           >
             Everything{" "}
             <span className="inline-flex items-center relative h-[1.2em] align-bottom">
-              <AnimatePresence mode="wait">
+              <AnimatePresence mode="popLayout">
                 <motion.span
+                  layout
                   key={flipIndex}
-                  initial={{ opacity: 0, y: 10 }}
+                  initial={{ opacity: 0, y: 15 }}
                   animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -10 }}
-                  transition={{ duration: 0.5, ease: "easeInOut" }}
+                  exit={{ opacity: 0, y: -15 }}
+                  transition={{ duration: 0.3, ease: "easeInOut" }}
                   className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent whitespace-nowrap"
                 >
                   {flipWords[flipIndex]}
@@ -78,12 +80,12 @@ export function AIFeatures() {
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: i * 0.05, duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+              transition={{ delay: i * 0.05, duration: 0.2, ease: [0.16, 1, 0.3, 1] }}
               className="apple-card p-8 group relative cursor-pointer"
             >
               
               <div className="relative z-10 pointer-events-none">
-                <motion.div layoutId={`icon-${feature.title}`} className="w-12 h-12 rounded-2xl bg-teal-50 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300 ease-out">
+                <motion.div layoutId={`icon-${feature.title}`} className="w-12 h-12 rounded-2xl bg-teal-50 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-150 ease-out">
                   <feature.icon className="w-6 h-6 text-teal-600" />
                 </motion.div>
                 

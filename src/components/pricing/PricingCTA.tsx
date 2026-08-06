@@ -19,10 +19,10 @@ export function PricingCTA() {
           Join institutions that are simplifying attendance, classroom management, and academic operations with IntelliAttend.
         </p>
         <div className="flex flex-col sm:flex-row justify-center items-center gap-4">
-          <Button asChild size="lg" className="w-full sm:w-auto shadow-lg shadow-primary/20 hover:scale-105 active:scale-95 transition-all duration-300 cursor-pointer">
+          <Button asChild size="lg" className="w-full sm:w-auto shadow-lg shadow-primary/20 hover:scale-105 active:scale-95 transition-all duration-150 cursor-pointer">
             <Link href="/#contact">Schedule a Demo</Link>
           </Button>
-          <Button asChild size="lg" variant="outline" className="w-full sm:w-auto bg-white hover:bg-slate-50 hover:scale-105 active:scale-95 transition-all duration-300 cursor-pointer">
+          <Button asChild size="lg" variant="outline" className="w-full sm:w-auto bg-white hover:bg-slate-50 hover:scale-105 active:scale-95 transition-all duration-150 cursor-pointer">
             <Link href="/#contact">Talk to Sales</Link>
           </Button>
         </div>
