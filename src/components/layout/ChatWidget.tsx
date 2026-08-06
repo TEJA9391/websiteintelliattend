@@ -7,30 +7,97 @@ type Message = {
   id: string;
   role: "bot" | "user";
   text: string;
+  isHtml?: boolean;
 };
 
-// Simulated AI Logic
-const getBotResponse = (input: string): string => {
-  const query = input.toLowerCase();
-  
-  if (query.includes("pricing") || query.includes("cost") || query.includes("price")) {
-    return "Our pricing is tailored to the size of your institution. We offer Starter, Professional, and Enterprise tiers. Please visit our Pricing page for more details, or I can connect you with sales!";
+// Simulated Knowledge Base for Advanced AI
+const KNOWLEDGE_BASE = [
+  {
+    keywords: ["pricing", "cost", "price", "how much", "plans", "subscription"],
+    response: "Our pricing is tailored to the size of your institution. We offer Starter, Professional, and Enterprise tiers. Please visit our <a href='/#pricing' class='text-teal-600 underline font-bold'>Pricing page</a> for details, or contact sales.",
+    score: 0
+  },
+  {
+    keywords: ["smartboard", "board", "display", "interactive", "screen", "present"],
+    response: "IntelliAttend integrates seamlessly with modern SmartBoards! Faculty can share presentations, annotate in real-time, and sync everything to the cloud automatically.",
+    score: 0
+  },
+  {
+    keywords: ["attendance", "absent", "present", "roll", "register", "tracking"],
+    response: "Our digital attendance system uses smart AI algorithms and optionally RFID/Bluetooth to record attendance in seconds with 99.9% accuracy. No more paper registers!",
+    score: 0
+  },
+  {
+    keywords: ["faculty", "teacher", "professor", "educator"],
+    response: "Faculty get a dedicated portal to manage classes, take attendance with one tap, grade assignments, and communicate with students directly.",
+    score: 0
+  },
+  {
+    keywords: ["student", "pupil", "learner"],
+    response: "Students get a mobile-friendly app to check their real-time attendance, view timetables, submit assignments, and receive instant push notifications for class changes.",
+    score: 0
+  },
+  {
+    keywords: ["admin", "administration", "report", "analytics", "data"],
+    response: "Administrators have access to a powerful dashboard with predictive analytics. You can track campus-wide attendance trends, manage permissions, and export compliance reports instantly.",
+    score: 0
+  },
+  {
+    keywords: ["support", "help", "contact", "issue", "bug", "problem", "error"],
+    response: "I can help with basic questions, but for technical issues, please visit our <a href='/support' class='text-teal-600 underline font-bold'>Help Center</a> or email support@intelliattend.ai.",
+    score: 0
+  },
+  {
+    keywords: ["hello", "hi", "hey", "greetings", "morning", "afternoon"],
+    response: "Hello there! I'm the IntelliAttend AI assistant. I can answer questions about our features, pricing, or support. What would you like to know?",
+    score: 0
+  },
+  {
+    keywords: ["demo", "try", "book", "meeting", "sales"],
+    response: "We'd love to show you around! You can book a live demonstration of the platform with one of our product experts. <a href='/book-demo' class='text-teal-600 underline font-bold'>Click here to book a demo.</a>",
+    score: 0
   }
+];
+
+// Advanced scoring algorithm to find the best response
+const getBotResponse = (input: string): { text: string, isHtml: boolean } => {
+  const queryWords = input.toLowerCase().replace(/[^a-z0-9 ]/g, "").split(" ");
   
-  if (query.includes("smartboard") || query.includes("board")) {
-    return "IntelliAttend integrates seamlessly with modern SmartBoards! Faculty can share presentations, annotate in real-time, and sync everything to the cloud automatically.";
-  }
-  
-  if (query.includes("attendance") || query.includes("absent")) {
-    return "Our digital attendance system uses smart AI algorithms and optionally RFID/Bluetooth to record attendance in seconds with 99.9% accuracy. No more paper registers!";
+  let bestMatch = null;
+  let highestScore = 0;
+
+  KNOWLEDGE_BASE.forEach(entry => {
+    let currentScore = 0;
+    queryWords.forEach(word => {
+      if (word.length > 2 && entry.keywords.includes(word)) {
+        currentScore += 2; // Direct match
+      } else if (word.length > 3 && entry.keywords.some(kw => kw.includes(word) || word.includes(kw))) {
+        currentScore += 1; // Partial match
+      }
+    });
+
+    if (currentScore > highestScore) {
+      highestScore = currentScore;
+      bestMatch = entry;
+    }
+  });
+
+  if (bestMatch && highestScore > 0) {
+    return { text: (bestMatch as any).response, isHtml: true };
   }
 
-  if (query.includes("hello") || query.includes("hi") || query.includes("hey")) {
-    return "Hello there! I'm the IntelliAttend AI assistant. How can I help you transform your campus today?";
-  }
-
-  return "That's a great question! IntelliAttend is a comprehensive platform designed to streamline all aspects of campus management. To give you the best answer, I'd recommend checking our Support Help Center or speaking with one of our experts.";
+  return { 
+    text: "That's a great question! IntelliAttend is a comprehensive platform designed to streamline all aspects of campus management. To give you the best answer, I'd recommend checking our <a href='/support' class='text-teal-600 underline font-bold'>Help Center</a> or speaking with an expert.", 
+    isHtml: true 
+  };
 };
+
+const QUICK_REPLIES = [
+  "How much does it cost?",
+  "Tell me about SmartBoards",
+  "How does attendance work?",
+  "Book a Demo"
+];
 
 export function ChatWidget() {
   const [isOpen, setIsOpen] = useState(false);
@@ -55,14 +122,21 @@ export function ChatWidget() {
     }
   }, [messages, isTyping, isOpen]);
 
-  const handleSendMessage = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!inputValue.trim()) return;
+  const handleSendMessage = (textOrEvent: React.FormEvent | string) => {
+    let textToSubmit = "";
+    if (typeof textOrEvent === "string") {
+      textToSubmit = textOrEvent;
+    } else {
+      textOrEvent.preventDefault();
+      textToSubmit = inputValue;
+    }
+
+    if (!textToSubmit.trim()) return;
 
     const userMessage: Message = {
       id: Date.now().toString(),
       role: "user",
-      text: inputValue.trim(),
+      text: textToSubmit.trim(),
     };
 
     setMessages((prev) => [...prev, userMessage]);
@@ -71,14 +145,16 @@ export function ChatWidget() {
 
     // Simulate network delay and AI processing
     setTimeout(() => {
+      const response = getBotResponse(userMessage.text);
       const botResponse: Message = {
         id: (Date.now() + 1).toString(),
         role: "bot",
-        text: getBotResponse(userMessage.text),
+        text: response.text,
+        isHtml: response.isHtml
       };
       setMessages((prev) => [...prev, botResponse]);
       setIsTyping(false);
-    }, 1200);
+    }, 1200 + Math.random() * 800); // Random delay for realism
   };
 
   if (!isOpen) return null;
@@ -114,8 +190,12 @@ export function ChatWidget() {
               <div className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 ${msg.role === "user" ? "bg-slate-200 text-slate-600" : "bg-teal-100 text-teal-600"}`}>
                 {msg.role === "user" ? <User className="w-4 h-4" /> : <Bot className="w-4 h-4" />}
               </div>
-              <div className={`px-4 py-2.5 rounded-2xl text-sm ${msg.role === "user" ? "bg-primary text-white rounded-tr-sm" : "bg-white text-slate-700 border border-slate-200 rounded-tl-sm"}`}>
-                {msg.text}
+              <div className={`px-4 py-2.5 rounded-2xl text-sm ${msg.role === "user" ? "bg-primary text-white rounded-tr-sm" : "bg-white text-slate-700 border border-slate-200 rounded-tl-sm shadow-sm"}`}>
+                {msg.isHtml ? (
+                  <div dangerouslySetInnerHTML={{ __html: msg.text }} className="leading-relaxed" />
+                ) : (
+                  msg.text
+                )}
               </div>
             </div>
           </div>
@@ -126,7 +206,7 @@ export function ChatWidget() {
               <div className="w-8 h-8 rounded-full flex items-center justify-center shrink-0 bg-teal-100 text-teal-600">
                 <Bot className="w-4 h-4" />
               </div>
-              <div className="px-4 py-3 rounded-2xl bg-white border border-slate-200 rounded-tl-sm flex items-center gap-1">
+              <div className="px-4 py-3 rounded-2xl bg-white border border-slate-200 rounded-tl-sm shadow-sm flex items-center gap-1">
                 <span className="w-1.5 h-1.5 bg-slate-400 rounded-full animate-bounce [animation-delay:-0.3s]"></span>
                 <span className="w-1.5 h-1.5 bg-slate-400 rounded-full animate-bounce [animation-delay:-0.15s]"></span>
                 <span className="w-1.5 h-1.5 bg-slate-400 rounded-full animate-bounce"></span>
@@ -136,6 +216,21 @@ export function ChatWidget() {
         )}
         <div ref={messagesEndRef} />
       </div>
+
+      {/* Quick Replies */}
+      {messages[messages.length - 1].role === "bot" && !isTyping && (
+        <div className="px-4 pb-2 pt-1 bg-slate-50 flex gap-2 overflow-x-auto whitespace-nowrap scrollbar-hide">
+          {QUICK_REPLIES.map((reply, i) => (
+            <button
+              key={i}
+              onClick={() => handleSendMessage(reply)}
+              className="text-xs font-medium text-teal-700 bg-teal-50 border border-teal-100 rounded-full px-3 py-1.5 hover:bg-teal-100 hover:border-teal-200 transition-colors shrink-0"
+            >
+              {reply}
+            </button>
+          ))}
+        </div>
+      )}
 
       {/* Input */}
       <form onSubmit={handleSendMessage} className="p-3 bg-white border-t border-slate-200 flex items-center gap-2">
