@@ -45,7 +45,7 @@ export function CTASection() {
               Get Started Now
             </button>
           </Link>
-          <Link href="/contact">
+          <Link href="/#contact">
             <button className="h-14 px-8 text-base font-semibold rounded-full border-2 border-white text-white hover:bg-white hover:text-primary hover:scale-105 active:scale-95 transition-all duration-300 cursor-pointer">
               Contact Sales
             </button>

@@ -288,7 +288,7 @@ export default function SmartBoardPage() {
               </p>
               
               <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-                <Link href="/contact">
+                <Link href="/#contact">
                   <button className="px-8 py-4 bg-white text-slate-500 rounded-full font-bold text-lg hover:scale-105 transition-transform shadow-xl">
                     Book a Demo
                   </button>
