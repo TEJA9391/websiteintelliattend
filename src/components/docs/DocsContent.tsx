@@ -1,5 +1,8 @@
+"use client";
+
 import { ArrowRight, BookOpen, MonitorSmartphone, Users, GraduationCap, Building2, LogIn, LayoutDashboard, BadgeCheck, FolderOpen, FileBarChart } from 'lucide-react';
 import Link from 'next/link';
+import { useSearchParams } from 'next/navigation';
 
 const PLATFORM_OVERVIEW = [
   {
@@ -40,6 +43,21 @@ const FAQS = [
 ];
 
 export function DocsContent() {
+  const searchParams = useSearchParams();
+  const query = searchParams.get('q')?.toLowerCase() || '';
+
+  const filteredOverview = PLATFORM_OVERVIEW.filter(item => 
+    item.title.toLowerCase().includes(query) || item.desc.toLowerCase().includes(query)
+  );
+
+  const filteredGuides = QUICK_GUIDES.filter(guide => 
+    guide.title.toLowerCase().includes(query) || guide.desc.toLowerCase().includes(query)
+  );
+
+  const filteredFaqs = FAQS.filter(faq => 
+    faq.q.toLowerCase().includes(query) || faq.a.toLowerCase().includes(query)
+  );
+
   return (
     <div className="max-w-4xl mx-auto space-y-20">
       
@@ -56,57 +74,69 @@ export function DocsContent() {
           <p className="text-slate-600 text-lg leading-relaxed mb-8">
             IntelliAttend is an AI-powered campus management platform designed to simplify attendance, classroom management, SmartBoard integration, and academic workflows for educational institutions.
           </p>
-          <button className="text-slate-500 font-bold flex items-center gap-2 hover:gap-3 transition-all">
+          <Link href="/docs/welcome" className="inline-flex text-slate-500 font-bold items-center gap-2 hover:gap-3 transition-all hover:text-teal-600">
             Learn More <ArrowRight className="w-4 h-4" />
-          </button>
+          </Link>
         </div>
       </section>
 
       {/* Platform Overview */}
       <section>
         <h2 className="text-sm font-extrabold text-slate-400 mb-6 uppercase tracking-wider">Platform Overview</h2>
-        <div className="grid md:grid-cols-2 gap-6">
-          {PLATFORM_OVERVIEW.map((item, idx) => (
-            <div key={idx} className="bg-slate-50 rounded-2xl p-6 border border-slate-100 hover:border-slate-300 transition-colors">
-              <div className="flex items-center gap-3 mb-4">
-                <div className="w-10 h-10 bg-white rounded-lg shadow-sm border border-slate-100 flex items-center justify-center">
-                  {item.icon}
+        {filteredOverview.length > 0 ? (
+          <div className="grid md:grid-cols-2 gap-6">
+            {filteredOverview.map((item, idx) => (
+              <div key={idx} className="bg-slate-50 rounded-2xl p-6 border border-slate-100 hover:border-slate-300 transition-colors">
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="w-10 h-10 bg-white rounded-lg shadow-sm border border-slate-100 flex items-center justify-center">
+                    {item.icon}
+                  </div>
+                  <h3 className="text-xl font-bold text-slate-900">{item.title}</h3>
                 </div>
-                <h3 className="text-xl font-bold text-slate-900">{item.title}</h3>
+                <p className="text-slate-600 leading-relaxed">{item.desc}</p>
               </div>
-              <p className="text-slate-600 leading-relaxed">{item.desc}</p>
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
+        ) : (
+          <p className="text-slate-500 italic">No overview items match your search.</p>
+        )}
       </section>
 
       {/* Quick Guides */}
       <section>
         <h2 className="text-sm font-extrabold text-slate-400 mb-6 uppercase tracking-wider">Quick Guides</h2>
-        <div className="bg-white rounded-3xl border border-slate-200 shadow-sm overflow-hidden divide-y divide-slate-100">
-          {QUICK_GUIDES.map((guide, idx) => (
-            <div key={idx} className="p-6 flex items-start gap-4 hover:bg-slate-50 transition-colors cursor-pointer group">
-              <div className="mt-1">{guide.icon}</div>
-              <div>
-                <h3 className="text-lg font-bold text-slate-900 group-hover:text-slate-500 transition-colors">{guide.title}</h3>
-                <p className="text-slate-600 mt-1">{guide.desc}</p>
+        {filteredGuides.length > 0 ? (
+          <div className="bg-white rounded-3xl border border-slate-200 shadow-sm overflow-hidden divide-y divide-slate-100">
+            {filteredGuides.map((guide, idx) => (
+              <div key={idx} className="p-6 flex items-start gap-4 hover:bg-slate-50 transition-colors cursor-pointer group">
+                <div className="mt-1">{guide.icon}</div>
+                <div>
+                  <h3 className="text-lg font-bold text-slate-900 group-hover:text-slate-500 transition-colors">{guide.title}</h3>
+                  <p className="text-slate-600 mt-1">{guide.desc}</p>
+                </div>
               </div>
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
+        ) : (
+          <p className="text-slate-500 italic">No guides match your search.</p>
+        )}
       </section>
 
       {/* FAQs */}
       <section>
         <h2 className="text-sm font-extrabold text-slate-400 mb-6 uppercase tracking-wider">Frequently Asked Questions</h2>
-        <div className="space-y-6">
-          {FAQS.map((faq, idx) => (
-            <div key={idx} className="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm">
-              <h3 className="text-lg font-bold text-slate-900 mb-2">{faq.q}</h3>
-              <p className="text-slate-600">{faq.a}</p>
-            </div>
-          ))}
-        </div>
+        {filteredFaqs.length > 0 ? (
+          <div className="space-y-6">
+            {filteredFaqs.map((faq, idx) => (
+              <div key={idx} className="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm">
+                <h3 className="text-lg font-bold text-slate-900 mb-2">{faq.q}</h3>
+                <p className="text-slate-600">{faq.a}</p>
+              </div>
+            ))}
+          </div>
+        ) : (
+          <p className="text-slate-500 italic">No FAQs match your search.</p>
+        )}
       </section>
 
       {/* CTA */}
