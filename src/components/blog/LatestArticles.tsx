@@ -58,8 +58,8 @@ export function LatestArticles() {
             <div className="flex items-center gap-1.5 text-xs font-bold text-[#64748B]">
               <Clock className="w-4 h-4" /> {article.read} read
             </div>
-            <div className="w-8 h-8 rounded-full bg-slate-50 flex items-center justify-center group-hover:bg-primary transition-colors">
-              <ArrowRight className="w-4 h-4 text-[#64748B] group-hover:text-white transition-colors" />
+            <div className="flex items-center gap-2 text-primary font-bold group-hover:gap-3 transition-all uppercase tracking-wide text-[11px] lg:text-xs">
+              Read Full Article <ArrowRight className="w-4 h-4" />
             </div>
           </div>
           
