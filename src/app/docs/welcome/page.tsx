@@ -1,7 +1,12 @@
+"use client";
+
+import { useState } from "react";
 import { ArrowLeft, BookOpen, CheckCircle2 } from "lucide-react";
 import Link from "next/link";
 
 export default function WelcomeDocPage() {
+  const [feedbackState, setFeedbackState] = useState<null | 'submitted'>(null);
+
   return (
     <div className="min-h-screen bg-slate-50 pt-24 pb-20">
       <div className="container mx-auto px-4 max-w-3xl">
@@ -63,7 +68,29 @@ export default function WelcomeDocPage() {
 
             <div className="mt-12 pt-8 border-t border-slate-100 flex items-center justify-between text-sm text-slate-500">
               <span>Last updated: August 2026</span>
-              <button className="hover:text-slate-900 font-medium transition-colors">Was this helpful?</button>
+              
+              {feedbackState === 'submitted' ? (
+                <div className="flex items-center gap-2 text-slate-700 animate-in fade-in zoom-in duration-300">
+                  <CheckCircle2 className="w-4 h-4 text-emerald-500" />
+                  <span className="font-medium">Thanks for your feedback.</span>
+                </div>
+              ) : (
+                <div className="flex items-center gap-3">
+                  <span className="font-medium text-slate-700">Helpful?</span>
+                  <button 
+                    onClick={() => setFeedbackState('submitted')}
+                    className="px-4 py-1.5 rounded-full border border-slate-200 text-slate-700 hover:bg-slate-50 hover:border-slate-300 transition-all active:scale-95 cursor-pointer font-medium"
+                  >
+                    Yes
+                  </button>
+                  <button 
+                    onClick={() => setFeedbackState('submitted')}
+                    className="px-4 py-1.5 rounded-full border border-slate-200 text-slate-700 hover:bg-slate-50 hover:border-slate-300 transition-all active:scale-95 cursor-pointer font-medium"
+                  >
+                    No
+                  </button>
+                </div>
+              )}
             </div>
           </div>
         </div>
