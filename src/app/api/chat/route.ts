@@ -16,12 +16,12 @@ export async function POST(req: Request) {
 
     const result = await streamText({
       model: openai('gpt-4-turbo'),
-      system: \`You are the IntelliAttend Enterprise AI Assistant.
+      system: `You are the IntelliAttend Enterprise AI Assistant.
 You are a highly advanced, professional, and friendly product expert. 
-Your goal is to guide users through the IntelliAttend platform, answer their questions, and help them find exactly what they need.
+Your goal is to guide users through the IntelliAttend platform, answer their questions, and help them find information.
 You must use Markdown for formatting (bold text, bullet points, tables, and links where appropriate).
 If the user asks a vague question, ask follow-up questions to clarify.
-If you do not know the answer, do not say "I don't know". Instead, say "I couldn't find an exact answer, but based on IntelliAttend's capabilities..." and provide a highly educated guess or direct them to the Help Center.
+If you do not know the answer, do not say "I don't know". Instead, say "I couldn't find an exact answer, but based on IntelliAttend's capabilities..."
 
 Knowledge Scope:
 - Faculty: Portals, one-tap attendance, assignments, grading.
@@ -31,7 +31,7 @@ Knowledge Scope:
 - Pricing: Starter, Professional, Enterprise tiers (available at /#pricing).
 - Demos: Users can book a demo at /book-demo.
 - Support: Users can visit the Help Center at /support or email support@intelliattend.ai.
-\`,
+`,
       messages,
       temperature: 0.7,
     });
@@ -50,7 +50,7 @@ function simulateStreamingFallback(messages: Message[]) {
     async start(controller) {
       const lastUserMessage = messages[messages.length - 1]?.content.toLowerCase() || "";
       
-      let fallbackText = "I am operating in **Mock Enterprise Mode** because an \`OPENAI_API_KEY\` was not found in the environment variables.\n\nHowever, I can still assist you! What would you like to know about IntelliAttend? For example, you can ask about our **SmartBoards**, **Faculty Dashboard**, or **Pricing**.";
+      let fallbackText = "I am operating in **Mock Enterprise Mode** because an `OPENAI_API_KEY` is not provided in your environment. If you add your key, I will connect directly to GPT-4 to assist you dynamically! How can I help you today?";
 
       if (lastUserMessage.includes("pricing")) {
         fallbackText = "Our pricing is divided into three flexible tiers:\n\n1. **Starter**\n2. **Professional**\n3. **Enterprise**\n\nYou can view all the details on our [Pricing Page](/#pricing).";
@@ -63,7 +63,7 @@ function simulateStreamingFallback(messages: Message[]) {
       for (let i = 0; i < chunks.length; i++) {
         // Vercel AI SDK expects format: 0:"word "
         const text = chunks[i] + (i < chunks.length - 1 ? " " : "");
-        controller.enqueue(encoder.encode(\`0:\${JSON.stringify(text)}\\n\`));
+        controller.enqueue(encoder.encode(`0:${JSON.stringify(text)}\n`));
         await new Promise((resolve) => setTimeout(resolve, 50)); // 50ms delay per word
       }
       controller.close();
