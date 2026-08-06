@@ -89,23 +89,23 @@ export function HeroSection() {
   }, [mouseX, mouseY]);
 
   return (
-    <section ref={containerRef} className="relative min-h-screen pt-32 pb-20 overflow-hidden flex items-center bg-white perspective-1000">
+    <section ref={containerRef} className="relative min-h-[100svh] pt-[calc(var(--spacing-fluid-hero)+4rem)] pb-fluid-hero overflow-hidden flex items-center bg-white perspective-1000">
 
       <div className="mx-auto max-w-7xl px-6 lg:px-8 relative z-10 w-full">
-        <div className="grid lg:grid-cols-2 gap-16 items-center">
+        <div className="grid lg:grid-cols-2 gap-fluid-hero items-center">
           
           {/* Left Side: Content */}
           <motion.div 
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
-            className="flex flex-col gap-8 max-w-2xl"
+            className="flex flex-col gap-fluid-gap max-w-2xl"
           >
-            <h1 className="text-5xl sm:text-[72px] font-bold tracking-tight text-[#0F172A] leading-[1.05]">
+            <h1 className="text-fluid-hero font-bold tracking-tight text-[#0F172A] leading-[1.05]">
               The Intelligent Campus Platform <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent">for Modern Institutions.</span>
             </h1>
             
-            <p className="text-lg sm:text-[22px] text-[#64748B] leading-relaxed font-normal">
+            <p className="text-fluid-p text-[#64748B] leading-relaxed font-normal">
               Manage attendance, schedules, SmartBoard, notifications, resources, analytics and communication from one intelligent platform.
             </p>
             

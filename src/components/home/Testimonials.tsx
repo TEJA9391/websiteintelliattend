@@ -62,7 +62,7 @@ export function Testimonials() {
             {[...testimonials, ...testimonials, ...testimonials].map((t, i) => (
               <div 
                 key={i} 
-                className="glass-card w-[420px] shrink-0 p-10 flex flex-col justify-between rounded-[32px] border border-[#0F172A]/[0.08]"
+                className="apple-card w-[420px] shrink-0 p-10 flex flex-col justify-between"
               >
                 <div>
                   <div className="flex gap-1 mb-8">

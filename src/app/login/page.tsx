@@ -1,6 +1,6 @@
 "use client";
 
-import { GraduationCap, Users, Shield, ChevronRight } from "lucide-react";
+import { GraduationCap, Users, Shield, ChevronRight, ArrowLeft } from "lucide-react";
 import Link from "next/link";
 import { motion } from "framer-motion";
 
@@ -45,6 +45,16 @@ export default function LoginPage() {
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-gradient-to-b from-teal-100/50 to-transparent rounded-full blur-3xl opacity-50"></div>
       </div>
+
+      <Link 
+        href="/" 
+        className="absolute top-6 left-6 md:top-8 md:left-8 flex items-center gap-2 text-sm font-medium text-slate-500 hover:text-slate-900 transition-colors z-20 group"
+      >
+        <div className="w-8 h-8 rounded-full bg-white border border-slate-200 flex items-center justify-center shadow-sm group-hover:border-slate-300 transition-colors">
+          <ArrowLeft className="w-4 h-4 group-hover:-translate-x-0.5 transition-transform" />
+        </div>
+        <span className="hidden sm:inline">Back</span>
+      </Link>
 
       <motion.div 
         initial={{ opacity: 0, y: 20 }}

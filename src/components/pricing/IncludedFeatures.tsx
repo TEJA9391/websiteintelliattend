@@ -25,7 +25,7 @@ export function IncludedFeatures() {
 
       <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
         {included.map((feature, idx) => (
-          <div key={idx} className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm hover:shadow-md transition-shadow">
+          <div key={idx} className="apple-card p-6">
             <div className="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center mb-4 text-primary">
               <feature.icon className="w-6 h-6" />
             </div>
