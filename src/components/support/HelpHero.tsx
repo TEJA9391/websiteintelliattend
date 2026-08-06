@@ -1,6 +1,23 @@
+"use client";
+
 import { Search, LifeBuoy } from 'lucide-react';
+import { useRouter, useSearchParams } from 'next/navigation';
 
 export function HelpHero() {
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const currentQuery = searchParams.get('q') || '';
+
+  const updateSearch = (query: string) => {
+    const params = new URLSearchParams(searchParams.toString());
+    if (query) {
+      params.set('q', query);
+    } else {
+      params.delete('q');
+    }
+    router.push(`?${params.toString()}`, { scroll: false });
+  };
+
   return (
     <section className="pt-24 pb-16 bg-[#F8FAFC] border-b border-slate-200 relative overflow-hidden">
       <div className="absolute inset-0 bg-[url('/images/grid.svg')] bg-center opacity-50 [mask-image:linear-gradient(180deg,white,rgba(255,255,255,0))]"></div>
@@ -22,6 +39,8 @@ export function HelpHero() {
           <input 
             type="text" 
             placeholder="How can we help you today?" 
+            value={currentQuery}
+            onChange={(e) => updateSearch(e.target.value)}
             className="w-full bg-white border border-slate-300 rounded-2xl py-5 pl-14 pr-6 text-lg text-[#0F172A] placeholder:text-[#64748B] focus:outline-none focus:ring-4 focus:ring-primary/20 focus:border-primary transition-all shadow-xl shadow-slate-200/50"
           />
           <button className="absolute right-3 top-3 bottom-3 bg-primary text-white px-6 rounded-xl font-bold hover:bg-primary/90 transition-colors shadow-md">
