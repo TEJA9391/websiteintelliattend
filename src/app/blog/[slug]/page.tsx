@@ -67,37 +67,11 @@ export default function BlogPost({ params }: { params: { slug: string } }) {
           </div>
         </header>
 
-        {/* Article Body (Mock Content) */}
-        <div className="prose prose-slate prose-lg max-w-none prose-headings:font-bold prose-headings:tracking-tight prose-a:text-teal-600 prose-a:no-underline hover:prose-a:underline">
-          <p className="lead">
-            The landscape of education is rapidly changing, driven by new technologies that aim to improve both the teaching experience for educators and the learning outcomes for students. In this article, we dive deep into the transformative power of modern educational tools.
-          </p>
-          
-          <h2>The Need for Innovation</h2>
-          <p>
-            For decades, traditional methods of administration—from taking attendance on paper to managing physical grading books—have slowed down the educational process. The modern classroom demands agility. By implementing smart solutions, institutions can reclaim thousands of hours previously lost to administrative overhead.
-          </p>
-
-          <blockquote>
-            "Technology will not replace great teachers but technology in the hands of great teachers can be transformational."
-          </blockquote>
-          
-          <h2>Key Takeaways</h2>
-          <ul>
-            <li><strong>Efficiency:</strong> Automated systems reduce manual tracking.</li>
-            <li><strong>Engagement:</strong> Interactive displays keep students focused.</li>
-            <li><strong>Analytics:</strong> Real-time data helps identify struggling students early.</li>
-          </ul>
-
-          <p>
-            As we continue to build the classroom of the future, the integration of seamless, frictionless software will be the differentiator for top-tier educational institutions.
-          </p>
-          
-          <h2>Looking Forward</h2>
-          <p>
-            Embracing change isn't just about adopting new tools; it's about shifting the paradigm of how education is delivered. By freeing up educators to focus entirely on pedagogy, we unlock the true potential of the next generation.
-          </p>
-        </div>
+        {/* Article Body */}
+        <div 
+          className="prose prose-slate prose-lg max-w-none prose-headings:font-bold prose-headings:tracking-tight prose-a:text-teal-600 prose-a:no-underline hover:prose-a:underline"
+          dangerouslySetInnerHTML={{ __html: article.content }}
+        />
 
       </div>
     </article>
