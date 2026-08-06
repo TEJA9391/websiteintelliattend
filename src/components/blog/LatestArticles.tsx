@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 
 export const ARTICLES = [
+  { slug: "how-ai-is-transforming-modern-campus-management", category: "AI in Education", title: "How AI Is Transforming Modern Campus Management", desc: "Discover how artificial intelligence is helping universities automate attendance, improve classroom engagement, and streamline academic operations.", read: "6 min" },
   { slug: "5-ways-ai-is-revolutionizing-higher-education", category: "AI in Education", title: "5 Ways AI Is Revolutionizing Higher Education", desc: "Explore how AI enhances learning experiences, automates repetitive tasks, and empowers educators with data-driven insights.", read: "5 min" },
   { slug: "building-the-classroom-of-the-future", category: "Smart Classrooms", title: "Building the Classroom of the Future with SmartBoard Technology", desc: "Learn how connected SmartBoards improve collaboration, increase engagement, and simplify classroom management.", read: "4 min" },
   { slug: "why-digital-attendance-is-replacing-traditional-registers", category: "Attendance", title: "Why Digital Attendance Is Replacing Traditional Registers", desc: "See how automated digital attendance systems improve accuracy, reduce administrative work, and provide real-time reporting.", read: "7 min" },
