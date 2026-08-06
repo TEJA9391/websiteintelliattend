@@ -71,7 +71,7 @@ export default function K12Solution() {
           >
             <div className="inline-flex items-center rounded-full px-4 py-1.5 text-sm font-semibold text-slate-500 bg-primary/10 mb-8 border border-primary/20">
               <School className="w-4 h-4 mr-2" />
-              IntelliAttend for Kâ€“12 Schools
+              IntelliAttend for K-12 Schools
             </div>
             <h1 className="text-5xl md:text-7xl font-bold tracking-tight text-text-main mb-8 leading-[1.1]">
               Building Smarter, Safer, and<br />
@@ -387,7 +387,7 @@ export default function K12Solution() {
                 Helping Schools Focus on Learning, Not Paperwork.
               </h2>
               <p className="text-xl text-white/80 leading-relaxed mb-10 max-w-3xl mx-auto">
-                IntelliAttend enables Kâ€“12 schools to create efficient classrooms, connected communities, and better learning experiences through intelligent digital solutions.
+                IntelliAttend enables K-12 schools to create efficient classrooms, connected communities, and better learning experiences through intelligent digital solutions.
               </p>
               
               <div className="flex flex-col sm:flex-row items-center justify-center gap-4">

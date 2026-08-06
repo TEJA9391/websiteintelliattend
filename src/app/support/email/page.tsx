@@ -71,7 +71,7 @@ export default function EmailSupportPage() {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-50 text-blue-600 font-semibold text-sm mb-6 border border-blue-100"
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-primary font-semibold text-sm mb-6 border border-primary/20"
           >
             <Mail className="w-4 h-4" />
             Email Support Team
@@ -96,45 +96,14 @@ export default function EmailSupportPage() {
 
         <div className="grid lg:grid-cols-12 gap-8 lg:gap-12 items-start max-w-6xl mx-auto">
           
-          {/* Left Column: Response Times */}
-          <div className="lg:col-span-4 space-y-6">
-            <motion.div 
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: 0.1 }}
-              className="bg-white rounded-3xl p-8 border border-slate-100 shadow-sm sticky top-32"
-            >
-              <h3 className="text-xl font-bold text-[#0F172A] mb-2">Response Times</h3>
-              <p className="text-sm text-slate-500 mb-8">Guaranteed SLAs based on ticket priority level.</p>
-              
-              <div className="space-y-4">
-                {SLAs.map((sla, i) => (
-                  <div key={i} className="flex items-center justify-between p-4 rounded-2xl border border-slate-100 bg-slate-50/50 hover:bg-slate-50 transition-colors">
-                    <div className="flex items-center gap-3">
-                      <div className={cn("w-10 h-10 rounded-xl flex items-center justify-center border", sla.bg, sla.color, sla.border)}>
-                        <sla.icon className="w-5 h-5" />
-                      </div>
-                      <span className="font-semibold text-slate-700">{sla.priority}</span>
-                    </div>
-                    <span className="text-sm font-bold text-slate-900">{sla.time}</span>
-                  </div>
-                ))}
-              </div>
-              
-              <div className="mt-8 pt-6 border-t border-slate-100">
-                <p className="text-xs text-slate-400 leading-relaxed">
-                  Enterprise customers receive prioritized routing for all ticket levels. Need immediate help? Use our <Link href="/support/live-chat" className="text-primary hover:underline">Live Chat</Link>.
-                </p>
-              </div>
-            </motion.div>
-          </div>
+
 
           {/* Right Column: Form Area */}
           <motion.div 
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.15 }}
-            className="lg:col-span-8 bg-white rounded-3xl border border-slate-200 shadow-xl overflow-hidden relative"
+            className="lg:col-span-8 lg:col-start-3 bg-white rounded-3xl border border-slate-200 shadow-xl overflow-hidden relative"
           >
             <AnimatePresence mode="wait">
               {!isSubmitted ? (

@@ -8,7 +8,7 @@ import {
   ShieldCheck, 
   CloudSync, 
   CheckCircle2,
-  Sparkles,
+  Layers,
   Users,
   GraduationCap,
   MonitorPlay,
@@ -59,7 +59,7 @@ export default function ProductsOverview() {
             transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
           >
             <div className="inline-flex items-center rounded-full px-4 py-1.5 text-sm font-semibold text-slate-500 bg-primary/10 mb-8 border border-primary/20">
-              <Sparkles className="w-4 h-4 mr-2" />
+              <Layers className="w-4 h-4 mr-2" />
               Platform Overview
             </div>
             <h1 className="text-5xl md:text-7xl font-bold tracking-tight text-text-main mb-8 leading-[1.1]">

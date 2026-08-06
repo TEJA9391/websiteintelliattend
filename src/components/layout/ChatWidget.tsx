@@ -130,7 +130,7 @@ export function ChatWidget() {
         </div>
 
         {/* Messages Area */}
-        <div ref={scrollContainerRef} className="flex-1 overflow-y-auto overscroll-none p-5 bg-slate-50/50 flex flex-col gap-4 relative [&::-webkit-scrollbar]:w-1.5 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:bg-slate-200 [&::-webkit-scrollbar-thumb]:rounded-full hover:[&::-webkit-scrollbar-thumb]:bg-slate-300">
+        <div ref={scrollContainerRef} data-lenis-prevent="true" className="flex-1 overflow-y-auto overscroll-none p-5 bg-slate-50/50 flex flex-col gap-4 relative [&::-webkit-scrollbar]:w-1.5 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:bg-slate-200 [&::-webkit-scrollbar-thumb]:rounded-full hover:[&::-webkit-scrollbar-thumb]:bg-slate-300">
           <div className="text-center text-[10px] font-bold tracking-wider text-slate-400 uppercase mt-2 mb-4">
             Today at {mounted ? new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}) : "..."}
           </div>
@@ -175,7 +175,7 @@ export function ChatWidget() {
 
         {/* Quick Replies */}
         {!isLoading && messages[messages.length - 1]?.role !== "user" && (
-          <div className="px-5 pb-3 pt-2 bg-white flex gap-2 overflow-x-auto whitespace-nowrap [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] border-t border-slate-100">
+          <div data-lenis-prevent="true" className="px-5 pb-3 pt-2 bg-white flex gap-2 overflow-x-auto whitespace-nowrap [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] border-t border-slate-100">
             {QUICK_REPLIES.map((reply, i) => (
               <button
                 key={i}
