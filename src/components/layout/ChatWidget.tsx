@@ -13,18 +13,8 @@ const QUICK_REPLIES = [
   "Book a Demo"
 ];
 
-// Type declaration for Web Speech API
-declare global {
-  interface Window {
-    SpeechRecognition: any;
-    webkitSpeechRecognition: any;
-  }
-}
-
 export function ChatWidget() {
   const [isOpen, setIsOpen] = useState(false);
-  const [isListening, setIsListening] = useState(false);
-  const recognitionRef = useRef<any>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -52,44 +42,6 @@ export function ChatWidget() {
       inputRef.current.focus();
     }
   }, [messages, isLoading, isOpen]);
-
-  // Initialize Speech Recognition
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-      if (SpeechRecognition) {
-        const recognition = new SpeechRecognition();
-        recognition.continuous = false;
-        recognition.interimResults = true;
-        recognition.lang = "en-US";
-
-        recognition.onresult = (event: any) => {
-          let interimTranscript = "";
-          for (let i = event.resultIndex; i < event.results.length; ++i) {
-            if (event.results[i].isFinal) {
-              setInput(event.results[i][0].transcript);
-            } else {
-              interimTranscript += event.results[i][0].transcript;
-            }
-          }
-        };
-
-        recognition.onerror = () => setIsListening(false);
-        recognition.onend = () => setIsListening(false);
-        recognitionRef.current = recognition;
-      }
-    }
-  }, [setInput]);
-
-  const toggleListen = () => {
-    if (isListening) {
-      recognitionRef.current?.stop();
-      setIsListening(false);
-    } else {
-      recognitionRef.current?.start();
-      setIsListening(true);
-    }
-  };
 
   const handleClearChat = () => {
     setMessages([
@@ -207,20 +159,12 @@ export function ChatWidget() {
 
         {/* Input */}
         <form onSubmit={handleSubmit} className="p-4 bg-white border-t border-slate-100 flex items-center gap-2">
-          <button 
-            type="button"
-            onClick={toggleListen}
-            className={`p-2.5 rounded-full transition-all shrink-0 ${isListening ? 'bg-rose-100 text-rose-500 animate-pulse' : 'bg-slate-50 text-slate-400 hover:bg-slate-100 hover:text-slate-600'}`}
-          >
-            {isListening ? <Mic className="w-5 h-5" /> : <MicOff className="w-5 h-5" />}
-          </button>
-          
           <input 
             ref={inputRef}
             type="text" 
             value={input || ""}
             onChange={handleInputChange}
-            placeholder={isListening ? "Listening..." : "Ask me anything..."}
+            placeholder="Ask me anything..."
             className="flex-1 bg-slate-50 border border-slate-200 rounded-full px-5 py-3 text-sm text-slate-800 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-teal-500/20 focus:border-teal-500 transition-all shadow-inner"
           />
           <button 
