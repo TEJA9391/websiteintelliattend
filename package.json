@@ -8,8 +8,8 @@
     "start": "next start",
     "lint": "eslint",
     "typecheck": "tsc --noEmit",
-    "deploy": "npm run build && wrangler pages deploy out --project-name=intelliattend-web",
-    "deploy:prod": "npm run build && wrangler pages deploy out --project-name=intelliattend-web --branch=main"
+    "deploy": "npm run build && npx wrangler pages deploy out --project-name=intelliattend-web",
+    "deploy:prod": "npm run build && npx wrangler pages deploy out --project-name=intelliattend-web --branch=main"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.6.0",

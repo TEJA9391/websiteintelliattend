@@ -63,7 +63,7 @@ export default function Pricing_05() {
             Simple pricing for every team
           </h2>
           <p className="mt-4 text-lg text-[#64748B]">
-            Whether you're starting small or scaling fast, our platform grows with your needs.
+            Whether you&apos;re starting small or scaling fast, our platform grows with your needs.
           </p>
         </div>
 

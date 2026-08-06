@@ -15,22 +15,23 @@ import * as THREE from "three";
 
 function SmartBoardModel() {
   const texture = useTexture("/images/products/smartboard_dashboard_v3.png");
+  const tex = texture.clone();
   
-  if (texture && texture.image) {
-    texture.colorSpace = THREE.SRGBColorSpace;
-    texture.anisotropy = 16;
-    texture.minFilter = THREE.LinearMipmapLinearFilter;
+  if (tex && tex.image) {
+    tex.colorSpace = THREE.SRGBColorSpace;
+    tex.anisotropy = 16;
+    tex.minFilter = THREE.LinearMipmapLinearFilter;
     
-    const img = texture.image as HTMLImageElement;
+    const img = tex.image as HTMLImageElement;
     const imgAspect = img.width / img.height;
     const planeAspect = 16 / 9;
     
     if (imgAspect > planeAspect) {
-      texture.repeat.set(planeAspect / imgAspect, 1);
-      texture.offset.set((1 - (planeAspect / imgAspect)) / 2, 0);
+      tex.repeat.set(planeAspect / imgAspect, 1);
+      tex.offset.set((1 - (planeAspect / imgAspect)) / 2, 0);
     } else {
-      texture.repeat.set(1, imgAspect / planeAspect);
-      texture.offset.set(0, (1 - (imgAspect / planeAspect)) / 2);
+      tex.repeat.set(1, imgAspect / planeAspect);
+      tex.offset.set(0, (1 - (imgAspect / planeAspect)) / 2);
     }
   }
   
@@ -94,22 +95,23 @@ function SmartBoardModel() {
 
 function FacultyLaptopModel() {
   const texture = useTexture("/images/products/faculty_ui_v2.png");
+  const tex = texture.clone();
   
-  if (texture && texture.image) {
-    texture.colorSpace = THREE.SRGBColorSpace;
-    texture.anisotropy = 16;
-    texture.minFilter = THREE.LinearMipmapLinearFilter;
+  if (tex && tex.image) {
+    tex.colorSpace = THREE.SRGBColorSpace;
+    tex.anisotropy = 16;
+    tex.minFilter = THREE.LinearMipmapLinearFilter;
     
-    const img = texture.image as HTMLImageElement;
+    const img = tex.image as HTMLImageElement;
     const imgAspect = img.width / img.height;
     const planeAspect = 3.1 / 2.1;
     
     if (imgAspect > planeAspect) {
-      texture.repeat.set(planeAspect / imgAspect, 1);
-      texture.offset.set((1 - (planeAspect / imgAspect)) / 2, 0);
+      tex.repeat.set(planeAspect / imgAspect, 1);
+      tex.offset.set((1 - (planeAspect / imgAspect)) / 2, 0);
     } else {
-      texture.repeat.set(1, imgAspect / planeAspect);
-      texture.offset.set(0, (1 - (imgAspect / planeAspect)) / 2);
+      tex.repeat.set(1, imgAspect / planeAspect);
+      tex.offset.set(0, (1 - (imgAspect / planeAspect)) / 2);
     }
   }
   
@@ -137,7 +139,7 @@ function FacultyLaptopModel() {
           {/* Screen Content */}
           <mesh position={[0, 1.1, 0.13]} rotation={[-0.1, 0, 0]}>
             <planeGeometry args={[3.1, 2.1]} />
-            <meshBasicMaterial map={texture} toneMapped={false} />
+            <meshBasicMaterial map={tex} toneMapped={false} />
           </mesh>
         </group>
       </PresentationControls>
@@ -147,22 +149,23 @@ function FacultyLaptopModel() {
 
 function StudentPhoneModel() {
   const texture = useTexture("/images/products/student_dashboard_v4.png");
+  const tex = texture.clone();
 
-  if (texture && texture.image) {
-    texture.colorSpace = THREE.SRGBColorSpace;
-    texture.anisotropy = 16;
-    texture.minFilter = THREE.LinearMipmapLinearFilter;
+  if (tex && tex.image) {
+    tex.colorSpace = THREE.SRGBColorSpace;
+    tex.anisotropy = 16;
+    tex.minFilter = THREE.LinearMipmapLinearFilter;
     
-    const img = texture.image as HTMLImageElement;
+    const img = tex.image as HTMLImageElement;
     const imgAspect = img.width / img.height;
     const planeAspect = 1.42 / 3.10;
     
     if (imgAspect > planeAspect) {
-      texture.repeat.set(planeAspect / imgAspect, 1);
-      texture.offset.set((1 - (planeAspect / imgAspect)) / 2, 0);
+      tex.repeat.set(planeAspect / imgAspect, 1);
+      tex.offset.set((1 - (planeAspect / imgAspect)) / 2, 0);
     } else {
-      texture.repeat.set(1, imgAspect / planeAspect);
-      texture.offset.set(0, (1 - (imgAspect / planeAspect)) / 2);
+      tex.repeat.set(1, imgAspect / planeAspect);
+      tex.offset.set(0, (1 - (imgAspect / planeAspect)) / 2);
     }
   }
 
@@ -195,7 +198,7 @@ function StudentPhoneModel() {
           {/* Screen Content as Texture */}
           <mesh position={[0, 0, 0.086]}>
             <planeGeometry args={[1.42, 3.10]} />
-            <meshBasicMaterial map={texture} toneMapped={false} />
+            <meshBasicMaterial map={tex} toneMapped={false} />
           </mesh>
         </group>
       </PresentationControls>
