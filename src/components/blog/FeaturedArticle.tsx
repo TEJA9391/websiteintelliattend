@@ -5,7 +5,7 @@ export function FeaturedArticle() {
   return (
     <section className="py-12">
       <div className="container mx-auto px-4">
-        <div className="apple-card p-4 flex flex-col lg:flex-row gap-8 items-center relative group cursor-pointer">
+        <Link href="/blog/how-ai-is-transforming-modern-campus-management" className="apple-card p-4 flex flex-col lg:flex-row gap-8 items-center relative group cursor-pointer block">
           
           {/* Image Side */}
           <div className="w-full lg:w-[55%] aspect-video bg-gradient-to-br from-slate-900 to-teal-900 rounded-3xl overflow-hidden relative border border-slate-100 flex items-center justify-center">
@@ -34,7 +34,7 @@ export function FeaturedArticle() {
             </div>
           </div>
 
-        </div>
+        </Link>
       </div>
     </section>
   );
