@@ -8,6 +8,7 @@ type Message = {
   role: "bot" | "user";
   text: string;
   isHtml?: boolean;
+  timestamp: string;
 };
 
 // Simulated Knowledge Base for Advanced AI
@@ -102,11 +103,17 @@ const QUICK_REPLIES = [
 export function ChatWidget() {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState<Message[]>([
-    { id: "1", role: "bot", text: "Hi! I'm IntelliAttend's advanced AI assistant. How can I help you today?" }
+    { 
+      id: "1", 
+      role: "bot", 
+      text: "Hi! I'm IntelliAttend's advanced AI assistant. How can I help you today?",
+      timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+    }
   ]);
   const [inputValue, setInputValue] = useState("");
   const [isTyping, setIsTyping] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
 
   // Listen for the custom event to open chat globally
   useEffect(() => {
@@ -115,12 +122,26 @@ export function ChatWidget() {
     return () => window.removeEventListener("open-chat", handleOpenChat);
   }, []);
 
-  // Auto-scroll to bottom of messages
+  // Auto-scroll to bottom of messages and auto-focus
   useEffect(() => {
     if (messagesEndRef.current) {
       messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
     }
+    if (isOpen && inputRef.current) {
+      inputRef.current.focus();
+    }
   }, [messages, isTyping, isOpen]);
+
+  const handleClearChat = () => {
+    setMessages([
+      { 
+        id: Date.now().toString(), 
+        role: "bot", 
+        text: "Chat cleared! How can I help you today?",
+        timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+      }
+    ]);
+  };
 
   const handleSendMessage = (textOrEvent: React.FormEvent | string) => {
     let textToSubmit = "";
@@ -137,6 +158,7 @@ export function ChatWidget() {
       id: Date.now().toString(),
       role: "user",
       text: textToSubmit.trim(),
+      timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
     };
 
     setMessages((prev) => [...prev, userMessage]);
@@ -150,7 +172,8 @@ export function ChatWidget() {
         id: (Date.now() + 1).toString(),
         role: "bot",
         text: response.text,
-        isHtml: response.isHtml
+        isHtml: response.isHtml,
+        timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
       };
       setMessages((prev) => [...prev, botResponse]);
       setIsTyping(false);
@@ -174,28 +197,42 @@ export function ChatWidget() {
             </span>
           </div>
         </div>
-        <button 
-          onClick={() => setIsOpen(false)}
-          className="text-white/70 hover:text-white hover:bg-white/10 p-1.5 rounded-lg transition-colors"
-        >
-          <X className="w-5 h-5" />
-        </button>
+        <div className="flex items-center gap-1">
+          <button 
+            onClick={handleClearChat}
+            title="Clear Chat"
+            className="text-white/70 hover:text-white hover:bg-white/10 p-1.5 rounded-lg transition-colors text-xs font-medium"
+          >
+            Clear
+          </button>
+          <button 
+            onClick={() => setIsOpen(false)}
+            className="text-white/70 hover:text-white hover:bg-white/10 p-1.5 rounded-lg transition-colors"
+          >
+            <X className="w-5 h-5" />
+          </button>
+        </div>
       </div>
 
       {/* Messages */}
-      <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-slate-50">
+      <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-slate-50 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
         {messages.map((msg) => (
           <div key={msg.id} className={`flex ${msg.role === "user" ? "justify-end" : "justify-start"}`}>
             <div className={`flex gap-2 max-w-[85%] ${msg.role === "user" ? "flex-row-reverse" : ""}`}>
               <div className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 ${msg.role === "user" ? "bg-slate-200 text-slate-600" : "bg-teal-100 text-teal-600"}`}>
                 {msg.role === "user" ? <User className="w-4 h-4" /> : <Bot className="w-4 h-4" />}
               </div>
-              <div className={`px-4 py-2.5 rounded-2xl text-sm ${msg.role === "user" ? "bg-primary text-white rounded-tr-sm" : "bg-white text-slate-700 border border-slate-200 rounded-tl-sm shadow-sm"}`}>
-                {msg.isHtml ? (
-                  <div dangerouslySetInnerHTML={{ __html: msg.text }} className="leading-relaxed" />
-                ) : (
-                  msg.text
-                )}
+              <div className="flex flex-col gap-1">
+                <div className={`px-4 py-2.5 rounded-2xl text-sm ${msg.role === "user" ? "bg-primary text-white rounded-tr-sm" : "bg-white text-slate-700 border border-slate-200 rounded-tl-sm shadow-sm"}`}>
+                  {msg.isHtml ? (
+                    <div dangerouslySetInnerHTML={{ __html: msg.text }} className="leading-relaxed" />
+                  ) : (
+                    msg.text
+                  )}
+                </div>
+                <span className={`text-[10px] text-slate-400 ${msg.role === "user" ? "text-right mr-1" : "ml-1"}`}>
+                  {msg.timestamp}
+                </span>
               </div>
             </div>
           </div>
@@ -219,7 +256,7 @@ export function ChatWidget() {
 
       {/* Quick Replies */}
       {messages[messages.length - 1].role === "bot" && !isTyping && (
-        <div className="px-4 pb-2 pt-1 bg-slate-50 flex gap-2 overflow-x-auto whitespace-nowrap scrollbar-hide">
+        <div className="px-4 pb-2 pt-1 bg-slate-50 flex gap-2 overflow-x-auto whitespace-nowrap [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
           {QUICK_REPLIES.map((reply, i) => (
             <button
               key={i}
@@ -235,6 +272,7 @@ export function ChatWidget() {
       {/* Input */}
       <form onSubmit={handleSendMessage} className="p-3 bg-white border-t border-slate-200 flex items-center gap-2">
         <input 
+          ref={inputRef}
           type="text" 
           value={inputValue}
           onChange={(e) => setInputValue(e.target.value)}
