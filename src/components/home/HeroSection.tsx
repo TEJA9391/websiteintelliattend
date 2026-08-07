@@ -89,7 +89,7 @@ export function HeroSection() {
   }, [mouseX, mouseY]);
 
   return (
-    <section ref={containerRef} className="relative min-h-[100svh] pt-[calc(var(--spacing-fluid-hero)+4rem)] pb-fluid-hero overflow-hidden flex items-center bg-white perspective-1000">
+    <section ref={containerRef} className="relative pt-32 lg:pt-40 pb-20 lg:pb-32 overflow-hidden flex items-center bg-white perspective-1000">
 
       <div className="mx-auto max-w-7xl px-6 lg:px-8 relative z-10 w-full">
         <div className="grid lg:grid-cols-2 gap-fluid-hero items-center">
@@ -139,7 +139,7 @@ export function HeroSection() {
           </motion.div>
 
           {/* Right Side: Interactive 3D Cards */}
-          <div className="relative h-[600px] w-full hidden lg:block preserve-3d">
+          <div className="relative h-[600px] w-full hidden lg:block preserve-3d -translate-y-12 lg:-translate-y-24">
             {floatingCards.map((card) => (
               <FloatingCard key={card.id} card={card} mouseX={mouseX} mouseY={mouseY} />
             ))}

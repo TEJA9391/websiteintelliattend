@@ -1,6 +1,7 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
+import { useEffect, useState } from "react";
 import { Star } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -39,13 +40,52 @@ const testimonials = [
   },
 ];
 
+const WORDS = [
+  "Educators",
+  "Students",
+  "Faculty"
+];
+
 export function Testimonials() {
+  const [wordIndex, setWordIndex] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setWordIndex((prev) => (prev + 1) % WORDS.length);
+    }, 3000);
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <section className="py-32 relative overflow-hidden bg-white">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <div className="text-center max-w-3xl mx-auto mb-20">
-          <h2 className="text-4xl md:text-5xl font-bold text-[#0F172A] mb-6">
-            Loved by Educators
+          <h2 className="text-4xl md:text-5xl font-bold text-[#0F172A] mb-6 flex items-center justify-center gap-2">
+            Loved{" "}
+            <span className="inline-flex items-center gap-3">
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent pb-1">
+                by
+              </span>
+              <span className="inline-grid text-left pb-1" style={{ perspective: "1000px" }}>
+                {/* Invisible placeholder for max width to prevent layout shift */}
+                <span className="invisible col-start-1 row-start-1 pointer-events-none">
+                  Educators
+                </span>
+                <AnimatePresence>
+                  <motion.span
+                    key={wordIndex}
+                    initial={{ rotateX: -90, y: 20, opacity: 0 }}
+                    animate={{ rotateX: 0, y: 0, opacity: 1 }}
+                    exit={{ rotateX: 90, y: -20, opacity: 0 }}
+                    transition={{ duration: 0.5, ease: "easeOut" }}
+                    className="col-start-1 row-start-1 text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent"
+                    style={{ transformOrigin: "center center" }}
+                  >
+                    {WORDS[wordIndex]}
+                  </motion.span>
+                </AnimatePresence>
+              </span>
+            </span>
           </h2>
           <p className="text-lg text-[#64748B]">
             See how forward-thinking institutions are transforming their operations with IntelliAttend.

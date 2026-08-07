@@ -44,30 +44,35 @@ export function AIFeatures() {
         
         <div className="text-center max-w-3xl mx-auto mb-20">
           <motion.h2 
-            layout
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-4xl md:text-5xl font-bold text-[#0F172A] mb-6 leading-tight"
+            className="text-[min(7.5vw,2.25rem)] sm:text-4xl md:text-5xl font-bold text-[#0F172A] mb-6 leading-[1.1] flex flex-col items-center justify-center overflow-visible"
           >
-            Everything{" "}
-            <span className="inline-flex items-center relative h-[1.2em] align-bottom">
-              <AnimatePresence mode="popLayout">
-                <motion.span
-                  layout
-                  key={flipIndex}
-                  initial={{ opacity: 0, y: 15 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -15 }}
-                  transition={{ duration: 0.3, ease: "easeInOut" }}
-                  className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent whitespace-nowrap"
-                >
-                  {flipWords[flipIndex]}
-                </motion.span>
-              </AnimatePresence>
-            </span>{" "}
-            Needs. <br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent">One Intelligent Platform.</span>
+            <motion.span layout className="inline-flex items-baseline justify-center whitespace-nowrap">
+              <motion.span layout>Everything</motion.span>
+              <span className="inline-grid text-center mx-2 sm:mx-3 whitespace-nowrap" style={{ perspective: "1000px" }}>
+                <AnimatePresence mode="popLayout">
+                  <motion.span
+                    layout
+                    key={flipIndex}
+                    initial={{ rotateX: -90, y: 20, opacity: 0 }}
+                    animate={{ rotateX: 0, y: 0, opacity: 1 }}
+                    exit={{ rotateX: 90, y: -20, opacity: 0 }}
+                    transition={{ duration: 0.5, ease: "easeOut" }}
+                    className="col-start-1 row-start-1 origin-center whitespace-nowrap"
+                  >
+                    <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent">
+                      {flipWords[flipIndex]}
+                    </span>
+                  </motion.span>
+                </AnimatePresence>
+              </span>
+              <motion.span layout>Needs.</motion.span>
+            </motion.span>
+            <motion.span layout className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent whitespace-nowrap mt-2 sm:mt-4">
+              One Intelligent Platform.
+            </motion.span>
           </motion.h2>
         </div>
 
