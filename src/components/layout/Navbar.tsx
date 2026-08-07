@@ -30,7 +30,7 @@ const navLinks = [
       { name: "K-12 Schools", href: "/solutions/k12", desc: "Streamline daily operations" },
     ]
   },
-  { name: "Join", href: "/pricing" },
+  { name: "Join", href: "/join" },
   { name: "Blog", href: "/blog" },
   { 
     name: "Resources", 

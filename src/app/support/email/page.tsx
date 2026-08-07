@@ -140,8 +140,8 @@ export default function EmailSupportPage() {
                     {/* Ticket Details */}
                     <div className="space-y-2">
                       <label className="text-sm font-bold text-[#0F172A]">Subject</label>
-                      <select required className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all text-[#0F172A] appearance-none cursor-pointer">
-                        <option value="" disabled selected>Select a topic...</option>
+                      <select required defaultValue="" className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all text-[#0F172A] appearance-none cursor-pointer">
+                        <option value="" disabled>Select a topic...</option>
                         <option>Technical Issue</option>
                         <option>Bug Report</option>
                         <option>Billing</option>
@@ -153,8 +153,8 @@ export default function EmailSupportPage() {
 
                     <div className="space-y-2">
                       <label className="text-sm font-bold text-[#0F172A]">Priority</label>
-                      <select required className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all text-[#0F172A] appearance-none cursor-pointer">
-                        <option value="" disabled selected>Select priority...</option>
+                      <select required defaultValue="" className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all text-[#0F172A] appearance-none cursor-pointer">
+                        <option value="" disabled>Select priority...</option>
                         <option>Low - Question or general inquiry</option>
                         <option>Medium - Issue affecting a few users</option>
                         <option>High - Issue affecting many users</option>

@@ -1,7 +1,8 @@
 "use client";
 
-import { useRef, useEffect } from "react";
-import { motion, useInView, animate } from "framer-motion";
+import { useRef, useEffect, useState } from "react";
+import { motion, useInView, animate, AnimatePresence } from "framer-motion";
+import { NeuralMesh } from "@/components/ui/NeuralMesh";
 import { 
   Building2,
   Stethoscope,
@@ -26,7 +27,8 @@ import {
   FileWarning,
   Zap,
   ArrowRight,
-  BrainCircuit
+  BrainCircuit,
+  Monitor
 } from "lucide-react";
 
 // Counter Component
@@ -52,7 +54,41 @@ function AnimatedCounter({ from, to, duration = 2, suffix = "", prefix = "" }: {
   return <span ref={nodeRef}>{prefix}{from}{suffix}</span>;
 }
 
+const WORDS = [
+  "Universities",
+  "Colleges",
+  "Institutions"
+];
+
+const ECOSYSTEM_NODES = [
+  // Top
+  { label: "Cloud", icon: Cloud, desc: "Secure Sync", subDesc: "End-to-End Encrypted", pos: { x: 0, y: -16 }, subPos: { x: -8, y: -26 }, sub2Pos: { x: 8, y: -26 } },
+  // Top Right
+  { label: "Faculty", icon: Users, desc: "Digital Workflows", subDesc: "Automated Grading", pos: { x: 18, y: -12 }, subPos: { x: 20, y: -24 }, sub2Pos: { x: 32, y: -12 } },
+  // Right
+  { label: "Departments", icon: Building2, desc: "Resource Allocation", subDesc: "Budget Optimization", pos: { x: 26, y: 0 }, subPos: { x: 38, y: -8 }, sub2Pos: { x: 38, y: 8 } },
+  // Bottom Right
+  { label: "SmartBoards", icon: Monitor, desc: "Interactive Displays", subDesc: "Real-time Sync", pos: { x: 18, y: 12 }, subPos: { x: 32, y: 12 }, sub2Pos: { x: 20, y: 24 } },
+  // Bottom
+  { label: "Library", icon: BookMarked, desc: "Digital Repository", subDesc: "E-books & Journals", pos: { x: 0, y: 16 }, subPos: { x: -8, y: 26 }, sub2Pos: { x: 8, y: 26 } },
+  // Bottom Left
+  { label: "Administration", icon: Briefcase, desc: "Central Control", subDesc: "Unified Dashboard", pos: { x: -18, y: 12 }, subPos: { x: -32, y: 12 }, sub2Pos: { x: -20, y: 24 } },
+  // Left
+  { label: "AI Analytics", icon: BrainCircuit, desc: "Predictive Insights", subDesc: "Dropout Prevention", pos: { x: -26, y: 0 }, subPos: { x: -38, y: -8 }, sub2Pos: { x: -38, y: 8 } },
+  // Top Left
+  { label: "Students", icon: GraduationCap, desc: "Mobile App Access", subDesc: "iOS & Android", pos: { x: -18, y: -12 }, subPos: { x: -32, y: -12 }, sub2Pos: { x: -20, y: -24 } },
+];
+
 export default function UniversitiesSolution() {
+  const [wordIndex, setWordIndex] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setWordIndex((prev) => (prev + 1) % WORDS.length);
+    }, 3000);
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <div className="min-h-screen bg-[#F8FAFC]">
       
@@ -70,10 +106,40 @@ export default function UniversitiesSolution() {
               <Building2 className="w-4 h-4 mr-2" />
               University Solutions
             </div>
-            <h1 className="text-5xl md:text-7xl font-bold tracking-tight text-text-main mb-8 leading-[1.1]">
-              Built for Modern<br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent">Universities.</span>
-            </h1>
+            <motion.h1 
+              layout
+              transition={{ layout: { duration: 1.2, ease: [0.16, 1, 0.3, 1] } }}
+              className="text-5xl md:text-7xl font-bold tracking-tight text-text-main mb-8 leading-[1.1] flex flex-col items-center justify-center overflow-visible"
+            >
+              <motion.span layout transition={{ layout: { duration: 1.2, ease: [0.16, 1, 0.3, 1] } }} className="inline-flex items-baseline justify-center whitespace-nowrap">
+                <motion.span layout transition={{ layout: { duration: 1.2, ease: [0.16, 1, 0.3, 1] } }}>Everything</motion.span>
+                <span className="inline-grid text-center mx-3 sm:mx-4 whitespace-nowrap" style={{ perspective: "1000px" }}>
+                  <AnimatePresence mode="popLayout">
+                    <motion.span
+                      layout
+                      key={wordIndex}
+                      initial={{ rotateX: -90, y: 20, opacity: 0 }}
+                      animate={{ rotateX: 0, y: 0, opacity: 1 }}
+                      exit={{ rotateX: 90, y: -20, opacity: 0 }}
+                      transition={{ 
+                        duration: 1.2, 
+                        ease: [0.16, 1, 0.3, 1],
+                        layout: { duration: 1.2, ease: [0.16, 1, 0.3, 1] }
+                      }}
+                      className="col-start-1 row-start-1 origin-center whitespace-nowrap"
+                    >
+                      <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent">
+                        {WORDS[wordIndex]}
+                      </span>
+                    </motion.span>
+                  </AnimatePresence>
+                </span>
+                <motion.span layout transition={{ layout: { duration: 1.2, ease: [0.16, 1, 0.3, 1] } }}>Need.</motion.span>
+              </motion.span>
+              <motion.span layout transition={{ layout: { duration: 1.2, ease: [0.16, 1, 0.3, 1] } }} className="mt-2 sm:mt-4">
+                One Intelligent Platform.
+              </motion.span>
+            </motion.h1>
             <p className="mx-auto max-w-3xl text-xl leading-relaxed text-[#64748B]">
               From a single department to an entire campus, IntelliAttend connects classrooms, faculty, students, and administration into one intelligent ecosystem.
             </p>
@@ -199,137 +265,115 @@ export default function UniversitiesSolution() {
       </section>
 
       {/* Campus Ecosystem */}
-      <section className="py-32 bg-slate-50 overflow-hidden relative">
-        <div className="mx-auto max-w-7xl px-6 lg:px-8 relative z-10">
-          <div className="text-center mb-24">
+      <section className="h-screen min-h-[700px] bg-slate-50 overflow-hidden relative flex flex-col justify-center">
+        <div className="mx-auto w-full max-w-7xl px-6 lg:px-8 relative z-10 flex flex-col items-center h-full">
+          <div className="text-center mt-16 mb-8 md:mb-12 shrink-0">
             <h2 className="text-3xl md:text-5xl font-bold text-text-main">The Connected Ecosystem</h2>
           </div>
           
-          <div className="relative h-[1000px] w-full max-w-3xl mx-auto flex items-center justify-center">
+          <div className="relative flex-1 w-full max-w-full mx-auto flex items-center justify-center origin-center">
             {/* Center */}
             <motion.div 
               initial={{ scale: 0 }}
               whileInView={{ scale: 1 }}
               viewport={{ once: true }}
-              className="w-48 h-48 bg-primary rounded-full flex items-center justify-center text-white font-bold text-xl shadow-[0_0_50px_rgba(45,212,191,0.3)] z-20 absolute"
+              className="absolute z-20 bg-primary rounded-full flex items-center justify-center text-white font-bold shadow-[0_0_50px_rgba(45,212,191,0.3)]"
+              style={{ width: "22vmin", height: "22vmin", fontSize: "2.5vmin" }}
             >
               IntelliAttend
             </motion.div>
 
-            {/* Orbiting nodes */}
-            {[
-              { label: "Students", desc: "Mobile App Access", subDesc: "iOS & Android" },
-              { label: "Faculty", desc: "Digital Workflows", subDesc: "Automated Grading" },
-              { label: "Departments", desc: "Resource Allocation", subDesc: "Budget Optimization" },
-              { label: "SmartBoards", desc: "Interactive Displays", subDesc: "Real-time Sync" },
-              { label: "Library", desc: "Digital Repository", subDesc: "E-books & Journals" },
-              { label: "Administration", desc: "Central Control", subDesc: "Unified Dashboard" },
-              { label: "AI Analytics", desc: "Predictive Insights", subDesc: "Dropout Prevention" },
-              { label: "Cloud", desc: "Secure Sync", subDesc: "End-to-End Encrypted" }
-            ].map((node, i, arr) => {
-              const angle = (i / arr.length) * Math.PI * 2;
-              const radius = 200; // px
-              const x = Math.cos(angle) * radius;
-              const y = Math.sin(angle) * radius;
-              
-              const extRadius = 140;
-              const extX = Math.cos(angle) * extRadius;
-              const extY = Math.sin(angle) * extRadius;
-              
-              const extRadius2 = 120;
-              const extX2 = Math.cos(angle) * (extRadius + extRadius2);
-              const extY2 = Math.sin(angle) * (extRadius + extRadius2);
-              
-              return (
+            {/* Orbiting nodes organically scattered - Responsive vmin coordinates */}
+            {ECOSYSTEM_NODES.map((node, i) => (
                 <motion.div
                   key={i}
                   initial={{ opacity: 0, x: 0, y: 0 }}
-                  whileInView={{ opacity: 1, x, y }}
+                  whileInView={{ opacity: 1, x: `${node.pos.x}vmin`, y: `${node.pos.y}vmin` }}
                   viewport={{ once: true }}
-                  transition={{ delay: 0.1 + (i * 0.1), type: "spring" }}
-                  className="absolute flex items-center justify-center z-10"
+                  transition={{ delay: i * 0.1, type: "spring", bounce: 0.4 }}
+                  className="absolute flex items-center justify-center z-10 w-full h-full"
                 >
-
                   <motion.div
-                    initial={{ opacity: 0, scale: 0, x: extX, y: extY }}
-                    whileInView={{ opacity: 1, scale: 1, x: extX2, y: extY2 }}
+                    initial={{ opacity: 0, scale: 0, x: `${node.subPos.x - node.pos.x}vmin`, y: `${node.subPos.y - node.pos.y}vmin` }}
+                    whileInView={{ opacity: 1, scale: 1, x: `${node.sub2Pos.x - node.pos.x}vmin`, y: `${node.sub2Pos.y - node.pos.y}vmin` }}
                     viewport={{ once: true }}
                     transition={{ delay: 2 + (i * 0.1), type: "spring", bounce: 0.4 }}
-                    className="absolute w-20 h-20 bg-slate-50 border border-slate-200 rounded-full flex items-center justify-center text-center shadow-sm z-[-1] p-2"
+                    className="absolute bg-slate-50 border border-slate-200 rounded-full flex items-center justify-center text-center shadow-sm z-[-1] p-1.5"
+                    style={{ width: "11vmin", height: "11vmin" }}
                   >
-                    <span className="text-[9px] font-medium leading-tight text-slate-500">{node.subDesc}</span>
+                    <span className="font-medium leading-tight text-slate-500" style={{ fontSize: "1.1vmin" }}>{node.subDesc}</span>
                   </motion.div>
 
                   <motion.div
                     initial={{ opacity: 0, scale: 0, x: 0, y: 0 }}
-                    whileInView={{ opacity: 1, scale: 1, x: extX, y: extY }}
+                    whileInView={{ opacity: 1, scale: 1, x: `${node.subPos.x - node.pos.x}vmin`, y: `${node.subPos.y - node.pos.y}vmin` }}
                     viewport={{ once: true }}
                     transition={{ delay: 1 + (i * 0.1), type: "spring", bounce: 0.4 }}
-                    className="absolute w-24 h-24 bg-teal-50 border border-teal-100 rounded-full flex items-center justify-center text-center shadow-sm z-0 p-3"
+                    className="absolute bg-teal-50 border border-teal-100 rounded-full flex items-center justify-center text-center shadow-sm z-0 p-2"
+                    style={{ width: "13vmin", height: "13vmin" }}
                   >
-                    <span className="text-[11px] font-medium leading-tight text-teal-800">{node.desc}</span>
+                    <span className="font-medium leading-tight text-teal-800" style={{ fontSize: "1.2vmin" }}>{node.desc}</span>
                   </motion.div>
                   
-                  <div className="relative w-32 h-32 bg-white border border-slate-200 rounded-full flex flex-col items-center justify-center text-center shadow-lg z-10">
-                    <span className="text-sm font-bold text-text-main">{node.label}</span>
+                  <div className="relative bg-white border border-slate-200 rounded-full flex flex-col items-center justify-center text-center shadow-lg z-10"
+                       style={{ width: "16vmin", height: "16vmin" }}>
+                    <node.icon className="text-primary mb-1" style={{ width: "4vmin", height: "4vmin" }} />
+                    <span className="font-bold text-text-main leading-tight" style={{ fontSize: "1.5vmin" }}>{node.label}</span>
                   </div>
                 </motion.div>
-              );
-            })}
+            ))}
             
-            {/* Connecting Lines (svg) */}
+            {/* Dynamic Neural Mesh Background */}
+            <NeuralMesh />
+
+            {/* Structured DOM Node Mesh Connections */}
             <svg className="absolute inset-0 w-full h-full pointer-events-none overflow-visible" style={{ zIndex: 0 }}>
-               {[0,1,2,3,4,5,6,7].map((i) => {
-                  const angle = (i / 8) * Math.PI * 2;
-                  
-                  // Main circle center
-                  const dx = Math.cos(angle) * 200;
-                  const dy = Math.sin(angle) * 200;
-                  
-                  // Sub circle center
-                  const extRadius = 140;
-                  const subDx = Math.cos(angle) * (200 + extRadius);
-                  const subDy = Math.sin(angle) * (200 + extRadius);
-                  
-                  // Level 3 circle center
-                  const extRadius2 = 120;
-                  const sub2Dx = Math.cos(angle) * (200 + extRadius + extRadius2);
-                  const sub2Dy = Math.sin(angle) * (200 + extRadius + extRadius2);
-                  
-                  return (
-                    <g key={i}>
-                      {/* Center to Main Circle */}
-                      <motion.line 
-                        x1="50%" y1="50%" x2={`calc(50% + ${dx}px)`} y2={`calc(50% + ${dy}px)`}
-                        stroke="rgba(45,212,191,0.2)" strokeWidth="2" strokeDasharray="5,5"
-                        initial={{ pathLength: 0 }}
-                        whileInView={{ pathLength: 1 }}
-                        viewport={{ once: true }}
-                        transition={{ delay: 0.5, duration: 1 }}
-                      />
-                      {/* Main Circle to Sub Circle */}
-                      <motion.line 
-                        x1={`calc(50% + ${dx}px)`} y1={`calc(50% + ${dy}px)`}
-                        x2={`calc(50% + ${subDx}px)`} y2={`calc(50% + ${subDy}px)`}
-                        stroke="rgba(45,212,191,0.4)" strokeWidth="2"
-                        initial={{ pathLength: 0 }}
-                        whileInView={{ pathLength: 1 }}
-                        viewport={{ once: true }}
-                        transition={{ delay: 1 + (i * 0.1), duration: 0.4 }}
-                      />
-                      {/* Sub Circle to Sub-Sub Circle */}
-                      <motion.line 
-                        x1={`calc(50% + ${subDx}px)`} y1={`calc(50% + ${subDy}px)`}
-                        x2={`calc(50% + ${sub2Dx}px)`} y2={`calc(50% + ${sub2Dy}px)`}
-                        stroke="rgba(45,212,191,0.6)" strokeWidth="1" strokeDasharray="2,2"
-                        initial={{ pathLength: 0 }}
-                        whileInView={{ pathLength: 1 }}
-                        viewport={{ once: true }}
-                        transition={{ delay: 2 + (i * 0.1), duration: 0.4 }}
-                      />
-                    </g>
-                  )
-               })}
+               {/* Connect every node to the center */}
+               {ECOSYSTEM_NODES.map((node, i) => (
+                 <motion.line 
+                   key={`center-${i}`}
+                   x1="50%" y1="50%" x2={`calc(50% + ${node.pos.x}vmin)`} y2={`calc(50% + ${node.pos.y}vmin)`}
+                   stroke="rgba(45,212,191,0.5)" strokeWidth="2"
+                   initial={{ pathLength: 0 }} whileInView={{ pathLength: 1 }} viewport={{ once: true }} transition={{ duration: 1, delay: 0.2 }}
+                 />
+               ))}
+
+               {/* Connect nodes to sub-nodes */}
+               {ECOSYSTEM_NODES.map((n, i) => (
+                 <g key={`subs-${i}`}>
+                   <motion.line 
+                     x1={`calc(50% + ${n.pos.x}vmin)`} y1={`calc(50% + ${n.pos.y}vmin)`} 
+                     x2={`calc(50% + ${n.subPos.x}vmin)`} y2={`calc(50% + ${n.subPos.y}vmin)`}
+                     stroke="rgba(45,212,191,0.2)" strokeWidth="1" strokeDasharray="4 4"
+                     initial={{ pathLength: 0 }} whileInView={{ pathLength: 1 }} viewport={{ once: true }} transition={{ duration: 1, delay: 1 + (i * 0.1) }}
+                   />
+                   <motion.line 
+                     x1={`calc(50% + ${n.subPos.x}vmin)`} y1={`calc(50% + ${n.subPos.y}vmin)`} 
+                     x2={`calc(50% + ${n.sub2Pos.x}vmin)`} y2={`calc(50% + ${n.sub2Pos.y}vmin)`}
+                     stroke="rgba(45,212,191,0.2)" strokeWidth="1" strokeDasharray="4 4"
+                     initial={{ pathLength: 0 }} whileInView={{ pathLength: 1 }} viewport={{ once: true }} transition={{ duration: 0.8, delay: 1.2 }}
+                   />
+                 </g>
+               ))}
+
+               {/* Full Mesh: Connect every main node to every other main node */}
+               {ECOSYSTEM_NODES.map((p1, i, arr) => 
+                 arr.map((p2, j) => {
+                   if (i >= j) return null; // Avoid duplicate lines and self-connections
+                   const dx = p1.pos.x - p2.pos.x;
+                   const dy = p1.pos.y - p2.pos.y;
+                   const dist = Math.sqrt(dx * dx + dy * dy);
+
+                   return (
+                     <motion.line 
+                       key={`mesh-${i}-${j}`}
+                       x1={`calc(50% + ${p1.pos.x}vmin)`} y1={`calc(50% + ${p1.pos.y}vmin)`} x2={`calc(50% + ${p2.pos.x}vmin)`} y2={`calc(50% + ${p2.pos.y}vmin)`}
+                       stroke="rgba(45,212,191,0.15)" strokeWidth="1"
+                       initial={{ pathLength: 0 }} whileInView={{ pathLength: 1 }} viewport={{ once: true }} transition={{ duration: 1.5, delay: 0.5 + (dist / 30) }}
+                     />
+                   )
+                 })
+               )}
             </svg>
           </div>
         </div>

@@ -1,7 +1,7 @@
 "use client";
 
-import { useRef, useEffect } from "react";
-import { motion, useInView, animate } from "framer-motion";
+import { useRef, useEffect, useState } from "react";
+import { motion, useInView, animate, AnimatePresence } from "framer-motion";
 import { 
   ClipboardCheck, 
   Calendar, 
@@ -46,7 +46,23 @@ function AnimatedCounter({ from, to, duration = 2, suffix = "", prefix = "" }: {
   return <span ref={nodeRef}>{prefix}{from}{suffix}</span>;
 }
 
+const WORDS = [
+  { text: "Educators", suffix: "Need." },
+  { text: "Students", suffix: "Need." },
+  { text: "Faculty", suffix: "Needs." },
+  { text: "Administrators", suffix: "Need." }
+];
+
 export default function FacultyPage() {
+  const [wordIndex, setWordIndex] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setWordIndex((prev) => (prev + 1) % WORDS.length);
+    }, 3000);
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <div className="min-h-screen bg-[#F8FAFC]">
       <Navbar />
@@ -65,9 +81,33 @@ export default function FacultyPage() {
               <Briefcase className="w-4 h-4 mr-2" />
               Faculty Portal
             </div>
-            <h1 className="text-5xl md:text-7xl font-bold tracking-tight text-text-main mb-8 leading-[1.1]">
-              Everything Faculty Needs.<br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent">One Intelligent Platform.</span>
+            <h1 className="text-[min(7.5vw,2.25rem)] sm:text-4xl md:text-5xl lg:text-7xl font-bold tracking-tight text-text-main mb-8 leading-[1.1] flex flex-col items-center justify-center overflow-visible">
+              <span className="inline-flex items-baseline justify-center whitespace-nowrap">
+                Everything{" "}
+                <span className="inline-grid text-left ml-2 sm:ml-3 whitespace-nowrap" style={{ perspective: "1000px" }}>
+                  <span className="invisible col-start-1 row-start-1 pointer-events-none whitespace-nowrap">
+                    Administrators Needs.
+                  </span>
+                  <AnimatePresence>
+                    <motion.span
+                      key={wordIndex}
+                      initial={{ rotateX: -90, y: 20, opacity: 0 }}
+                      animate={{ rotateX: 0, y: 0, opacity: 1 }}
+                      exit={{ rotateX: 90, y: -20, opacity: 0 }}
+                      transition={{ duration: 0.5, ease: "easeOut" }}
+                      className="col-start-1 row-start-1 origin-center whitespace-nowrap"
+                    >
+                      <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent">
+                        {WORDS[wordIndex].text}
+                      </span>{" "}
+                      {WORDS[wordIndex].suffix}
+                    </motion.span>
+                  </AnimatePresence>
+                </span>
+              </span>
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent whitespace-nowrap mt-2 sm:mt-4">
+                One Intelligent Platform.
+              </span>
             </h1>
             <p className="mx-auto max-w-3xl text-xl leading-relaxed text-[#64748B]">
               Empower faculty with AI-driven tools to manage attendance, classes, SmartBoard content, student engagement, and academic resourcesâ€”all from a single intuitive application.

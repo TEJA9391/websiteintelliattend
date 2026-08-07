@@ -89,6 +89,7 @@ export function ContactSection() {
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
                     onSubmit={handleSubmit}
+                    onKeyDown={(e) => e.stopPropagation()}
                     className="space-y-6"
                   >
                     <div className="space-y-2">
