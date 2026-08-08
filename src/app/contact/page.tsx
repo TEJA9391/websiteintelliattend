@@ -33,7 +33,7 @@ export default function ContactPage() {
                 </div>
                 <div>
                   <h4 className="font-semibold text-[#0F172A]">Our Office</h4>
-                  <p className="text-[#64748B]">123 Innovation Drive<br />Tech District, CA 94103</p>
+                  <p className="text-[#64748B]">The Malla Reddy group of institutions in Maisammaguda is located at Maisammaguda, Dhulapally (Post via Kompally), Gundlapochampally Village, Medchal-Malkajgiri District, Hyderabad, Telangana, 500100.</p>
                 </div>
               </div>
               <div className="flex items-start gap-4">
