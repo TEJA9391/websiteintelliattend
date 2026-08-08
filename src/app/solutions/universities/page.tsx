@@ -1,7 +1,8 @@
 "use client";
 
-import { useRef, useEffect, useState } from "react";
+import { useRef, useEffect, useState, Fragment } from "react";
 import { motion, useInView, animate, AnimatePresence } from "framer-motion";
+import Image from "next/image";
 import { NeuralMesh } from "@/components/ui/NeuralMesh";
 import { 
   Building2,
@@ -61,22 +62,14 @@ const WORDS = [
 ];
 
 const ECOSYSTEM_NODES = [
-  // Top
-  { label: "Cloud", icon: Cloud, desc: "Secure Sync", subDesc: "End-to-End Encrypted", pos: { x: 0, y: -16 }, subPos: { x: -8, y: -26 }, sub2Pos: { x: 8, y: -26 } },
-  // Top Right
-  { label: "Faculty", icon: Users, desc: "Digital Workflows", subDesc: "Automated Grading", pos: { x: 18, y: -12 }, subPos: { x: 20, y: -24 }, sub2Pos: { x: 32, y: -12 } },
-  // Right
-  { label: "Departments", icon: Building2, desc: "Resource Allocation", subDesc: "Budget Optimization", pos: { x: 26, y: 0 }, subPos: { x: 38, y: -8 }, sub2Pos: { x: 38, y: 8 } },
-  // Bottom Right
-  { label: "SmartBoards", icon: Monitor, desc: "Interactive Displays", subDesc: "Real-time Sync", pos: { x: 18, y: 12 }, subPos: { x: 32, y: 12 }, sub2Pos: { x: 20, y: 24 } },
-  // Bottom
-  { label: "Library", icon: BookMarked, desc: "Digital Repository", subDesc: "E-books & Journals", pos: { x: 0, y: 16 }, subPos: { x: -8, y: 26 }, sub2Pos: { x: 8, y: 26 } },
-  // Bottom Left
-  { label: "Administration", icon: Briefcase, desc: "Central Control", subDesc: "Unified Dashboard", pos: { x: -18, y: 12 }, subPos: { x: -32, y: 12 }, sub2Pos: { x: -20, y: 24 } },
-  // Left
-  { label: "AI Analytics", icon: BrainCircuit, desc: "Predictive Insights", subDesc: "Dropout Prevention", pos: { x: -26, y: 0 }, subPos: { x: -38, y: -8 }, sub2Pos: { x: -38, y: 8 } },
-  // Top Left
-  { label: "Students", icon: GraduationCap, desc: "Mobile App Access", subDesc: "iOS & Android", pos: { x: -18, y: -12 }, subPos: { x: -32, y: -12 }, sub2Pos: { x: -20, y: -24 } },
+  { label: "Students", icon: GraduationCap, desc: "Mobile App Access", subDesc: "iOS & Android", pos: { x: -65, y: -5 }, subPos: { x: -81, y: -17 }, sub2Pos: { x: -59, y: -23 } },
+  { label: "AI Analytics", icon: BrainCircuit, desc: "Predictive Insights", subDesc: "Dropout Prevention", pos: { x: -45, y: 15 }, subPos: { x: -61, y: 29 }, sub2Pos: { x: -37, y: 33 } },
+  { label: "Administration", icon: Briefcase, desc: "Central Control", subDesc: "Unified Dashboard", pos: { x: -25, y: -18 }, subPos: { x: -41, y: -30 }, sub2Pos: { x: -15, y: -34 } },
+  { label: "Library", icon: BookMarked, desc: "Digital Repository", subDesc: "E-books & Journals", pos: { x: -5, y: 25 }, subPos: { x: -22, y: 20 }, sub2Pos: { x: 12, y: 15 } },
+  { label: "Cloud", icon: Cloud, desc: "Secure Sync", subDesc: "End-to-End Encrypted", pos: { x: 15, y: -22 }, subPos: { x: 5, y: -34 }, sub2Pos: { x: 27, y: -32 } },
+  { label: "Faculty", icon: Users, desc: "Digital Workflows", subDesc: "Automated Grading", pos: { x: 35, y: 15 }, subPos: { x: 25, y: 31 }, sub2Pos: { x: 43, y: 31 } },
+  { label: "Departments", icon: Building2, desc: "Resource Allocation", subDesc: "Budget Optimization", pos: { x: 55, y: -10 }, subPos: { x: 45, y: -26 }, sub2Pos: { x: 71, y: -22 } },
+  { label: "SmartBoards", icon: Monitor, desc: "Interactive Displays", subDesc: "Real-time Sync", pos: { x: 70, y: 12 }, subPos: { x: 62, y: 28 }, sub2Pos: { x: 86, y: 22 } },
 ];
 
 export default function UniversitiesSolution() {
@@ -277,51 +270,114 @@ export default function UniversitiesSolution() {
               initial={{ scale: 0 }}
               whileInView={{ scale: 1 }}
               viewport={{ once: true }}
-              className="absolute z-20 bg-primary rounded-full flex items-center justify-center text-white font-bold shadow-[0_0_50px_rgba(45,212,191,0.3)]"
-              style={{ width: "22vmin", height: "22vmin", fontSize: "2.5vmin" }}
+              className="absolute z-20"
             >
-              IntelliAttend
+              <motion.div
+                animate={{ y: [0, -8, 0] }}
+                transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+                className="bg-primary rounded-full flex items-center justify-center text-white font-bold shadow-[0_0_50px_rgba(45,212,191,0.3)]"
+                style={{ width: "22vmin", height: "22vmin", fontSize: "2.5vmin" }}
+              >
+                IntelliAttend
+              </motion.div>
             </motion.div>
 
             {/* Orbiting nodes organically scattered - Responsive vmin coordinates */}
-            {ECOSYSTEM_NODES.map((node, i) => (
-                <motion.div
-                  key={i}
-                  initial={{ opacity: 0, x: 0, y: 0 }}
-                  whileInView={{ opacity: 1, x: `${node.pos.x}vmin`, y: `${node.pos.y}vmin` }}
-                  viewport={{ once: true }}
-                  transition={{ delay: i * 0.1, type: "spring", bounce: 0.4 }}
-                  className="absolute flex items-center justify-center z-10 w-full h-full"
-                >
-                  <motion.div
-                    initial={{ opacity: 0, scale: 0, x: `${node.subPos.x - node.pos.x}vmin`, y: `${node.subPos.y - node.pos.y}vmin` }}
-                    whileInView={{ opacity: 1, scale: 1, x: `${node.sub2Pos.x - node.pos.x}vmin`, y: `${node.sub2Pos.y - node.pos.y}vmin` }}
-                    viewport={{ once: true }}
-                    transition={{ delay: 2 + (i * 0.1), type: "spring", bounce: 0.4 }}
-                    className="absolute bg-slate-50 border border-slate-200 rounded-full flex items-center justify-center text-center shadow-sm z-[-1] p-1.5"
-                    style={{ width: "11vmin", height: "11vmin" }}
-                  >
-                    <span className="font-medium leading-tight text-slate-500" style={{ fontSize: "1.1vmin" }}>{node.subDesc}</span>
-                  </motion.div>
+            {ECOSYSTEM_NODES.map((node, i) => {
+              const tealDelay = 2.5 + (i * 0.1);
+              const slateDelay = 3.5 + (i * 0.1);
 
-                  <motion.div
-                    initial={{ opacity: 0, scale: 0, x: 0, y: 0 }}
-                    whileInView={{ opacity: 1, scale: 1, x: `${node.subPos.x - node.pos.x}vmin`, y: `${node.subPos.y - node.pos.y}vmin` }}
-                    viewport={{ once: true }}
-                    transition={{ delay: 1 + (i * 0.1), type: "spring", bounce: 0.4 }}
-                    className="absolute bg-teal-50 border border-teal-100 rounded-full flex items-center justify-center text-center shadow-sm z-0 p-2"
-                    style={{ width: "13vmin", height: "13vmin" }}
+              return (
+                <Fragment key={i}>
+                  {/* Slate Circle (subDesc at sub2Pos, size 11vmin, offset -5.5vmin) */}
+                  <div
+                    className="absolute z-[1]"
+                    style={{ 
+                      left: `calc(50% + (${node.sub2Pos.x}vmin))`, 
+                      top: `calc(50% + (${node.sub2Pos.y}vmin))`,
+                      width: "11vmin",
+                      height: "11vmin",
+                      marginLeft: "-5.5vmin",
+                      marginTop: "-5.5vmin"
+                    }}
                   >
-                    <span className="font-medium leading-tight text-teal-800" style={{ fontSize: "1.2vmin" }}>{node.desc}</span>
-                  </motion.div>
-                  
-                  <div className="relative bg-white border border-slate-200 rounded-full flex flex-col items-center justify-center text-center shadow-lg z-10"
-                       style={{ width: "16vmin", height: "16vmin" }}>
-                    <node.icon className="text-primary mb-1" style={{ width: "4vmin", height: "4vmin" }} />
-                    <span className="font-bold text-text-main leading-tight" style={{ fontSize: "1.5vmin" }}>{node.label}</span>
+                    <motion.div
+                      initial={{ opacity: 0, scale: 0 }}
+                      whileInView={{ opacity: 1, scale: 1 }}
+                      viewport={{ once: true }}
+                      transition={{ duration: 0.4, delay: slateDelay, type: "spring", bounce: 0.5 }}
+                      className="w-full h-full"
+                    >
+                      <motion.div
+                        animate={{ y: [0, -5, 0] }}
+                        transition={{ duration: 4, repeat: Infinity, ease: "easeInOut", delay: slateDelay }}
+                        className="bg-slate-50 border border-slate-200 rounded-full flex items-center justify-center text-center shadow-sm p-1.5 w-full h-full"
+                      >
+                        <span className="font-medium leading-tight text-slate-500" style={{ fontSize: "1.1vmin" }}>{node.subDesc}</span>
+                      </motion.div>
+                    </motion.div>
                   </div>
-                </motion.div>
-            ))}
+
+                  {/* Teal Circle (desc at subPos, size 13vmin, offset -6.5vmin) */}
+                  <div
+                    className="absolute z-[2]"
+                    style={{ 
+                      left: `calc(50% + (${node.subPos.x}vmin))`, 
+                      top: `calc(50% + (${node.subPos.y}vmin))`,
+                      width: "13vmin",
+                      height: "13vmin",
+                      marginLeft: "-6.5vmin",
+                      marginTop: "-6.5vmin"
+                    }}
+                  >
+                    <motion.div
+                      initial={{ opacity: 0, scale: 0 }}
+                      whileInView={{ opacity: 1, scale: 1 }}
+                      viewport={{ once: true }}
+                      transition={{ duration: 0.4, delay: tealDelay, type: "spring", bounce: 0.5 }}
+                      className="w-full h-full"
+                    >
+                      <motion.div
+                        animate={{ y: [0, -6, 0] }}
+                        transition={{ duration: 3.5, repeat: Infinity, ease: "easeInOut", delay: tealDelay }}
+                        className="bg-teal-50 border border-teal-100 rounded-full flex items-center justify-center text-center shadow-sm p-2 w-full h-full"
+                      >
+                        <span className="font-medium leading-tight text-teal-800" style={{ fontSize: "1.2vmin" }}>{node.desc}</span>
+                      </motion.div>
+                    </motion.div>
+                  </div>
+                  
+                  {/* Main Node (pos, size 16vmin, offset -8vmin) */}
+                  <div
+                    className="absolute z-10"
+                    style={{ 
+                      left: `calc(50% + (${node.pos.x}vmin))`, 
+                      top: `calc(50% + (${node.pos.y}vmin))`,
+                      width: "16vmin",
+                      height: "16vmin",
+                      marginLeft: "-8vmin",
+                      marginTop: "-8vmin"
+                    }}
+                  >
+                    <motion.div
+                      initial={{ opacity: 0, scale: 0 }}
+                      whileInView={{ opacity: 1, scale: 1 }}
+                      viewport={{ once: true }}
+                      transition={{ duration: 0.4, delay: 1.5 + (i * 0.1), type: "spring", bounce: 0.5 }}
+                      className="w-full h-full"
+                    >
+                      <motion.div 
+                        animate={{ y: [0, -8, 0] }}
+                        transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 1.5 + (i * 0.1) }}
+                        className="relative bg-white border border-slate-200 rounded-full flex flex-col items-center justify-center text-center shadow-lg w-full h-full"
+                      >
+                        <node.icon className="text-primary mb-1" style={{ width: "4vmin", height: "4vmin" }} />
+                        <span className="font-bold text-text-main leading-tight" style={{ fontSize: "1.5vmin" }}>{node.label}</span>
+                      </motion.div>
+                    </motion.div>
+                  </div>
+                </Fragment>
+            )})}
             
             {/* Dynamic Neural Mesh Background */}
             <NeuralMesh />
@@ -334,46 +390,31 @@ export default function UniversitiesSolution() {
                    key={`center-${i}`}
                    x1="50%" y1="50%" x2={`calc(50% + ${node.pos.x}vmin)`} y2={`calc(50% + ${node.pos.y}vmin)`}
                    stroke="rgba(45,212,191,0.5)" strokeWidth="2"
-                   initial={{ pathLength: 0 }} whileInView={{ pathLength: 1 }} viewport={{ once: true }} transition={{ duration: 1, delay: 0.2 }}
+                   initial={{ pathLength: 0 }} whileInView={{ pathLength: 1 }} viewport={{ once: true }} transition={{ duration: 1, delay: 0.5 + (i * 0.1), ease: "easeInOut" }}
                  />
                ))}
 
-               {/* Connect nodes to sub-nodes */}
-               {ECOSYSTEM_NODES.map((n, i) => (
+               {/* Connect nodes to sub-nodes in a perfect chain! */}
+               {ECOSYSTEM_NODES.map((n, i) => {
+                 return (
                  <g key={`subs-${i}`}>
+                   {/* Line 1: Main Node to First Sub Node */}
                    <motion.line 
                      x1={`calc(50% + ${n.pos.x}vmin)`} y1={`calc(50% + ${n.pos.y}vmin)`} 
                      x2={`calc(50% + ${n.subPos.x}vmin)`} y2={`calc(50% + ${n.subPos.y}vmin)`}
-                     stroke="rgba(45,212,191,0.2)" strokeWidth="1" strokeDasharray="4 4"
-                     initial={{ pathLength: 0 }} whileInView={{ pathLength: 1 }} viewport={{ once: true }} transition={{ duration: 1, delay: 1 + (i * 0.1) }}
+                     stroke="rgba(45,212,191,0.6)" strokeWidth="1.5"
+                     initial={{ pathLength: 0 }} whileInView={{ pathLength: 1 }} viewport={{ once: true }} transition={{ duration: 1, delay: 1.5 + (i * 0.1), ease: "easeInOut" }}
                    />
+                   {/* Line 2: First Sub Node to Second Sub Node */}
                    <motion.line 
                      x1={`calc(50% + ${n.subPos.x}vmin)`} y1={`calc(50% + ${n.subPos.y}vmin)`} 
                      x2={`calc(50% + ${n.sub2Pos.x}vmin)`} y2={`calc(50% + ${n.sub2Pos.y}vmin)`}
-                     stroke="rgba(45,212,191,0.2)" strokeWidth="1" strokeDasharray="4 4"
-                     initial={{ pathLength: 0 }} whileInView={{ pathLength: 1 }} viewport={{ once: true }} transition={{ duration: 0.8, delay: 1.2 }}
+                     stroke="rgba(45,212,191,0.6)" strokeWidth="1.5"
+                     initial={{ pathLength: 0 }} whileInView={{ pathLength: 1 }} viewport={{ once: true }} transition={{ duration: 1, delay: 2.5 + (i * 0.1), ease: "easeInOut" }}
                    />
                  </g>
-               ))}
-
-               {/* Full Mesh: Connect every main node to every other main node */}
-               {ECOSYSTEM_NODES.map((p1, i, arr) => 
-                 arr.map((p2, j) => {
-                   if (i >= j) return null; // Avoid duplicate lines and self-connections
-                   const dx = p1.pos.x - p2.pos.x;
-                   const dy = p1.pos.y - p2.pos.y;
-                   const dist = Math.sqrt(dx * dx + dy * dy);
-
-                   return (
-                     <motion.line 
-                       key={`mesh-${i}-${j}`}
-                       x1={`calc(50% + ${p1.pos.x}vmin)`} y1={`calc(50% + ${p1.pos.y}vmin)`} x2={`calc(50% + ${p2.pos.x}vmin)`} y2={`calc(50% + ${p2.pos.y}vmin)`}
-                       stroke="rgba(45,212,191,0.15)" strokeWidth="1"
-                       initial={{ pathLength: 0 }} whileInView={{ pathLength: 1 }} viewport={{ once: true }} transition={{ duration: 1.5, delay: 0.5 + (dist / 30) }}
-                     />
-                   )
-                 })
-               )}
+                 );
+               })}
             </svg>
           </div>
         </div>
@@ -588,7 +629,7 @@ export default function UniversitiesSolution() {
               <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 mix-blend-overlay" />
               <div className="relative z-10">
                 <h3 className="text-2xl font-bold mb-8 border-b border-white/20 pb-4 flex items-center gap-3">
-                  <Sparkles className="w-6 h-6 text-accent" /> IntelliAttend
+                  <Image src="/images/logo.png" alt="Logo" width={24} height={24} className="brightness-0 invert w-6 h-6 object-contain" /> IntelliAttend
                 </h3>
                 <ul className="space-y-6">
                   <li className="flex items-center gap-4 font-semibold text-lg"><Zap className="text-accent" /> One Platform</li>

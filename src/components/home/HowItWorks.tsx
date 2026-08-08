@@ -38,7 +38,7 @@ export function HowItWorks() {
 
         <div className="relative max-w-5xl mx-auto">
           {/* Connecting Line */}
-          <div className="absolute top-1/2 left-0 right-0 h-0.5 bg-[#0F172A]/[0.08] -translate-y-1/2 hidden md:block" />
+
           
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
             {steps.map((step, i) => (
