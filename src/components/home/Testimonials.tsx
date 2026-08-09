@@ -63,7 +63,7 @@ export function Testimonials() {
           <h2 className="text-4xl md:text-5xl font-bold text-[#0F172A] mb-6 flex items-center justify-center gap-2">
             Loved{" "}
             <span className="inline-flex items-center gap-3">
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent pb-1">
+              <span className="pb-1 text-slate-900">
                 by
               </span>
               <span className="inline-grid text-left pb-1" style={{ perspective: "1000px" }}>

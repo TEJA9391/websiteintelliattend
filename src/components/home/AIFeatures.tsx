@@ -49,9 +49,9 @@ export function AIFeatures() {
             viewport={{ once: true }}
             className="text-[min(7.5vw,2.25rem)] sm:text-4xl md:text-5xl font-bold text-[#0F172A] mb-6 leading-[1.1] flex flex-col items-center justify-center overflow-visible"
           >
-            <motion.span layout className="inline-flex items-baseline justify-center whitespace-nowrap">
+            <motion.span layout className="flex flex-wrap items-baseline justify-center text-center">
               <motion.span layout>Everything</motion.span>
-              <span className="inline-grid text-center mx-2 sm:mx-3 whitespace-nowrap" style={{ perspective: "1000px" }}>
+              <span className="inline-grid text-center mx-2 sm:mx-3" style={{ perspective: "1000px" }}>
                 <AnimatePresence mode="popLayout">
                   <motion.span
                     layout
@@ -70,7 +70,7 @@ export function AIFeatures() {
               </span>
               <motion.span layout>Needs.</motion.span>
             </motion.span>
-            <motion.span layout className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent whitespace-nowrap mt-2 sm:mt-4">
+            <motion.span layout className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent mt-2 sm:mt-4 text-center">
               One Intelligent Platform.
             </motion.span>
           </motion.h2>

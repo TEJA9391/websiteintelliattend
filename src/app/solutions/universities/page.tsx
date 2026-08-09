@@ -104,9 +104,9 @@ export default function UniversitiesSolution() {
               transition={{ layout: { duration: 1.2, ease: [0.16, 1, 0.3, 1] } }}
               className="text-5xl md:text-7xl font-bold tracking-tight text-text-main mb-8 leading-[1.1] flex flex-col items-center justify-center overflow-visible"
             >
-              <motion.span layout transition={{ layout: { duration: 1.2, ease: [0.16, 1, 0.3, 1] } }} className="inline-flex items-baseline justify-center whitespace-nowrap">
+              <motion.span layout transition={{ layout: { duration: 1.2, ease: [0.16, 1, 0.3, 1] } }} className="flex flex-wrap items-baseline justify-center text-center">
                 <motion.span layout transition={{ layout: { duration: 1.2, ease: [0.16, 1, 0.3, 1] } }}>Everything</motion.span>
-                <span className="inline-grid text-center mx-3 sm:mx-4 whitespace-nowrap" style={{ perspective: "1000px" }}>
+                <span className="inline-grid text-center mx-3 sm:mx-4" style={{ perspective: "1000px" }}>
                   <AnimatePresence mode="popLayout">
                     <motion.span
                       layout
@@ -129,7 +129,7 @@ export default function UniversitiesSolution() {
                 </span>
                 <motion.span layout transition={{ layout: { duration: 1.2, ease: [0.16, 1, 0.3, 1] } }}>Need.</motion.span>
               </motion.span>
-              <motion.span layout transition={{ layout: { duration: 1.2, ease: [0.16, 1, 0.3, 1] } }} className="mt-2 sm:mt-4">
+              <motion.span layout transition={{ layout: { duration: 1.2, ease: [0.16, 1, 0.3, 1] } }} className="mt-2 sm:mt-4 text-center">
                 One Intelligent Platform.
               </motion.span>
             </motion.h1>

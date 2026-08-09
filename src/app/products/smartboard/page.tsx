@@ -293,7 +293,7 @@ export default function SmartBoardPage() {
                     Book a Demo
                   </button>
                 </Link>
-                <Link href="/pricing">
+                <Link href="/join">
                   <button className="px-8 py-4 bg-accent/20 text-white border border-accent/30 rounded-full font-bold text-lg hover:bg-accent/30 hover:scale-105 active:scale-95 transition-all duration-150 backdrop-blur-sm cursor-pointer">
                     View Pricing
                   </button>

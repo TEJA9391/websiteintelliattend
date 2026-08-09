@@ -87,6 +87,10 @@ export const metadata: Metadata = {
   verification: {
     google: "your-google-search-console-verification-code",
   },
+  icons: {
+    icon: "/images/logo.png",
+    apple: "/images/logo.png",
+  },
 };
 
 export const viewport: Viewport = {
@@ -109,8 +113,6 @@ export default function RootLayout({
       <head>
         <OrganizationJsonLd />
         <WebsiteJsonLd />
-        <link rel="icon" href="/favicon.ico" sizes="any" />
-        <link rel="apple-touch-icon" href="/images/logo.png" />
         <link rel="manifest" href="/manifest.json" />
       </head>
       <body className="flex flex-col font-sans">

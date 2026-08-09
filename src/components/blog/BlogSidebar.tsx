@@ -1,6 +1,7 @@
 "use client";
 
-import { Download, Mail, ChevronRight } from 'lucide-react';
+import { useState } from 'react';
+import { Download, Mail, ChevronRight, CheckCircle2, Loader2 } from 'lucide-react';
 
 const TOPICS = [
   "Artificial Intelligence", "Digital Attendance", "SmartBoard Technology", 
@@ -17,6 +18,22 @@ const RESOURCES = [
 ];
 
 export function BlogSidebar() {
+  const [email, setEmail] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
+
+  const handleSubscribe = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!email) return;
+    
+    setIsSubmitting(true);
+    // Simulate API call
+    await new Promise(resolve => setTimeout(resolve, 1500));
+    setIsSubmitting(false);
+    setIsSuccess(true);
+    setEmail('');
+  };
+
   return (
     <div className="space-y-8">
       {/* Popular Topics */}
@@ -57,16 +74,36 @@ export function BlogSidebar() {
         <p className="text-sm text-white/80 mb-6 font-medium leading-relaxed relative z-10">
           Get the latest insights on AI, smart classrooms, campus management, and educational technology delivered directly to your inbox.
         </p>
-        <form className="flex flex-col gap-3 relative z-10" onSubmit={(e) => e.preventDefault()}>
-          <input 
-            type="email" 
-            placeholder="Your email address..." 
-            className="w-full bg-white/10 border border-white/20 rounded-xl px-4 py-3 text-sm text-white placeholder:text-white/50 focus:outline-none focus:ring-2 focus:ring-white/50 backdrop-blur-md transition-all"
-          />
-          <button className="w-full bg-white text-primary font-extrabold py-3 rounded-xl hover:bg-white/90 transition-colors shadow-lg mt-1">
-            Subscribe Now
-          </button>
-        </form>
+        {isSuccess ? (
+          <div className="flex flex-col items-center justify-center py-4 relative z-10 text-center animate-in fade-in zoom-in duration-300">
+            <CheckCircle2 className="w-12 h-12 text-white mb-3" />
+            <h4 className="text-lg font-bold text-white mb-1">You're In!</h4>
+            <p className="text-sm text-white/80">Thank you for subscribing.</p>
+          </div>
+        ) : (
+          <form className="flex flex-col gap-3 relative z-10" onSubmit={handleSubscribe}>
+            <input 
+              type="email" 
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder="Your email address..." 
+              required
+              disabled={isSubmitting}
+              className="w-full bg-white/10 border border-white/20 rounded-xl px-4 py-3 text-sm text-white placeholder:text-white/50 focus:outline-none focus:ring-2 focus:ring-white/50 backdrop-blur-md transition-all disabled:opacity-50"
+            />
+            <button 
+              type="submit"
+              disabled={isSubmitting}
+              className="cursor-pointer w-full bg-white text-primary font-extrabold py-3 rounded-xl hover:bg-white/90 transition-colors shadow-lg mt-1 disabled:opacity-70 flex items-center justify-center gap-2"
+            >
+              {isSubmitting ? (
+                <><Loader2 className="w-4 h-4 animate-spin" /> Subscribing...</>
+              ) : (
+                "Subscribe Now"
+              )}
+            </button>
+          </form>
+        )}
       </div>
     </div>
   );
