@@ -31,7 +31,7 @@ export function Footer() {
             <h4 className="font-semibold text-[#0F172A] mb-4">Product</h4>
             <ul className="space-y-3">
               <li><Link href="/features" className="text-sm text-[#64748B] hover:text-[#0F172A] transition-colors">Features</Link></li>
-              <li><Link href="/pricing" className="text-sm text-[#64748B] hover:text-[#0F172A] transition-colors">Join</Link></li>
+              <li><Link href="/join" className="text-sm text-[#64748B] hover:text-[#0F172A] transition-colors">Join</Link></li>
               <li><Link href="/products/smartboard" className="text-sm text-[#64748B] hover:text-[#0F172A] transition-colors">SmartBoard</Link></li>
               <li><Link href="/products/faculty" className="text-sm text-[#64748B] hover:text-[#0F172A] transition-colors">Faculty</Link></li>
               <li><Link href="/products/student" className="text-sm text-[#64748B] hover:text-[#0F172A] transition-colors">Student</Link></li>

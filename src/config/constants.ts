@@ -49,7 +49,7 @@ export const NAV_LINKS = [
       },
     ],
   },
-  { name: "Join", href: "/pricing" },
+  { name: "Join", href: "/join" },
   { name: "Blog", href: "/blog" },
   {
     name: "Resources",
@@ -74,7 +74,7 @@ export const FOOTER_LINKS = {
     { name: "SmartBoard", href: "/products/smartboard" },
     { name: "Faculty Portal", href: "/products/faculty" },
     { name: "Student App", href: "/products/student" },
-    { name: "Join", href: "/pricing" },
+    { name: "Join", href: "/join" },
   ],
   solutions: [
     { name: "Universities", href: "/solutions/universities" },

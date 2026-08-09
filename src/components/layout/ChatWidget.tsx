@@ -5,12 +5,12 @@ import { useState, useEffect, useRef } from "react";
 import ReactMarkdown from "react-markdown";
 import { X, Send, Bot, User, Mic, MicOff, RefreshCw } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
-import { generateMockResponse } from "@/lib/bot-logic";
+import { generateResponse, BotContext } from "@/lib/bot-logic";
 
-const QUICK_REPLIES = [
-  "How much does it cost?",
-  "Tell me about SmartBoards",
-  "How does attendance work?",
+const INITIAL_QUICK_REPLIES = [
+  "What is IntelliAttend?",
+  "SmartBoard",
+  "Pricing",
   "Book a Demo"
 ];
 
@@ -28,6 +28,8 @@ export function ChatWidget() {
   const [messages, setMessages] = useState<Array<{id: string, role: string, content: string}>>([
     { id: "system-1", role: "assistant", content: "Hi! I'm IntelliAttend's AI Assistant. How can I help you today?" }
   ]);
+  const [quickReplies, setQuickReplies] = useState<string[]>(INITIAL_QUICK_REPLIES);
+  const [botContext, setBotContext] = useState<BotContext>({ lastIntent: null, lastEntity: null, history: [] });
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
@@ -38,15 +40,24 @@ export function ChatWidget() {
     setMessages(newMessages);
     setIsLoading(true);
     
-    // Simulate network delay
-    setTimeout(() => {
-      const responseText = generateMockResponse(msg.content);
-      
-      setMessages(prev => [
-        ...prev, 
-        { id: (Date.now() + 1).toString(), role: "assistant", content: responseText }
-      ]);
-      setIsLoading(false);
+    // Simulate network delay for natural feel
+    setTimeout(async () => {
+      try {
+        const response = await generateResponse(msg.content, botContext);
+        setMessages(prev => [
+          ...prev, 
+          { id: (Date.now() + 1).toString(), role: "assistant", content: response.text }
+        ]);
+        setBotContext(response.nextContext);
+        setQuickReplies(response.quickReplies);
+      } catch (error) {
+        setMessages(prev => [
+          ...prev, 
+          { id: (Date.now() + 1).toString(), role: "assistant", content: "I encountered an error. Please try again." }
+        ]);
+      } finally {
+        setIsLoading(false);
+      }
     }, 1200);
   };
 
@@ -81,6 +92,8 @@ export function ChatWidget() {
     setMessages([
       { id: Date.now().toString(), role: "assistant", content: "Chat cleared! What's on your mind?" }
     ]);
+    setBotContext({ lastIntent: null, lastEntity: null, history: [] });
+    setQuickReplies(INITIAL_QUICK_REPLIES);
   };
 
   const handleQuickReply = (reply: string) => {
@@ -96,7 +109,7 @@ export function ChatWidget() {
         animate={{ opacity: 1, y: 0, scale: 1 }}
         exit={{ opacity: 0, y: 50, scale: 0.95 }}
         transition={{ duration: 0.15, type: "spring", bounce: 0.3 }}
-        className="fixed bottom-6 right-6 z-50 w-full max-w-sm bg-white/90 backdrop-blur-xl rounded-3xl shadow-2xl border border-white/40 overflow-hidden flex flex-col h-[550px] overscroll-contain"
+        className="fixed z-50 bg-white/90 backdrop-blur-xl shadow-2xl overflow-hidden flex flex-col overscroll-contain bottom-0 right-0 left-0 w-full h-[100dvh] rounded-none sm:bottom-6 sm:right-6 sm:left-auto sm:max-w-sm sm:h-[550px] sm:rounded-3xl sm:border sm:border-white/40"
       >
         {/* Header */}
         <div className="bg-gradient-to-r from-slate-900 to-slate-800 px-5 py-4 flex items-center justify-between text-white border-b border-slate-700/50 relative overflow-hidden">
@@ -107,9 +120,6 @@ export function ChatWidget() {
             </div>
             <div>
               <h3 className="font-extrabold text-base leading-tight tracking-tight">IntelliAttend AI</h3>
-              <span className="text-[11px] text-teal-300/80 font-medium flex items-center gap-1.5 uppercase tracking-wider mt-0.5">
-                <span className="w-1.5 h-1.5 rounded-full bg-teal-400 animate-pulse shadow-[0_0_8px_rgba(45,212,191,0.8)]"></span> Enterprise Mode
-              </span>
             </div>
           </div>
           <div className="flex items-center gap-1 relative z-10">
@@ -174,9 +184,9 @@ export function ChatWidget() {
         </div>
 
         {/* Quick Replies */}
-        {!isLoading && messages[messages.length - 1]?.role !== "user" && (
+        {!isLoading && messages[messages.length - 1]?.role !== "user" && quickReplies.length > 0 && (
           <div data-lenis-prevent="true" className="px-5 pb-3 pt-2 bg-white flex gap-2 overflow-x-auto whitespace-nowrap [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] border-t border-slate-100">
-            {QUICK_REPLIES.map((reply, i) => (
+            {quickReplies.map((reply, i) => (
               <button
                 key={i}
                 onClick={() => handleQuickReply(reply)}

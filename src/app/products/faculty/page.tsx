@@ -66,16 +66,16 @@ export default function FacultyPage() {
               Faculty Portal
             </div>
             <h1 className="text-[min(7.5vw,2.25rem)] sm:text-4xl md:text-5xl lg:text-7xl font-bold tracking-tight text-text-main mb-8 leading-[1.1] flex flex-col items-center justify-center overflow-visible">
-              <span className="inline-flex items-baseline justify-center whitespace-nowrap">
-                Everything{" "}
-                <span className="mx-2 sm:mx-3 text-text-main">
+              <motion.span layout transition={{ layout: { duration: 1.2, ease: [0.16, 1, 0.3, 1] } }} className="flex flex-wrap items-baseline justify-center text-center">
+                <motion.span layout transition={{ layout: { duration: 1.2, ease: [0.16, 1, 0.3, 1] } }}>Everything</motion.span>
+                <span className="inline-grid text-center mx-3 sm:mx-4" style={{ perspective: "1000px" }}>
                   Educators
                 </span>
                 Need.
-              </span>
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent whitespace-nowrap mt-2 sm:mt-4">
+              </motion.span>
+              <motion.span layout transition={{ layout: { duration: 1.2, ease: [0.16, 1, 0.3, 1] } }} className="mt-2 sm:mt-4 text-center">
                 One Intelligent Platform.
-              </span>
+              </motion.span>
             </h1>
             <p className="mx-auto max-w-3xl text-xl leading-relaxed text-[#64748B]">
               Empower faculty with AI-driven tools to manage attendance, classes, SmartBoard content, student engagement, and academic resources — all from a single intuitive application.

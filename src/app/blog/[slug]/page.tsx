@@ -1,7 +1,8 @@
 import { ARTICLES } from "@/lib/blog-data";
 import { notFound } from "next/navigation";
-import { Clock, ArrowLeft, Share2, Bookmark } from "lucide-react";
+import { Clock, ArrowLeft } from "lucide-react";
 import Link from "next/link";
+import { ArticleActions } from "@/components/blog/ArticleActions";
 
 export function generateStaticParams() {
   return ARTICLES.map((article) => ({
@@ -9,8 +10,9 @@ export function generateStaticParams() {
   }));
 }
 
-export default function BlogPost({ params }: { params: { slug: string } }) {
-  const article = ARTICLES.find((a) => a.slug === params.slug);
+export default async function BlogPost({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
+  const article = ARTICLES.find((a) => a.slug === slug);
 
   if (!article) {
     notFound();
@@ -56,14 +58,7 @@ export default function BlogPost({ params }: { params: { slug: string } }) {
               </div>
             </div>
             
-            <div className="flex gap-2">
-              <button className="w-10 h-10 rounded-full border border-slate-200 flex items-center justify-center text-slate-400 hover:text-slate-900 hover:bg-slate-50 transition-colors">
-                <Bookmark className="w-4 h-4" />
-              </button>
-              <button className="w-10 h-10 rounded-full border border-slate-200 flex items-center justify-center text-slate-400 hover:text-slate-900 hover:bg-slate-50 transition-colors">
-                <Share2 className="w-4 h-4" />
-              </button>
-            </div>
+            <ArticleActions articleTitle={article.title} articleSlug={article.slug} />
           </div>
         </header>
 
