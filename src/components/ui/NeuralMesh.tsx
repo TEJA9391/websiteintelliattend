@@ -14,6 +14,7 @@ export function NeuralMesh() {
 
     let particles: Particle[] = [];
     let animationFrameId: number;
+    let isAnimating = false;
 
     const resize = () => {
       canvas.width = canvas.offsetWidth;
@@ -29,7 +30,6 @@ export function NeuralMesh() {
       radius: number;
 
       constructor() {
-        // Safe access since we already verified canvas exists before instantiating Particles
         this.x = Math.random() * canvas!.width;
         this.y = Math.random() * canvas!.height;
         this.vx = (Math.random() - 0.5) * 1.5;
@@ -49,7 +49,7 @@ export function NeuralMesh() {
         if (!ctx) return;
         ctx.beginPath();
         ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-        ctx.fillStyle = 'rgba(45, 212, 191, 0.6)'; // IntelliAttend teal
+        ctx.fillStyle = 'rgba(45, 212, 191, 0.6)';
         ctx.fill();
       }
     }
@@ -57,7 +57,9 @@ export function NeuralMesh() {
     const initParticles = () => {
       particles = [];
       const densityParticles = Math.floor((canvas.width * canvas.height) / 12000);
-      const numParticles = Math.min(150, densityParticles); // Cap to 150 to avoid O(N^2) lag on 4K/Retina displays
+      const maxParticles = window.innerWidth < 768 ? 40 : 100;
+      const numParticles = Math.min(maxParticles, densityParticles);
+      
       for (let i = 0; i < numParticles; i++) {
         particles.push(new Particle());
       }
@@ -83,6 +85,7 @@ export function NeuralMesh() {
     };
 
     const animate = () => {
+      if (!isAnimating) return;
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       
       for (const p of particles) {
@@ -96,11 +99,30 @@ export function NeuralMesh() {
 
     window.addEventListener('resize', resize);
     resize();
-    animate();
+
+    const observer = new IntersectionObserver((entries) => {
+      if (entries[0].isIntersecting) {
+        if (!isAnimating) {
+          isAnimating = true;
+          animate();
+        }
+      } else {
+        isAnimating = false;
+        if (animationFrameId) {
+          cancelAnimationFrame(animationFrameId);
+        }
+      }
+    }, { threshold: 0 });
+
+    observer.observe(canvas);
 
     return () => {
       window.removeEventListener('resize', resize);
-      cancelAnimationFrame(animationFrameId);
+      observer.disconnect();
+      isAnimating = false;
+      if (animationFrameId) {
+        cancelAnimationFrame(animationFrameId);
+      }
     };
   }, []);
 
