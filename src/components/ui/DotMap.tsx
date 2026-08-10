@@ -106,19 +106,28 @@ export const DotMap = ({ dotColor, lineColor }: { dotColor: string, lineColor: s
     if (!ctx) return;
 
     const context = ctx;
-    const dots = generateDots(dimensions.width, dimensions.height);
+    
+    // Create an offscreen canvas for the static dots to prevent re-rendering them every frame
+    const offscreenCanvas = document.createElement("canvas");
+    offscreenCanvas.width = dimensions.width;
+    offscreenCanvas.height = dimensions.height;
+    const offscreenCtx = offscreenCanvas.getContext("2d");
+    
+    if (offscreenCtx) {
+      const dots = generateDots(dimensions.width, dimensions.height);
+      dots.forEach(dot => {
+        offscreenCtx.fillStyle = `rgba(${dotColor}, ${dot.opacity})`;
+        offscreenCtx.fillRect(dot.x, dot.y, dot.size, dot.size);
+      });
+    }
+
     let animationFrameId: number;
     let startTime = Date.now();
 
     // Draw background dots
     function drawDots() {
       context.clearRect(0, 0, dimensions.width, dimensions.height);
-      
-      // Draw the dots as small squares
-      dots.forEach(dot => {
-        context.fillStyle = `rgba(${dotColor}, ${dot.opacity})`;
-        context.fillRect(dot.x, dot.y, dot.size, dot.size);
-      });
+      context.drawImage(offscreenCanvas, 0, 0);
     }
 
     // Draw animated routes
