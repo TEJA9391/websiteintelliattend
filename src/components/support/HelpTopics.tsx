@@ -93,7 +93,7 @@ function AccordionLink({ link }: { link: string }) {
         className="text-sm font-medium text-[#64748B] flex items-center justify-between w-full hover:text-primary group-hover:text-[#0F172A] py-1 text-left"
       >
         <span className="flex items-center gap-2">
-          <ChevronRight className={`w-3.5 h-3.5 text-primary transition-all ${isOpen ? 'rotate-90 opacity-100' : 'opacity-0 group-hover:opacity-100'}`} />
+          <ChevronRight className={`w-3.5 h-3.5 text-primary transition-all ${isOpen ? 'rotate-90' : ''}`} />
           {link}
         </span>
       </button>

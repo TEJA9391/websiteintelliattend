@@ -33,17 +33,17 @@ export function HelpHero() {
         </p>
         
         <div className="relative max-w-2xl mx-auto group">
-          <div className="absolute inset-y-0 left-5 flex items-center pointer-events-none">
-            <Search className="h-6 w-6 text-[#64748B] group-focus-within:text-primary transition-colors" />
+          <div className="absolute inset-y-0 left-4 md:left-5 flex items-center pointer-events-none">
+            <Search className="h-5 w-5 md:h-6 md:w-6 text-[#64748B] group-focus-within:text-primary transition-colors" />
           </div>
           <input 
             type="text" 
             placeholder="How can we help you today?" 
             value={currentQuery}
             onChange={(e) => updateSearch(e.target.value)}
-            className="w-full bg-white border border-slate-300 rounded-2xl py-5 pl-14 pr-6 text-lg text-[#0F172A] placeholder:text-[#64748B] focus:outline-none focus:ring-4 focus:ring-primary/20 focus:border-primary transition-all shadow-xl shadow-slate-200/50"
+            className="w-full bg-white border border-slate-300 rounded-2xl py-4 md:py-5 pl-12 md:pl-14 pr-28 md:pr-32 text-base md:text-lg text-[#0F172A] placeholder:text-[#64748B] focus:outline-none focus:ring-4 focus:ring-primary/20 focus:border-primary transition-all shadow-xl shadow-slate-200/50"
           />
-          <button className="absolute right-3 top-3 bottom-3 bg-primary text-white px-6 rounded-xl font-bold hover:bg-primary/90 transition-colors shadow-md">
+          <button className="absolute right-2 md:right-3 top-2 md:top-3 bottom-2 md:bottom-3 bg-primary text-white px-5 md:px-6 rounded-xl font-bold hover:bg-primary/90 transition-colors shadow-md text-sm md:text-base">
             Search
           </button>
         </div>

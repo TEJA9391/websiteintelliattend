@@ -151,7 +151,9 @@ export const AnimatedMap = () => {
       });
     }
     
+    let isAnimating = false;
     function animate() {
+      if (!isAnimating) return;
       drawDots();
       drawRoutes();
       
@@ -163,9 +165,29 @@ export const AnimatedMap = () => {
       animationFrameId = requestAnimationFrame(animate);
     }
     
-    animate();
+    const observer = new IntersectionObserver((entries) => {
+      if (entries[0].isIntersecting) {
+        if (!isAnimating) {
+          isAnimating = true;
+          animate();
+        }
+      } else {
+        isAnimating = false;
+        if (animationFrameId) {
+          cancelAnimationFrame(animationFrameId);
+        }
+      }
+    });
 
-    return () => cancelAnimationFrame(animationFrameId);
+    observer.observe(canvas);
+
+    return () => {
+      observer.disconnect();
+      isAnimating = false;
+      if (animationFrameId) {
+        cancelAnimationFrame(animationFrameId);
+      }
+    };
   }, [dimensions]);
 
   return (
