@@ -89,9 +89,9 @@ export function HelpContact() {
             Join hundreds of educational institutions already using IntelliAttend to manage their academic operations.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center relative z-10">
-             <button className="bg-white text-[#0F172A] font-bold py-3 px-8 rounded-xl shadow-lg hover:bg-white/90 transition-colors cursor-pointer">
+             <Link href="/contact" className="bg-white text-[#0F172A] font-bold py-3 px-8 rounded-xl shadow-lg hover:bg-white/90 transition-colors cursor-pointer text-center">
                Contact Sales
-             </button>
+             </Link>
              <button 
                onClick={handleOpenChat}
                className="bg-primary text-white font-bold py-3 px-8 rounded-xl shadow-md hover:bg-primary/90 transition-colors cursor-pointer"

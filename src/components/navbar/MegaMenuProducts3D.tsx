@@ -326,7 +326,7 @@ export function MegaMenuProducts3D({ isOpen }: { isOpen: boolean }) {
 
           {/* 3D Canvas */}
           <div className={`absolute inset-0 w-full h-full ${isOpen ? 'pointer-events-auto' : 'pointer-events-none'}`}>
-            <Canvas camera={{ position: [0, 0, 6], fov: 45 }}>
+            <Canvas camera={{ position: [0, 0, 6], fov: 45 }} frameloop={isOpen ? 'always' : 'never'}>
               <Scene activeId={activeId} />
             </Canvas>
           </div>

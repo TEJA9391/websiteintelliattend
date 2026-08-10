@@ -143,21 +143,21 @@ export default function ProductsOverview() {
             <p className="text-slate-400 text-lg max-w-2xl mx-auto">One centralized architecture powering your entire institution.</p>
           </div>
 
-          <div className="relative max-w-5xl mx-auto flex flex-col items-center">
+          <div className="relative max-w-5xl mx-auto flex flex-col items-center px-2">
             
             {/* Top Node: AI Engine */}
             <motion.div 
               initial={{ opacity: 0, scale: 0.8 }}
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
-              className="bg-primary/20 border border-primary/50 shadow-[0_0_30px_rgba(45,212,191,0.2)] rounded-2xl p-6 flex flex-col items-center w-64 backdrop-blur-md relative z-10"
+              className="bg-primary/20 border border-primary/50 shadow-[0_0_30px_rgba(45,212,191,0.2)] rounded-2xl p-4 md:p-6 flex flex-col items-center w-48 md:w-64 backdrop-blur-md relative z-10"
             >
-              <BrainCircuit className="w-10 h-10 text-white mb-3" />
-              <span className="text-xl font-bold text-white">AI Engine</span>
+              <BrainCircuit className="w-8 h-8 md:w-10 md:h-10 text-white mb-2 md:mb-3" />
+              <span className="text-lg md:text-xl font-bold text-white">AI Engine</span>
             </motion.div>
 
             {/* Vertical Line from AI Engine */}
-            <div className="w-px h-16 bg-gradient-to-b from-primary to-accent relative">
+            <div className="w-px h-12 md:h-16 bg-gradient-to-b from-primary to-accent relative">
               <motion.div 
                 animate={{ top: ["0%", "100%", "0%"] }}
                 transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
@@ -175,30 +175,30 @@ export default function ProductsOverview() {
             </div>
 
             {/* Middle Row Nodes with short vertical connectors */}
-            <div className="flex justify-between w-full max-w-4xl">
+            <div className="flex justify-between gap-1 md:gap-4 w-full max-w-4xl">
               {[
                 { icon: Users, title: "Faculty", delay: 0.1 },
                 { icon: GraduationCap, title: "Students", delay: 0.1 },
                 { icon: MonitorPlay, title: "SmartBoard", delay: 0.15 },
                 { icon: BarChart3, title: "Analytics", delay: 0.5 },
               ].map((node, i) => (
-                <div key={i} className="flex flex-col items-center relative">
+                <div key={i} className="flex flex-col items-center relative flex-1 max-w-[160px]">
                   {/* Small connector down from horizontal line */}
-                  <div className="w-px h-8 bg-accent relative" />
+                  <div className="w-px h-6 md:h-8 bg-accent relative" />
                   
                   <motion.div 
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ delay: node.delay }}
-                    className="bg-white/5 border border-white/10 rounded-2xl p-6 flex flex-col items-center w-40 backdrop-blur-md"
+                    className="bg-white/5 border border-white/10 rounded-xl md:rounded-2xl p-2 md:p-6 flex flex-col items-center w-full backdrop-blur-md"
                   >
-                    <node.icon className="w-8 h-8 text-slate-300 mb-3" />
-                    <span className="text-lg font-semibold text-white">{node.title}</span>
+                    <node.icon className="w-5 h-5 md:w-8 md:h-8 text-slate-300 mb-1 md:mb-3" />
+                    <span className="text-[10px] sm:text-xs md:text-lg font-semibold text-white text-center leading-tight break-words hyphens-auto w-full">{node.title}</span>
                   </motion.div>
 
                   {/* Small connector down to bottom horizontal line */}
-                  <div className="w-px h-16 bg-accent relative">
+                  <div className="w-px h-12 md:h-16 bg-accent relative">
                      <motion.div 
                         animate={{ top: ["0%", "100%", "0%"] }}
                         transition={{ duration: 2, repeat: Infinity, ease: "linear", delay: i * 0.2 }}
@@ -221,10 +221,10 @@ export default function ProductsOverview() {
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
               transition={{ delay: 0.6 }}
-              className="bg-white/10 border border-white/20 rounded-2xl p-6 flex flex-col items-center w-64 backdrop-blur-md relative z-10"
+              className="bg-white/10 border border-white/20 rounded-2xl p-4 md:p-6 flex flex-col items-center w-48 md:w-64 backdrop-blur-md relative z-10"
             >
-              <Database className="w-10 h-10 text-white mb-3" />
-              <span className="text-xl font-bold text-white">Cloud Database</span>
+              <Database className="w-8 h-8 md:w-10 md:h-10 text-white mb-2 md:mb-3" />
+              <span className="text-lg md:text-xl font-bold text-white text-center">Cloud Database</span>
             </motion.div>
 
           </div>

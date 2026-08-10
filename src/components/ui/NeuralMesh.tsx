@@ -56,7 +56,8 @@ export function NeuralMesh() {
 
     const initParticles = () => {
       particles = [];
-      const numParticles = Math.floor((canvas.width * canvas.height) / 12000); // density
+      const densityParticles = Math.floor((canvas.width * canvas.height) / 12000);
+      const numParticles = Math.min(150, densityParticles); // Cap to 150 to avoid O(N^2) lag on 4K/Retina displays
       for (let i = 0; i < numParticles; i++) {
         particles.push(new Particle());
       }

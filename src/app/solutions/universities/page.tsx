@@ -148,60 +148,73 @@ export default function UniversitiesSolution() {
             <h2 className="text-3xl md:text-5xl font-bold text-white mb-4">University at a Glance</h2>
           </div>
           
-          <div className="flex flex-col items-center max-w-4xl mx-auto">
+          <div className="flex flex-col items-center max-w-4xl mx-auto w-full px-2">
             {/* Top Node */}
-            <motion.div whileHover={{ scale: 1.05, boxShadow: "0 0 30px rgba(45,212,191,0.4)" }} className="bg-white/10 border border-white/20 p-4 rounded-xl text-white font-bold text-xl backdrop-blur-sm transition-all cursor-default">
+            <motion.div whileHover={{ scale: 1.05, boxShadow: "0 0 30px rgba(45,212,191,0.4)" }} className="bg-white/10 border border-white/20 px-8 py-4 rounded-xl text-white font-bold text-xl md:text-2xl backdrop-blur-sm transition-all cursor-default relative z-10">
               UNIVERSITY
             </motion.div>
             
-            <div className="w-px h-8 bg-accent relative" />
+            {/* Vertical Line */}
+            <div className="w-px h-8 bg-accent" />
             
-            <div className="flex justify-center gap-16 md:gap-32 w-full">
-              <div className="flex flex-col items-center">
-                <div className="w-px h-8 bg-accent relative" />
-                <motion.div whileHover={{ scale: 1.05, boxShadow: "0 0 30px rgba(45,212,191,0.4)" }} className="bg-white/5 border border-white/10 px-6 py-3 rounded-xl text-white flex items-center gap-2 transition-all cursor-default">
-                  <Building2 className="w-5 h-5 text-accent" /> Engineering
+            {/* Level 2: Engineering & Medical */}
+            <div className="relative flex w-full max-w-sm md:max-w-lg mx-auto">
+              {/* Top horizontal connection: 25% from left, 25% from right */}
+              <div className="absolute top-0 left-[25%] right-[25%] h-px bg-accent" />
+              
+              <div className="flex flex-col items-center flex-1 relative z-10">
+                <div className="w-px h-8 bg-accent" />
+                <motion.div whileHover={{ scale: 1.05, boxShadow: "0 0 30px rgba(45,212,191,0.4)" }} className="bg-white/5 border border-white/10 px-4 md:px-6 py-3 rounded-xl text-white flex items-center justify-center gap-2 transition-all cursor-default w-[130px] md:w-[180px]">
+                  <Building2 className="w-4 h-4 md:w-5 md:h-5 text-accent flex-shrink-0" /> <span className="text-sm md:text-base">Engineering</span>
                 </motion.div>
-                <div className="w-px h-8 bg-accent relative" />
+                <div className="w-px h-8 bg-accent" />
               </div>
-              <div className="flex flex-col items-center">
-                <div className="w-px h-8 bg-accent relative" />
-                <motion.div whileHover={{ scale: 1.05, boxShadow: "0 0 30px rgba(45,212,191,0.4)" }} className="bg-white/5 border border-white/10 px-6 py-3 rounded-xl text-white flex items-center gap-2 transition-all cursor-default">
-                  <Stethoscope className="w-5 h-5 text-accent" /> Medical
+              
+              <div className="flex flex-col items-center flex-1 relative z-10">
+                <div className="w-px h-8 bg-accent" />
+                <motion.div whileHover={{ scale: 1.05, boxShadow: "0 0 30px rgba(45,212,191,0.4)" }} className="bg-white/5 border border-white/10 px-4 md:px-6 py-3 rounded-xl text-white flex items-center justify-center gap-2 transition-all cursor-default w-[130px] md:w-[180px]">
+                  <Stethoscope className="w-4 h-4 md:w-5 md:h-5 text-accent flex-shrink-0" /> <span className="text-sm md:text-base">Medical</span>
                 </motion.div>
-                <div className="w-px h-8 bg-accent relative" />
+                <div className="w-px h-8 bg-accent" />
               </div>
+
+              {/* Bottom horizontal connection */}
+              <div className="absolute bottom-0 left-[25%] right-[25%] h-px bg-accent" />
             </div>
 
-            <div className="w-[60%] md:w-[40%] h-px bg-accent relative -mt-8" />
-            <div className="w-px h-8 bg-accent relative" />
+            {/* Vertical drop to center */}
+            <div className="w-px h-8 bg-accent" />
 
             {/* Core Node */}
             <motion.div 
               whileHover={{ scale: 1.05, boxShadow: "0 0 40px rgba(45,212,191,0.6)" }} 
-              className="bg-primary border border-primary-light p-6 rounded-2xl text-white font-bold text-2xl shadow-[0_0_30px_rgba(45,212,191,0.3)] cursor-default transition-all z-10"
+              className="bg-primary border border-primary-light px-8 md:px-12 py-5 md:py-6 rounded-2xl text-white font-extrabold text-2xl md:text-4xl shadow-[0_0_30px_rgba(45,212,191,0.3)] cursor-default transition-all z-10"
             >
               IntelliAttend
             </motion.div>
 
-            <div className="w-px h-8 bg-accent relative" />
-            <div className="w-[80%] h-px bg-accent relative" />
+            {/* Vertical drop to bottom layer */}
+            <div className="w-px h-8 bg-accent" />
             
-            <div className="flex justify-between w-[80%] mt-8">
-              {[
-                { icon: BookMarked, label: "Library" },
-                { icon: Briefcase, label: "Admin" },
-                { icon: GraduationCap, label: "Students" },
-                { icon: Users, label: "Faculty" }
-              ].map((item, i) => (
-                <div key={i} className="flex flex-col items-center -mt-8">
-                  <div className="w-px h-8 bg-accent relative" />
-                  <motion.div whileHover={{ scale: 1.05, boxShadow: "0 0 30px rgba(45,212,191,0.4)" }} className="bg-white/5 border border-white/10 p-4 rounded-xl text-white flex flex-col items-center gap-2 transition-all cursor-default">
-                    <item.icon className="w-6 h-6 text-accent" />
-                    <span className="text-sm font-medium">{item.label}</span>
-                  </motion.div>
-                </div>
-              ))}
+            {/* Level 4: 4 Bottom Nodes */}
+            <div className="relative flex w-full max-w-2xl">
+               {/* Horizontal connecting line from center of first to center of last item (12.5% padding on each side for 4 items) */}
+               <div className="absolute top-0 left-[12.5%] right-[12.5%] h-px bg-accent" />
+
+               {[
+                 { icon: BookMarked, label: "Library" },
+                 { icon: Briefcase, label: "Admin" },
+                 { icon: GraduationCap, label: "Students" },
+                 { icon: Users, label: "Faculty" }
+               ].map((item, i) => (
+                 <div key={i} className="flex flex-col items-center flex-1 relative z-10">
+                   <div className="w-px h-8 bg-accent" />
+                   <motion.div whileHover={{ scale: 1.05, boxShadow: "0 0 30px rgba(45,212,191,0.4)" }} className="bg-white/5 border border-white/10 p-3 md:p-5 rounded-xl text-white flex flex-col items-center justify-center gap-2 transition-all cursor-default w-[90%] aspect-[4/3] md:aspect-square">
+                     <item.icon className="w-5 h-5 md:w-8 md:h-8 text-accent" />
+                     <span className="text-[10px] md:text-sm font-medium text-center">{item.label}</span>
+                   </motion.div>
+                 </div>
+               ))}
             </div>
           </div>
         </div>
@@ -264,13 +277,14 @@ export default function UniversitiesSolution() {
             <h2 className="text-3xl md:text-5xl font-bold text-text-main">The Connected Ecosystem</h2>
           </div>
           
-          <div className="relative flex-1 w-full max-w-full mx-auto flex items-center justify-center origin-center">
+          <div className="relative flex-1 w-full max-w-full mx-auto flex items-center justify-center origin-center scale-[0.6] sm:scale-75 md:scale-90 lg:scale-100">
             {/* Center */}
             <motion.div 
               initial={{ scale: 0 }}
               whileInView={{ scale: 1 }}
               viewport={{ once: true }}
               className="absolute z-20"
+              style={{ left: "50%", top: "50%", marginLeft: "-11vmin", marginTop: "-11vmin" }}
             >
               <motion.div
                 animate={{ y: [0, -8, 0] }}
@@ -384,37 +398,15 @@ export default function UniversitiesSolution() {
 
             {/* Structured DOM Node Mesh Connections */}
             <svg className="absolute inset-0 w-full h-full pointer-events-none overflow-visible" style={{ zIndex: 0 }}>
-               {/* Connect every node to the center */}
+               {/* Connect center to the 8 main nodes */}
                {ECOSYSTEM_NODES.map((node, i) => (
                  <motion.line 
                    key={`center-${i}`}
                    x1="50%" y1="50%" x2={`calc(50% + ${node.pos.x}vmin)`} y2={`calc(50% + ${node.pos.y}vmin)`}
                    stroke="rgba(45,212,191,0.5)" strokeWidth="2"
-                   initial={{ pathLength: 0 }} whileInView={{ pathLength: 1 }} viewport={{ once: true }} transition={{ duration: 1, delay: 0.5 + (i * 0.1), ease: "easeInOut" }}
+                   initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} transition={{ duration: 0.4, delay: 0.5 + (i * 0.1), ease: "easeOut" }}
                  />
                ))}
-
-               {/* Connect nodes to sub-nodes in a perfect chain! */}
-               {ECOSYSTEM_NODES.map((n, i) => {
-                 return (
-                 <g key={`subs-${i}`}>
-                   {/* Line 1: Main Node to First Sub Node */}
-                   <motion.line 
-                     x1={`calc(50% + ${n.pos.x}vmin)`} y1={`calc(50% + ${n.pos.y}vmin)`} 
-                     x2={`calc(50% + ${n.subPos.x}vmin)`} y2={`calc(50% + ${n.subPos.y}vmin)`}
-                     stroke="rgba(45,212,191,0.6)" strokeWidth="1.5"
-                     initial={{ pathLength: 0 }} whileInView={{ pathLength: 1 }} viewport={{ once: true }} transition={{ duration: 1, delay: 1.5 + (i * 0.1), ease: "easeInOut" }}
-                   />
-                   {/* Line 2: First Sub Node to Second Sub Node */}
-                   <motion.line 
-                     x1={`calc(50% + ${n.subPos.x}vmin)`} y1={`calc(50% + ${n.subPos.y}vmin)`} 
-                     x2={`calc(50% + ${n.sub2Pos.x}vmin)`} y2={`calc(50% + ${n.sub2Pos.y}vmin)`}
-                     stroke="rgba(45,212,191,0.6)" strokeWidth="1.5"
-                     initial={{ pathLength: 0 }} whileInView={{ pathLength: 1 }} viewport={{ once: true }} transition={{ duration: 1, delay: 2.5 + (i * 0.1), ease: "easeInOut" }}
-                   />
-                 </g>
-                 );
-               })}
             </svg>
           </div>
         </div>

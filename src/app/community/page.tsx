@@ -440,119 +440,121 @@ export default function CommunityPage() {
                       >
                         <div 
                           onClick={() => setExpandedPostId(expandedPostId === discussion.id ? null : discussion.id)}
-                          className="p-5 hover:bg-slate-50 transition-colors cursor-pointer group flex gap-4"
+                          className="p-4 sm:p-5 hover:bg-slate-50 transition-colors cursor-pointer group flex flex-col sm:flex-row gap-4"
                         >
-                          {/* Avatar / Vote */}
-                          <div className="flex flex-col items-center gap-2 pt-1">
-                            <div className="w-10 h-10 rounded-full bg-gradient-to-br from-slate-100 to-slate-200 border border-slate-200 flex items-center justify-center font-bold text-slate-500 text-sm">
-                              {discussion.author.charAt(0)}
-                            </div>
-                          </div>
-                          
-                          {/* Content */}
-                          <div className="flex-1">
-                            <div className="flex items-start justify-between gap-4 mb-2">
-                              <h3 className="text-lg font-bold text-[#0F172A] group-hover:text-primary transition-colors leading-snug pr-4">
-                                {discussion.title}
-                              </h3>
-                              {discussion.solved && (
-                                <div className="flex items-center gap-1 text-xs font-bold text-emerald-600 bg-emerald-50 border border-emerald-200 px-2.5 py-1 rounded-full whitespace-nowrap">
-                                  <CheckCircle2 className="w-3.5 h-3.5" /> Solved
-                                </div>
-                              )}
+                          <div className="flex gap-4 flex-1">
+                            {/* Avatar / Vote */}
+                            <div className="flex flex-col items-center gap-2 pt-1 shrink-0">
+                              <div className="w-10 h-10 rounded-full bg-gradient-to-br from-slate-100 to-slate-200 border border-slate-200 flex items-center justify-center font-bold text-slate-500 text-sm">
+                                {discussion.author.charAt(0)}
+                              </div>
                             </div>
                             
-                            <div className="flex flex-wrap items-center gap-3 text-xs text-slate-500">
-                              <span 
-                                onClick={(e) => { e.stopPropagation(); setActiveCategory(discussion.category); }}
-                                className="font-semibold px-2 py-0.5 rounded-md bg-slate-100 border border-slate-200 text-slate-600 hover:bg-primary/10 hover:text-primary hover:border-primary/20 transition-colors cursor-pointer"
-                              >
-                                {discussion.category}
-                              </span>
-                              <span className="font-medium text-slate-400">By {discussion.author}</span>
-                              <span className="text-slate-300">•</span>
-                              <span>{discussion.time}</span>
-                            </div>
-
-                            {/* Expanded Content View */}
-                            <AnimatePresence>
-                              {expandedPostId === discussion.id && (
-                                <motion.div 
-                                  initial={{ opacity: 0, height: 0, marginTop: 0 }}
-                                  animate={{ opacity: 1, height: "auto", marginTop: 16 }}
-                                  exit={{ opacity: 0, height: 0, marginTop: 0 }}
-                                  className="overflow-hidden"
-                                >
-                                  <div className="p-4 bg-white border border-slate-200 rounded-xl shadow-sm text-slate-600 text-sm leading-relaxed cursor-default" onClick={e => e.stopPropagation()}>
-                                    {discussion.content || "No details provided."}
-                                    
-                                    <div className="mt-4 pt-4 border-t border-slate-100 flex gap-3">
-                                      <button 
-                                        onClick={(e) => { e.stopPropagation(); setReplyingToId(replyingToId === discussion.id ? null : discussion.id); }}
-                                        className="text-primary font-bold text-xs hover:underline cursor-pointer"
-                                      >
-                                        Reply
-                                      </button>
-                                      <button 
-                                        onClick={(e) => handleLike(e, discussion.id)}
-                                        className={cn("font-bold text-xs transition-colors flex items-center gap-1 cursor-pointer", likedPosts.includes(discussion.id) ? "text-primary" : "text-slate-400 hover:text-[#0F172A]")}
-                                      >
-                                        <ThumbsUp className={cn("w-3.5 h-3.5", likedPosts.includes(discussion.id) && "fill-primary")} /> Like ({discussion.likes})
-                                      </button>
-                                    </div>
-
-                                    {/* Mock Replies List */}
-                                    {(discussion as any).replyList?.length > 0 && (
-                                      <div className="mt-4 space-y-3">
-                                        {(discussion as any).replyList.map((reply: any, idx: number) => (
-                                          <div key={idx} className="bg-slate-50 p-3 rounded-lg border border-slate-100">
-                                            <div className="flex justify-between items-center mb-1">
-                                              <span className="font-bold text-xs text-[#0F172A]">{reply.author}</span>
-                                              <span className="text-[10px] text-slate-400">{reply.time}</span>
-                                            </div>
-                                            <p className="text-xs text-slate-600">{reply.content}</p>
-                                          </div>
-                                        ))}
-                                      </div>
-                                    )}
-
-                                    {/* Reply Input */}
-                                    <AnimatePresence>
-                                      {replyingToId === discussion.id && (
-                                        <motion.form 
-                                          initial={{ opacity: 0, height: 0 }}
-                                          animate={{ opacity: 1, height: "auto" }}
-                                          exit={{ opacity: 0, height: 0 }}
-                                          onSubmit={(e) => handleReplySubmit(e, discussion.id)}
-                                          className="mt-3 flex gap-2 overflow-hidden"
-                                        >
-                                          <input 
-                                            autoFocus
-                                            type="text" 
-                                            value={replyInput}
-                                            onChange={e => setReplyInput(e.target.value)}
-                                            placeholder="Write a reply..." 
-                                            className="flex-1 bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 text-xs focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all text-[#0F172A]"
-                                          />
-                                          <button type="submit" disabled={!replyInput.trim()} className="bg-primary text-white text-xs font-bold px-3 py-2 rounded-lg disabled:opacity-50">
-                                            Post
-                                          </button>
-                                        </motion.form>
-                                      )}
-                                    </AnimatePresence>
+                            {/* Content */}
+                            <div className="flex-1 min-w-0">
+                              <div className="flex items-start justify-between gap-4 mb-2">
+                                <h3 className="text-lg font-bold text-[#0F172A] group-hover:text-primary transition-colors leading-snug pr-4">
+                                  {discussion.title}
+                                </h3>
+                                {discussion.solved && (
+                                  <div className="flex items-center gap-1 text-xs font-bold text-emerald-600 bg-emerald-50 border border-emerald-200 px-2.5 py-1 rounded-full whitespace-nowrap shrink-0">
+                                    <CheckCircle2 className="w-3.5 h-3.5" /> Solved
                                   </div>
-                                </motion.div>
-                              )}
-                            </AnimatePresence>
+                                )}
+                              </div>
+                              
+                              <div className="flex flex-wrap items-center gap-3 text-xs text-slate-500">
+                                <span 
+                                  onClick={(e) => { e.stopPropagation(); setActiveCategory(discussion.category); }}
+                                  className="font-semibold px-2 py-0.5 rounded-md bg-slate-100 border border-slate-200 text-slate-600 hover:bg-primary/10 hover:text-primary hover:border-primary/20 transition-colors cursor-pointer"
+                                >
+                                  {discussion.category}
+                                </span>
+                                <span className="font-medium text-slate-400">By {discussion.author}</span>
+                                <span className="text-slate-300">•</span>
+                                <span>{discussion.time}</span>
+                              </div>
+
+                              {/* Expanded Content View */}
+                              <AnimatePresence>
+                                {expandedPostId === discussion.id && (
+                                  <motion.div 
+                                    initial={{ opacity: 0, height: 0, marginTop: 0 }}
+                                    animate={{ opacity: 1, height: "auto", marginTop: 16 }}
+                                    exit={{ opacity: 0, height: 0, marginTop: 0 }}
+                                    className="overflow-hidden"
+                                  >
+                                    <div className="p-4 bg-white border border-slate-200 rounded-xl shadow-sm text-slate-600 text-sm leading-relaxed cursor-default" onClick={e => e.stopPropagation()}>
+                                      {discussion.content || "No details provided."}
+                                      
+                                      <div className="mt-4 pt-4 border-t border-slate-100 flex gap-3">
+                                        <button 
+                                          onClick={(e) => { e.stopPropagation(); setReplyingToId(replyingToId === discussion.id ? null : discussion.id); }}
+                                          className="text-primary font-bold text-xs hover:underline cursor-pointer"
+                                        >
+                                          Reply
+                                        </button>
+                                        <button 
+                                          onClick={(e) => handleLike(e, discussion.id)}
+                                          className={cn("font-bold text-xs transition-colors flex items-center gap-1 cursor-pointer", likedPosts.includes(discussion.id) ? "text-primary" : "text-slate-400 hover:text-[#0F172A]")}
+                                        >
+                                          <ThumbsUp className={cn("w-3.5 h-3.5", likedPosts.includes(discussion.id) && "fill-primary")} /> Like ({discussion.likes})
+                                        </button>
+                                      </div>
+
+                                      {/* Mock Replies List */}
+                                      {(discussion as any).replyList?.length > 0 && (
+                                        <div className="mt-4 space-y-3">
+                                          {(discussion as any).replyList.map((reply: any, idx: number) => (
+                                            <div key={idx} className="bg-slate-50 p-3 rounded-lg border border-slate-100">
+                                              <div className="flex justify-between items-center mb-1">
+                                                <span className="font-bold text-xs text-[#0F172A]">{reply.author}</span>
+                                                <span className="text-[10px] text-slate-400">{reply.time}</span>
+                                              </div>
+                                              <p className="text-xs text-slate-600">{reply.content}</p>
+                                            </div>
+                                          ))}
+                                        </div>
+                                      )}
+
+                                      {/* Reply Input */}
+                                      <AnimatePresence>
+                                        {replyingToId === discussion.id && (
+                                          <motion.form 
+                                            initial={{ opacity: 0, height: 0 }}
+                                            animate={{ opacity: 1, height: "auto" }}
+                                            exit={{ opacity: 0, height: 0 }}
+                                            onSubmit={(e) => handleReplySubmit(e, discussion.id)}
+                                            className="mt-3 flex gap-2 overflow-hidden"
+                                          >
+                                            <input 
+                                              autoFocus
+                                              type="text" 
+                                              value={replyInput}
+                                              onChange={e => setReplyInput(e.target.value)}
+                                              placeholder="Write a reply..." 
+                                              className="flex-1 bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 text-xs focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all text-[#0F172A]"
+                                            />
+                                            <button type="submit" disabled={!replyInput.trim()} className="bg-primary text-white text-xs font-bold px-3 py-2 rounded-lg disabled:opacity-50">
+                                              Post
+                                            </button>
+                                          </motion.form>
+                                        )}
+                                      </AnimatePresence>
+                                    </div>
+                                  </motion.div>
+                                )}
+                              </AnimatePresence>
+                            </div>
                           </div>
 
                           {/* Stats */}
-                          <div className="flex items-center gap-6 text-sm text-slate-500 ml-4 border-l border-slate-100 pl-6 shrink-0 min-w-[120px]">
-                            <div className="flex flex-col items-center gap-1">
+                          <div className="flex flex-row sm:flex-col justify-end sm:justify-center items-center gap-6 sm:gap-2 text-sm text-slate-500 pt-4 sm:pt-0 border-t sm:border-t-0 sm:border-l border-slate-100 sm:pl-6 shrink-0 sm:min-w-[120px]">
+                            <div className="flex flex-col sm:flex-col items-center gap-1">
                               <span className="font-bold text-[#0F172A]">{discussion.replies}</span>
                               <span className="text-xs">Replies</span>
                             </div>
-                            <div className="flex flex-col items-center gap-1">
+                            <div className="flex flex-col sm:flex-col items-center gap-1">
                               <span className="font-bold text-[#0F172A]">{discussion.likes}</span>
                               <span className="text-xs">Likes</span>
                             </div>
