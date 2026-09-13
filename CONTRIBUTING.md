@@ -1,3 +1,7 @@
+> **📋 Team Protocol:** Before contributing, read the [TEAM_PROTOCOL.md](../../TEAM_PROTOCOL.md) for the complete development workflow, coding standards, and PR process.
+
+---
+
 # Contributing to IntelliAttend Web
 
 Thank you for your interest in contributing to IntelliAttend! This document provides guidelines and information for contributors.
