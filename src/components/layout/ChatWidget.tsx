@@ -6,6 +6,7 @@ import ReactMarkdown from "react-markdown";
 import { X, Send, Bot, User, Mic, MicOff, RefreshCw } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { generateResponse, BotContext } from "@/lib/bot-logic";
+import { useMounted } from "@/hooks/useMounted";
 
 const INITIAL_QUICK_REPLIES = [
   "What is IntelliAttend?",
@@ -16,14 +17,10 @@ const INITIAL_QUICK_REPLIES = [
 
 export function ChatWidget() {
   const [isTyping, setIsTyping] = useState(false);
-  const [mounted, setMounted] = useState(false);
+  const mounted = useMounted();
   const [isOpen, setIsOpen] = useState(false);
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
 
   const [messages, setMessages] = useState<Array<{id: string, role: string, content: string}>>([
     { id: "system-1", role: "assistant", content: "Hi! I'm IntelliAttend's AI Assistant. How can I help you today?" }
@@ -36,8 +33,7 @@ export function ChatWidget() {
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => setInput(e.target.value);
   
   const append = async (msg: { role: string, content: string }) => {
-    const newMessages = [...messages, { ...msg, id: Date.now().toString() }];
-    setMessages(newMessages);
+    setMessages(prev => [...prev, { ...msg, id: `msg-${prev.length}-${msg.role}` }]);
     setIsLoading(true);
     
     // Simulate network delay for natural feel

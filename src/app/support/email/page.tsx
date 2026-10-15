@@ -21,6 +21,7 @@ export default function EmailSupportPage() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [dragActive, setDragActive] = useState(false);
   const [files, setFiles] = useState<File[]>([]);
+  const [ticketId, setTicketId] = useState("");
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -30,6 +31,7 @@ export default function EmailSupportPage() {
     setTimeout(() => {
       setIsSubmitting(false);
       setIsSubmitted(true);
+      setTicketId(`TK-${Math.floor(Math.random() * 90000) + 10000}`);
       setFiles([]);
     }, 1500);
   };
@@ -90,7 +92,7 @@ export default function EmailSupportPage() {
             transition={{ delay: 0.1 }}
             className="text-xl text-[#64748B] leading-relaxed"
           >
-            Can't find your answer? Send us a message and our support team will respond as quickly as possible.
+            Can&apos;t find your answer? Send us a message and our support team will respond as quickly as possible.
           </motion.p>
         </div>
 
@@ -265,7 +267,7 @@ export default function EmailSupportPage() {
                   </div>
                   <h2 className="text-3xl font-extrabold text-[#0F172A] mb-4">Request Submitted Successfully!</h2>
                   <p className="text-lg text-slate-600 mb-8 max-w-md mx-auto">
-                    Your support ticket <span className="font-bold text-slate-900">#TK-{Math.floor(Math.random() * 90000) + 10000}</span> has been created. Our team will review it and get back to you shortly based on the priority level.
+                    Your support ticket <span className="font-bold text-slate-900">#{ticketId}</span> has been created. Our team will review it and get back to you shortly based on the priority level.
                   </p>
                   <button 
                     onClick={() => setIsSubmitted(false)}

@@ -1,36 +1,42 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useSyncExternalStore } from "react";
 import { Bookmark, Share2, Check } from "lucide-react";
 
+const BOOKMARKS_EVENT = "bookmarks-change";
+
+function subscribeBookmarks(callback: () => void) {
+  window.addEventListener(BOOKMARKS_EVENT, callback);
+  return () => window.removeEventListener(BOOKMARKS_EVENT, callback);
+}
+
+function readBookmarks(): string[] {
+  if (typeof window === "undefined") return [];
+  try {
+    const saved = localStorage.getItem("bookmarks");
+    return saved ? (JSON.parse(saved) as string[]) : [];
+  } catch {
+    return [];
+  }
+}
+
 export function ArticleActions({ articleTitle, articleSlug }: { articleTitle: string, articleSlug: string }) {
-  const [isBookmarked, setIsBookmarked] = useState(false);
   const [isShared, setIsShared] = useState(false);
 
-  useEffect(() => {
-    // Check if bookmarked in localStorage
-    const saved = localStorage.getItem("bookmarks");
-    if (saved) {
-      const bookmarks = JSON.parse(saved);
-      if (bookmarks.includes(articleSlug)) {
-        setIsBookmarked(true);
-      }
-    }
-  }, [articleSlug]);
+  const isBookmarked = useSyncExternalStore(
+    subscribeBookmarks,
+    () => readBookmarks().includes(articleSlug),
+    () => false
+  );
 
   const toggleBookmark = () => {
-    const saved = localStorage.getItem("bookmarks");
-    let bookmarks: string[] = saved ? JSON.parse(saved) : [];
-    
-    if (isBookmarked) {
-      bookmarks = bookmarks.filter(s => s !== articleSlug);
-      setIsBookmarked(false);
-    } else {
-      bookmarks.push(articleSlug);
-      setIsBookmarked(true);
-    }
-    
-    localStorage.setItem("bookmarks", JSON.stringify(bookmarks));
+    const bookmarks = readBookmarks();
+    const next = isBookmarked
+      ? bookmarks.filter(s => s !== articleSlug)
+      : [...bookmarks, articleSlug];
+
+    localStorage.setItem("bookmarks", JSON.stringify(next));
+    window.dispatchEvent(new Event(BOOKMARKS_EVENT));
   };
 
   const handleShare = async () => {

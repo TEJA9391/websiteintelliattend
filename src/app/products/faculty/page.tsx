@@ -273,7 +273,7 @@ export default function FacultyPage() {
                 Designed for Modern Educators
               </h2>
               <p className="text-xl text-white/80 leading-relaxed mb-10 max-w-3xl mx-auto">
-                Spend less time on administrative tasks and more time delivering exceptional learning experiences with IntelliAttend's intelligent faculty platform.
+                Spend less time on administrative tasks and more time delivering exceptional learning experiences with IntelliAttend&apos;s intelligent faculty platform.
               </p>
               
               <div className="flex flex-col sm:flex-row items-center justify-center gap-4">

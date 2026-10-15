@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-require-imports -- CommonJS Node helper script */
 const fs = require('fs');
 const path = 'src/app/login/[role]/page.tsx';
 let content = fs.readFileSync(path, 'utf8');

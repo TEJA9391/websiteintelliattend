@@ -212,7 +212,7 @@ export default function EnterpriseSupportPage() {
           <div className="flex flex-col md:flex-row items-end justify-between mb-16 gap-8">
             <div className="max-w-2xl">
               <h2 className="text-3xl md:text-4xl font-extrabold text-[#0F172A] tracking-tight mb-4">
-                What's included in Enterprise?
+                What&apos;s included in Enterprise?
               </h2>
               <p className="text-lg text-slate-500">
                 A comprehensive suite of services ensuring your campus rollout is seamless from day one through year ten.

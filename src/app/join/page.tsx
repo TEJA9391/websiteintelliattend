@@ -22,7 +22,7 @@ export default function JoinPage() {
             Build the <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent">future of education</span>
           </h1>
           <p className="text-xl text-[#64748B] leading-relaxed">
-            Join IntelliAttend and help us transform how schools and universities manage their daily operations. We're looking for passionate people to join our mission.
+            Join IntelliAttend and help us transform how schools and universities manage their daily operations. We&apos;re looking for passionate people to join our mission.
           </p>
         </motion.div>
       </div>

@@ -245,7 +245,7 @@ export async function generateResponse(userInput: string, context: BotContext): 
   let responseText = "";
   let quickReplies: string[] = [];
   let nextIntent: string | null = context.lastIntent;
-  let nextEntity: string | null = detectedEntities.length > 0 ? detectedEntities[0] : context.lastEntity;
+  const nextEntity: string | null = detectedEntities.length > 0 ? detectedEntities[0] : context.lastEntity;
 
   if (topIntents.length > 0) {
     if (isProfane) {

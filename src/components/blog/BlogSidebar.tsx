@@ -77,7 +77,7 @@ export function BlogSidebar() {
         {isSuccess ? (
           <div className="flex flex-col items-center justify-center py-4 relative z-10 text-center animate-in fade-in zoom-in duration-300">
             <CheckCircle2 className="w-12 h-12 text-white mb-3" />
-            <h4 className="text-lg font-bold text-white mb-1">You're In!</h4>
+            <h4 className="text-lg font-bold text-white mb-1">You&apos;re In!</h4>
             <p className="text-sm text-white/80">Thank you for subscribing.</p>
           </div>
         ) : (

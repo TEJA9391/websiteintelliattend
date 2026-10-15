@@ -9,6 +9,7 @@ import {
 import ReactMarkdown from "react-markdown";
 import { cn } from "@/lib/utils";
 import { generateResponse, type BotContext } from "@/lib/bot-logic";
+import { useMounted } from "@/hooks/useMounted";
 
 const CHAT_FEATURES = [
   "AI Assistant", "Human Support", "Screen Sharing", 
@@ -33,15 +34,11 @@ export default function LiveChatPage() {
   ]);
   const [input, setInput] = useState("");
   const [isTyping, setIsTyping] = useState(false);
-  const [mounted, setMounted] = useState(false);
+  const mounted = useMounted();
   const [botContext, setBotContext] = useState<BotContext>({ lastIntent: null, lastEntity: null, history: [] });
   const [files, setFiles] = useState<File[]>([]);
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
 
   const scrollToBottom = () => {
     if (scrollContainerRef.current) {

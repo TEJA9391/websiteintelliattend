@@ -10,6 +10,25 @@ import {
 import Link from "next/link";
 import { cn } from "@/lib/utils";
 
+interface DiscussionReply {
+  author: string;
+  content: string;
+  time: string;
+}
+
+interface Discussion {
+  id: number;
+  title: string;
+  category: string;
+  author: string;
+  replies: number;
+  likes: number;
+  solved: boolean;
+  time: string;
+  content: string;
+  replyList?: DiscussionReply[];
+}
+
 const CATEGORIES = [
   { name: "General Discussion", icon: MessageSquare, count: 853 },
   { name: "Faculty Tips", icon: GraduationCap, count: 421 },
@@ -21,7 +40,7 @@ const CATEGORIES = [
   { name: "Showcase", icon: ThumbsUp, count: 89 },
 ];
 
-const INITIAL_DISCUSSIONS = [
+const INITIAL_DISCUSSIONS: Discussion[] = [
   { 
     id: 1,
     title: "How universities use SmartBoard for interactive polls",
@@ -118,7 +137,7 @@ export default function CommunityPage() {
         return {
           ...d,
           replies: d.replies + 1,
-          replyList: [...((d as any).replyList || []), { author: "You", content: replyInput, time: "Just now" }]
+          replyList: [...(d.replyList ?? []), { author: "You", content: replyInput, time: "Just now" }]
         };
       }
       return d;
@@ -503,9 +522,9 @@ export default function CommunityPage() {
                                       </div>
 
                                       {/* Mock Replies List */}
-                                      {(discussion as any).replyList?.length > 0 && (
+                                      {(discussion.replyList?.length ?? 0) > 0 && (
                                         <div className="mt-4 space-y-3">
-                                          {(discussion as any).replyList.map((reply: any, idx: number) => (
+                                          {discussion.replyList?.map((reply, idx) => (
                                             <div key={idx} className="bg-slate-50 p-3 rounded-lg border border-slate-100">
                                               <div className="flex justify-between items-center mb-1">
                                                 <span className="font-bold text-xs text-[#0F172A]">{reply.author}</span>

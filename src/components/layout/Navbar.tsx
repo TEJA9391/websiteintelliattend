@@ -9,7 +9,17 @@ import { Sparkles, Menu, X, ChevronDown } from "lucide-react";
 import Image from "next/image";
 import { MegaMenuProducts3D } from "@/components/navbar/MegaMenuProducts3D";
 
-const navLinks = [
+type NavDropdownItem = { name: string; href: string; desc: string };
+
+type NavLink = {
+  name: string;
+  href: string;
+  megaTitle?: string;
+  overviewHref?: string;
+  dropdown?: NavDropdownItem[];
+};
+
+const navLinks: NavLink[] = [
   { 
     name: "Products", 
     href: "/products", 
@@ -72,7 +82,7 @@ export function Navbar() {
   const headerHeight = useTransform(scrollY, [0, 100], [100, 80]);
   const pathname = usePathname();
 
-  const handleMouseEnter = (link: any) => {
+  const handleMouseEnter = (link: NavLink) => {
     if (timeoutRef.current) clearTimeout(timeoutRef.current);
     if (!link.dropdown) {
       timeoutRef.current = setTimeout(() => {
@@ -105,10 +115,12 @@ export function Navbar() {
     });
   }, [scrollY]);
 
-  useEffect(() => {
+  const [prevPathname, setPrevPathname] = useState(pathname);
+  if (prevPathname !== pathname) {
+    setPrevPathname(pathname);
     setActiveMenu(null);
     setIsMobileMenuOpen(false);
-  }, [pathname]);
+  }
 
   if (pathname?.startsWith('/login') || pathname?.startsWith('/register') || pathname?.startsWith('/get-started') || pathname?.startsWith('/portal')) {
     return null;

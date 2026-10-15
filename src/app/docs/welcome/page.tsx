@@ -53,7 +53,7 @@ export default function WelcomeDocPage() {
               IntelliAttend connects the three main pillars of an educational institution: <strong>Faculty</strong>, <strong>Students</strong>, and <strong>Administration</strong>. By providing dedicated apps and dashboards for each group, the platform ensures that data flows instantly and securely.
             </p>
             <p>
-              When a faculty member marks a student absent via the mobile app or SmartBoard interface, the student's app is instantly updated, and the administrative dashboard registers the change for compliance reporting. There is no manual syncing required.
+              When a faculty member marks a student absent via the mobile app or SmartBoard interface, the student&apos;s app is instantly updated, and the administrative dashboard registers the change for compliance reporting. There is no manual syncing required.
             </p>
 
             <h2>Next Steps</h2>
