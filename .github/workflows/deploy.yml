@@ -2,7 +2,7 @@ name: Deploy to Cloudflare Pages
 
 on:
   push:
-    branches: [main]
+    branches: [school-main]
   workflow_dispatch:
 
 concurrency:
@@ -63,10 +63,10 @@ jobs:
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          command: pages deploy out --project-name=intelliattend-web --branch=main
+          command: pages deploy out --project-name=intelliattend-web --branch=school-main
 
       - name: Get deployment URL
         run: |
           echo "Deployment complete!"
           echo "Check Cloudflare Pages dashboard for the preview URL"
-          echo "Production URL: https://www.intelliattend.app"
+          echo "Production URL: https://www.intelliattend.com"
