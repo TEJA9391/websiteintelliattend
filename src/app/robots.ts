@@ -11,6 +11,6 @@ export default function robots(): MetadataRoute.Robots {
         disallow: ["/api/", "/portal/", "/login/", "/register/", "/get-started/"],
       },
     ],
-    sitemap: "https://www.intelliattend.app/sitemap.xml",
+    sitemap: "https://www.intelliattend.com/sitemap.xml",
   };
 }

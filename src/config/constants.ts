@@ -3,7 +3,7 @@ export const SITE_CONFIG = {
   title: "IntelliAttend | Intelligent Attendance. Smart Campus.",
   description:
     "Manage attendance, schedules, communication, classroom resources, analytics, and academic operations from one intelligent platform.",
-  url: "https://intelliattend.app",
+  url: "https://intelliattend.com",
   ogImage: "/images/og.png",
   links: {
     twitter: "https://twitter.com/intelliattend",
@@ -93,7 +93,7 @@ export const FOOTER_LINKS = {
 } as const;
 
 export const CONTACT_INFO = {
-  email: "hello@intelliattend.app",
+  email: "hello@intelliattend.com",
   phone: "+1 (555) 123-4567",
   address: "100 Innovation Drive, Tech City, CA",
 } as const;

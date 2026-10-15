@@ -5,8 +5,8 @@ interface OrganizationJsonLdProps {
 }
 
 export function OrganizationJsonLd({
-  url = "https://www.intelliattend.app",
-  logo = "https://www.intelliattend.app/images/logo.png",
+  url = "https://www.intelliattend.com",
+  logo = "https://www.intelliattend.com/images/logo.png",
   name = "IntelliAttend",
 }: OrganizationJsonLdProps) {
   const jsonLd = {
@@ -26,7 +26,7 @@ export function OrganizationJsonLd({
       "@type": "ContactPoint",
       telephone: "+1-555-123-4567",
       contactType: "customer service",
-      email: "support@intelliattend.app",
+      email: "support@intelliattend.com",
       availableLanguage: "English",
     },
     address: {
@@ -54,7 +54,7 @@ interface WebsiteJsonLdProps {
 }
 
 export function WebsiteJsonLd({
-  url = "https://www.intelliattend.app",
+  url = "https://www.intelliattend.com",
   name = "IntelliAttend",
   description = "Intelligent Attendance. Smart Campus. Manage attendance, schedules, SmartBoard, notifications, resources, analytics and communication from one intelligent platform.",
 }: WebsiteJsonLdProps) {

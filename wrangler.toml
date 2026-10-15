@@ -5,5 +5,7 @@ pages_build_output_dir = "out"
 # Custom domain configuration
 # After deploying, configure custom domain in Cloudflare Pages dashboard:
 # 1. Go to Workers & Pages > intelliattend-web > Custom domains
-# 2. Add custom domain: www.intelliattend.app
-# 3. Add redirect: intelliattend.app -> www.intelliattend.app
+# 2. Add custom domain: www.intelliattend.com
+# 3. Add redirect: intelliattend.com -> www.intelliattend.com
+#
+# Production branch: school-main (pushes to school-main deploy to production)

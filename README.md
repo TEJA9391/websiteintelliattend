@@ -11,7 +11,7 @@
 [![TypeScript](https://img.shields.io/badge/TypeScript-5-blue)](https://www.typescriptlang.org/)
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind-4-38bdf8)](https://tailwindcss.com/)
 
-[![Website](https://img.shields.io/badge/Website-www.intelliattend.app-2DD4BF)](https://www.intelliattend.app)
+[![Website](https://img.shields.io/badge/Website-www.intelliattend.com-2DD4BF)](https://www.intelliattend.com)
 
 </div>
 
@@ -146,7 +146,7 @@ npm run deploy:prod
 
 ### Custom Domain
 
-The site is configured for: **[www.intelliattend.app](https://www.intelliattend.app)**
+The site is configured for: **[www.intelliattend.com](https://www.intelliattend.com)**
 
 ## Documentation
 
@@ -162,9 +162,9 @@ We welcome contributions! Please see [CONTRIBUTING.md](CONTRIBUTING.md) for guid
 
 ## Support
 
-- **Documentation:** [docs.intelliattend.app](https://docs.intelliattend.app)
+- **Documentation:** [docs.intelliattend.com](https://docs.intelliattend.com)
 - **Issues:** [GitHub Issues](https://github.com/IntelliAttend/IntelliAttend-Web/issues)
-- **Email:** support@intelliattend.app
+- **Email:** support@intelliattend.com
 
 ## License
 
@@ -174,6 +174,6 @@ This is proprietary software. See [LICENSE](LICENSE) for details.
 
 <div align="center">
 
-**Built with care by the [IntelliAttend](https://intelliattend.app) team**
+**Built with care by the [IntelliAttend](https://intelliattend.com) team**
 
 </div>

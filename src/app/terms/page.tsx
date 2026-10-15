@@ -45,7 +45,7 @@ export default function TermsPage() {
 
             <h2 className="text-2xl font-bold text-[#0F172A] mt-12 mb-4">6. Contact Us</h2>
             <p className="text-[#64748B] mb-6">
-              For questions about these Terms, please contact us at legal@intelliattend.app.
+              For questions about these Terms, please contact us at legal@intelliattend.com.
             </p>
           </div>
         </div>

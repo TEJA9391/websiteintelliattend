@@ -1,6 +1,6 @@
 export const SEO_CONFIG = {
   siteName: "IntelliAttend",
-  siteUrl: "https://www.intelliattend.app",
+  siteUrl: "https://www.intelliattend.com",
   titleTemplate: "%s | IntelliAttend",
   defaultTitle: "IntelliAttend | Intelligent Attendance. Smart Campus.",
   defaultDescription:
@@ -15,7 +15,7 @@ export const SEO_CONFIG = {
 
   // Contact info
   contact: {
-    email: "support@intelliattend.app",
+    email: "support@intelliattend.com",
     phone: "+1-555-123-4567",
     address: "100 Innovation Drive, Tech City, CA 94000",
   },
@@ -25,7 +25,7 @@ export const SEO_CONFIG = {
     type: "website" as const,
     locale: "en_US",
     siteName: "IntelliAttend",
-    image: "https://www.intelliattend.app/images/og-default.png",
+    image: "https://www.intelliattend.com/images/og-default.png",
     imageWidth: 1200,
     imageHeight: 630,
   },
@@ -129,8 +129,8 @@ export const SEO_CONFIG = {
     organization: {
       "@type": "Organization",
       name: "IntelliAttend",
-      url: "https://www.intelliattend.app",
-      logo: "https://www.intelliattend.app/images/logo.png",
+      url: "https://www.intelliattend.com",
+      logo: "https://www.intelliattend.com/images/logo.png",
       sameAs: [
         "https://twitter.com/intelliattend",
         "https://linkedin.com/company/intelliattend",

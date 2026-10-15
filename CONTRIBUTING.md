@@ -292,7 +292,7 @@ See [SECURITY.md](SECURITY.md) for responsible disclosure process.
 
 - Check existing [issues](https://github.com/IntelliAttend/IntelliAttend-Web/issues)
 - Start a [discussion](https://github.com/IntelliAttend/IntelliAttend-Web/discussions)
-- Email: dev@intelliattend.app
+- Email: dev@intelliattend.com
 
 ---
 

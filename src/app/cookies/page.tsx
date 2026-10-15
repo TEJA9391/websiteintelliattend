@@ -45,7 +45,7 @@ export default function CookiesPage() {
 
             <h2 className="text-2xl font-bold text-[#0F172A] mt-12 mb-4">6. Contact Us</h2>
             <p className="text-[#64748B] mb-6">
-              If you have questions about our use of cookies, please contact us at privacy@intelliattend.app.
+              If you have questions about our use of cookies, please contact us at privacy@intelliattend.com.
             </p>
           </div>
         </div>

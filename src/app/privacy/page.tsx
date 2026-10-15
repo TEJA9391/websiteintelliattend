@@ -40,7 +40,7 @@ export default function PrivacyPage() {
 
             <h2 className="text-2xl font-bold text-[#0F172A] mt-12 mb-4">5. Contact Us</h2>
             <p className="text-[#64748B] mb-6">
-              If you have questions about this privacy policy, please contact us at privacy@intelliattend.app.
+              If you have questions about this privacy policy, please contact us at privacy@intelliattend.com.
             </p>
           </div>
         </div>

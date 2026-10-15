@@ -16,10 +16,10 @@ export const metadata: Metadata = {
     title: "IntelliAttend | Intelligent Attendance. Smart Campus Platform",
     description:
       "The AI-powered campus management platform. Manage attendance, schedules, SmartBoard, notifications, analytics and communication from one intelligent platform.",
-    url: "https://www.intelliattend.app",
+    url: "https://www.intelliattend.com",
     images: [
       {
-        url: "https://www.intelliattend.app/images/og-default.png",
+        url: "https://www.intelliattend.com/images/og-default.png",
         width: 1200,
         height: 630,
         alt: "IntelliAttend - Intelligent Campus Platform",
@@ -27,7 +27,7 @@ export const metadata: Metadata = {
     ],
   },
   alternates: {
-    canonical: "https://www.intelliattend.app",
+    canonical: "https://www.intelliattend.com",
   },
 };
 

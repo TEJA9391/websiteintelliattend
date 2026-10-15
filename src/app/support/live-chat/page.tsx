@@ -8,7 +8,7 @@ import {
 } from "lucide-react";
 import ReactMarkdown from "react-markdown";
 import { cn } from "@/lib/utils";
-import { generateMockResponse } from "@/lib/bot-logic";
+import { generateResponse, type BotContext } from "@/lib/bot-logic";
 
 const CHAT_FEATURES = [
   "AI Assistant", "Human Support", "Screen Sharing", 
@@ -34,6 +34,7 @@ export default function LiveChatPage() {
   const [input, setInput] = useState("");
   const [isTyping, setIsTyping] = useState(false);
   const [mounted, setMounted] = useState(false);
+  const [botContext, setBotContext] = useState<BotContext>({ lastIntent: null, lastEntity: null, history: [] });
   const [files, setFiles] = useState<File[]>([]);
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -79,14 +80,16 @@ export default function LiveChatPage() {
     setFiles([]);
     setIsTyping(true);
 
-    setTimeout(() => {
-      let response = generateMockResponse(userMsg);
+    setTimeout(async () => {
+      const botResponse = await generateResponse(userMsg, botContext);
+      let response = botResponse.text;
       if (attachedFiles.length > 0 && !userMsg) {
         response = "I see you've attached a file. An agent will review it shortly! Is there anything else you'd like to add?";
       } else if (attachedFiles.length > 0) {
         response = "Thanks for attaching those files! " + response;
       }
 
+      setBotContext(botResponse.nextContext);
       setMessages(prev => [...prev, { 
         id: (Date.now() + 1).toString(), 
         role: "assistant", 

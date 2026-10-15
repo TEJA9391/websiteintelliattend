@@ -34,7 +34,7 @@ You are building software that affects real students and teachers. Every bug mat
 ┌──────────────┐
 │  IntelliAttend-Web │
 │  Next.js Marketing │
-│  www.intelliattend.app │
+│  www.intelliattend.com │
 └──────────────┘
 ```
 
@@ -51,7 +51,7 @@ You are building software that affects real students and teachers. Every bug mat
 | **IntelliAttend-SmartBoard** | Classroom kiosk app | Flutter 3.44, Dart, Windows desktop | SmartBoard device |
 | **IntelliAttend-Faculty-Mobile-App** | Teacher mobile app | Flutter, Dart, Android/iOS | Faculty phone |
 | **IntelliAttend-Student-Mobile-App** | Student mobile app | Flutter, Dart, Android/iOS | Student phone (not deployed) |
-| **IntelliAttend-Web** | Marketing website | Next.js 16, TypeScript, Three.js | www.intelliattend.app |
+| **IntelliAttend-Web** | Marketing website | Next.js 16, TypeScript, Three.js | www.intelliattend.com |
 
 ---
 

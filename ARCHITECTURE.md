@@ -190,7 +190,7 @@ GitHub Actions
 Deploy to Cloudflare Pages
       │
       ▼
-Live at www.intelliattend.app
+Live at www.intelliattend.com
 ```
 
 ### Environment Variables

@@ -13,7 +13,7 @@ const inter = Inter({
   display: "swap",
 });
 
-const baseUrl = "https://www.intelliattend.app";
+const baseUrl = "https://www.intelliattend.com";
 
 export const metadata: Metadata = {
   metadataBase: new URL(baseUrl),

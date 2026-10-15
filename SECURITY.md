@@ -15,7 +15,7 @@
 
 If you discover a security vulnerability within IntelliAttend, please send an email to our security team at:
 
-**security@intelliattend.app**
+**security@intelliattend.com**
 
 Please include the following information in your report:
 
@@ -84,7 +84,7 @@ Please include the following information in your report:
 
 For security-related inquiries, contact:
 
-- **Email**: security@intelliattend.app
+- **Email**: security@intelliattend.com
 - **PGP Key**: Available upon request
 
 ---

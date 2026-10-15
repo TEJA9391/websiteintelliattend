@@ -13,7 +13,7 @@ export function PageMetadata({
   title,
   description,
   canonical,
-  ogImage = "https://www.intelliattend.app/images/og-default.png",
+  ogImage = "https://www.intelliattend.com/images/og-default.png",
 }: PageMetadataProps) {
   useEffect(() => {
     // Update document title

@@ -45,7 +45,7 @@ export function ContactSection() {
                 </div>
                 <div>
                   <h4 className="font-semibold text-[#0F172A]">Email</h4>
-                  <p className="text-[#64748B]">hello@intelliattend.app</p>
+                  <p className="text-[#64748B]">hello@intelliattend.com</p>
                 </div>
               </div>
 
