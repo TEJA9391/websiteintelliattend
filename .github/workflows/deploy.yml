@@ -10,9 +10,68 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
+  # Branch protection is unavailable (GitHub free plan; branch protection and
+  # rulesets are paid features for private repos), so this guard is the only
+  # server-side control on school-main.
+  guard:
+    name: Guard — PR discipline check
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push' && github.ref_name == 'school-main'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          # Ancestry checks against school-dev need full history.
+          fetch-depth: 0
+
+      - name: Verify school-main push discipline
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+
+          if [ "${{ github.event.forced }}" = "true" ]; then
+            echo "::error::Force pushes to school-main are not allowed. Use a PR from school-dev."
+            exit 1
+          fi
+
+          SHA="${{ github.sha }}"
+          SUBJECT="$(git log -1 --pretty=%s "$SHA")"
+
+          PARENT_COUNT=$(git rev-list --parents -n 1 "$SHA" | wc -w | tr -d ' ')
+          PARENT_COUNT=$((PARENT_COUNT - 1))
+
+          git fetch --quiet origin school-dev || true
+          BASE="origin/school-dev"
+
+          # A real promotion is a merge that contains school-dev. Verify
+          # ancestry rather than trusting the commit message text.
+          if [ "$PARENT_COUNT" -ge 2 ] && git rev-parse --verify --quiet "$BASE" >/dev/null; then
+            if git merge-base --is-ancestor "$BASE" "$SHA"; then
+              echo "Push discipline OK: merge containing school-dev ($BASE)."
+              exit 0
+            fi
+            echo "::warning::Merge commit does not contain $BASE; checking hotfix rule."
+          fi
+
+          # Documented emergency hotfix: marker must be in the SUBJECT.
+          if [ "$PARENT_COUNT" -eq 1 ] && [[ "$SUBJECT" == *"(#hotfix)"* ]]; then
+            echo "::notice::Hotfix path used. Remember to port this back into school-dev via PR."
+            exit 0
+          fi
+
+          echo "::error::Direct push to school-main rejected."
+          echo "::error::Commit: $SUBJECT"
+          echo "::error::Parents: $PARENT_COUNT"
+          echo "::error::Open a PR: feature/* -> school-dev -> school-main."
+          exit 1
+
   ci:
     name: CI Checks
     runs-on: ubuntu-latest
+    needs: [guard]
+    # `always()` keeps workflow_dispatch working (guard is skipped there) while
+    # a failed guard still blocks the build.
+    if: always() && !failure() && !cancelled()
     steps:
       - name: Checkout
         uses: actions/checkout@v4
