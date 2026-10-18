@@ -30,7 +30,7 @@ jobs:
           set -euo pipefail
 
           if [ "${{ github.event.forced }}" = "true" ]; then
-            echo "::error::Force pushes to school-main are not allowed. Use a PR from school-dev."
+            echo "::error::Force pushes to school-main are not allowed. Use a pull request."
             exit 1
           fi
 
@@ -40,29 +40,25 @@ jobs:
           PARENT_COUNT=$(git rev-list --parents -n 1 "$SHA" | wc -w | tr -d ' ')
           PARENT_COUNT=$((PARENT_COUNT - 1))
 
-          git fetch --quiet origin school-dev || true
-          BASE="origin/school-dev"
-
-          # A real promotion is a merge that contains school-dev. Verify
-          # ancestry rather than trusting the commit message text.
-          if [ "$PARENT_COUNT" -ge 2 ] && git rev-parse --verify --quiet "$BASE" >/dev/null; then
-            if git merge-base --is-ancestor "$BASE" "$SHA"; then
-              echo "Push discipline OK: merge containing school-dev ($BASE)."
-              exit 0
-            fi
-            echo "::warning::Merge commit does not contain $BASE; checking hotfix rule."
+          # NOTE: unlike the other IntelliAttend repos, this one has NO
+          # school-dev branch -- pull requests target school-main directly.
+          # So the check must be "is this a merge commit (i.e. a merged PR)",
+          # not "does it contain school-dev", which could never be true here.
+          if [ "$PARENT_COUNT" -ge 2 ]; then
+            echo "Push discipline OK: merge commit (pull request merge)."
+            exit 0
           fi
 
           # Documented emergency hotfix: marker must be in the SUBJECT.
           if [ "$PARENT_COUNT" -eq 1 ] && [[ "$SUBJECT" == *"(#hotfix)"* ]]; then
-            echo "::notice::Hotfix path used. Remember to port this back into school-dev via PR."
+            echo "::notice::Hotfix path used (direct commit to school-main)."
             exit 0
           fi
 
           echo "::error::Direct push to school-main rejected."
           echo "::error::Commit: $SUBJECT"
           echo "::error::Parents: $PARENT_COUNT"
-          echo "::error::Open a PR: feature/* -> school-dev -> school-main."
+          echo "::error::Open a pull request against school-main."
           exit 1
 
   ci:
