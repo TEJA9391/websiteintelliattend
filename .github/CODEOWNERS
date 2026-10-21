@@ -1,38 +1,78 @@
-# IntelliAttend Web - CODEOWNERS
-# This file defines code ownership for automatic review assignment
+# CODEOWNERS — IntelliAttend
+# ─────────────────────────────────────────────────────────────────────────────
+# Put this file at the REPOSITORY ROOT of each repo. GitHub requests review
+# from every owner whose path matches the changed files.
+#
+# ⚠️ READ THIS BEFORE COMMITTING — the previous version of this file was
+# silently broken:
+#
+#   * It listed @Sumithgoud10 and @TEJA9391 as owners. Verified against the
+#     API, NEITHER has access to ANY of the 8 repositories today
+#     (`GET /repos/{repo}/collaborators/{login}/permission` → "none").
+#     A CODEOWNERS entry for a non-collaborator requests review from nobody
+#     and reports NO ERROR. The silence was the bug.
+#
+#   * It listed a user (@Sumithgoud10) who is not even an org member — the
+#     org has exactly two members: @BalaSeethaRamanjaneyulu and
+#     @reddysaicharan985, plus a team (@IntelliAttend-Team) with 1 member
+#     and 0 repositories.
+#
+# PREREQUISITE — grant access BEFORE committing this file, or the owners
+# below still resolve to nothing:
+#
+#   gh api -X PUT repos/IntelliAttend/IntelliAttend-Server/collaborators/reddysaicharan985 -f permission=push
+#   gh api -X PUT repos/IntelliAttend/IntelliAttend-Web/collaborators/reddysaicharan985 -f permission=push
+#   gh api -X PUT repos/IntelliAttend/IntelliAttend-AdminPanel/collaborators/reddysaicharan985 -f permission=push
+#   gh api -X PUT repos/IntelliAttend/IntelliAttend-Faculty-Mobile-App/collaborators/reddysaicharan985 -f permission=push
+#   gh api -X PUT repos/IntelliAttend/IntelliAttend-AdminPanel/collaborators/Sumithgoud10 -f permission=triage
+#   gh api -X PUT repos/IntelliAttend/IntelliAttend-Web/collaborators/TEJA9391 -f permission=triage
+#
+# NOTE: after the GitHub Team upgrade, add `require_code_owner_review: true`
+# to the school-main ruleset (bundle/branch-protection-rulesets.json). Until
+# then this file is *routing*, not *enforcement* — but it is what makes a
+# reviewer get auto-requested, and auto-requested reviews are the habit that
+# makes "require 1 approval" enforceable later.
+# ─────────────────────────────────────────────────────────────────────────────
 
-# Default owners for everything in the repo
-* @IntelliAttend/core-team
+# ── Default owner: every change ──
+*                               @BalaSeethaRamanjaneyulu @IntelliAttend-Team
 
-# Website core
-/src/app/ @IntelliAttend/core-team
-/src/components/layout/ @IntelliAttend/core-team
-/src/components/ui/ @IntelliAttend/core-team
-/src/lib/ @IntelliAttend/core-team
-/src/types/ @IntelliAttend/core-team
-/src/config/ @IntelliAttend/core-team
+# ── Second reviewer ──
+# A ruleset that requires 1 approving review DEADLOCKS every merge if only
+# one person can review. The audit found 0 of 89 merged PRs carried a
+# review — there was no eligible second reviewer. This line is what makes
+# "require at least 1 approval" satisfiable.
+*                               @reddysaicharan985
 
-# Feature-specific owners
-/src/components/home/ @IntelliAttend/frontend-team
-/src/components/auth/ @IntelliAttend/auth-team
-/src/components/portal/ @IntelliAttend/dashboard-team
-/src/components/pricing/ @IntelliAttend/product-team
-/src/components/blog/ @IntelliAttend/content-team
-/src/components/products/ @IntelliAttend/product-team
-/src/components/solutions/ @IntelliAttend/product-team
-/src/components/support/ @IntelliAttend/support-team
+# ── Machine rules — always a human, never a bot ──
+# These alter the rules themselves; they must never be self-approved.
+/.github/workflows/**            @BalaSeethaRamanjaneyulu
+/.github/CODEOWNERS              @BalaSeethaRamanjaneyulu
+/.github/dependabot.yml          @BalaSeethaRamanjaneyulu
+/docker-compose*.yml            @BalaSeethaRamanjaneyulu
+/backend/alembic/versions/       @BalaSeethaRamanjaneyulu
 
-# CI/CD and infrastructure
-/.github/ @IntelliAttend/devops-team
-/wrangler.toml @IntelliAttend/devops-team
-/next.config.ts @IntelliAttend/core-team
+# ── Repo-specific surfaces (ADJUST PER REPO before committing) ──
+# AdminPanel / Web (frontends)
+/src/                            @BalaSeethaRamanjaneyulu @reddysaicharan985
+# Mobile apps (Faculty / Student / Parent)
+/lib/                            @BalaSeethaRamanjaneyulu @reddysaicharan985
+/android/                        @BalaSeethaRamanjaneyulu
+# SmartBoard (Windows kiosk)
+/windows/                        @BalaSeethaRamanjaneyulu
+# Server API
+/app/                            @BalaSeethaRamanjaneyulu @reddysaicharan985
 
-# Documentation
-/README.md @IntelliAttend/core-team
-/CONTRIBUTING.md @IntelliAttend/core-team
-/ARCHITECTURE.md @IntelliAttend/core-team
-/LICENSE @IntelliAttend/core-team
-
-# Dependencies
-/package.json @IntelliAttend/core-team
-/package-lock.json @IntelliAttend/core-team
+# ── Ownership model ──
+# Lead        @BalaSeethaRamanjaneyulu — release manager; merge authority on
+#              school-main promote PRs; owner of CI, infra, migrations, secrets.
+# Reviewer    @reddysaicharan985 — second pair of eyes. Has write on
+#              SmartBoard only today; grant push on the 4 main repos first.
+# Web/UI      @TEJA9391 (re-invite with triage) — marketing site + AdminPanel UI.
+# Mobile      @Sumithgoud10 (re-invite with triage) — mobile + panel features.
+#
+# ⚠️ The commit history shows 8 distinct author identities for what appear
+# to be 3-4 people ("Bala Seetharamanjaneyulu", "BalaSeethaRamanujanayulu",
+# "sohail044", "TEJA9391", "Teja", "IntelliAttend", "SmartBoard Dev").
+# Add a .mailmap to each repo so CODEOWNERS, review attribution, and
+# `git shortlog` agree on who did what.

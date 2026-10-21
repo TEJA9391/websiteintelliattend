@@ -2,9 +2,12 @@ name: CI
 
 on:
   push:
-    branches: [main, school-main]
+    # `main` is a stale branch in this repository (it predates school-dev
+    # and is not the default branch). `school-dev` was missing entirely,
+    # which meant PRs into the integration branch ran no CI at all.
+    branches: [school-dev, school-main]
   pull_request:
-    branches: [main, school-main]
+    branches: [school-dev, school-main]
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -69,9 +72,16 @@ jobs:
       - name: Build
         run: npm run build
 
+      # Upload the PUBLISHABLE output. The previous step uploaded `.next`,
+      # which is Next.js's intermediate build cache — but the Cloudflare
+      # deploy publishes `out/` (next.config.ts sets `output: "export"`).
+      # The artifact therefore did not contain the thing that actually gets
+      # deployed, and could not be used to reproduce a deploy.
       - name: Upload build artifacts
+        continue-on-error: true
         uses: actions/upload-artifact@v4
         with:
-          name: build-output
-          path: .next
+          name: web-build-${{ github.event_name }}-${{ github.ref_name }}-${{ github.run_number }}
+          path: out
           retention-days: 1
+          if-no-files-found: warn
