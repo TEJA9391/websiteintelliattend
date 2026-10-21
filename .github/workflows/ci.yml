@@ -1,87 +1,66 @@
+# ─────────────────────────────────────────────────────────────────────────────
+# IntelliAttend-Web — Tier-2 wrapper (governs .github/workflows/ci.yml)
+# Target refs: school-dev (integration/staging) + school-main (production)
+#
+# Replaces the audited state: CI on `main` only, no guard, no school-dev.
+# The one-time ref reconciliation is done (school-dev created from school-main,
+# default branch switched) — see devops-reform/CHANGE_LOG.md §1.4/§1.5.
+# ─────────────────────────────────────────────────────────────────────────────
+
 name: CI
 
 on:
   push:
-    # `main` is a stale branch in this repository (it predates school-dev
-    # and is not the default branch). `school-dev` was missing entirely,
-    # which meant PRs into the integration branch ran no CI at all.
-    branches: [school-dev, school-main]
+    branches: [school-main, school-dev]
   pull_request:
-    branches: [school-dev, school-main]
+    branches: [school-main, school-dev]
 
 concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
+  group: ci-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
-  lint:
-    name: Lint
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+  ci:
+    uses: IntelliAttend/.github/.github/workflows/ci-node-web.yml@ci-v1
+    with:
+      working-directory: '.'
+      node-version: '20'
+      # Web has NO test suite (audit F-08). `has-tests: false` is honest:
+      # it omits the Test check entirely rather than emitting a check that
+      # prints "no test runner selected" and goes green. Flip to true and
+      # set `javascript: 'vitest'` when the first suite lands.
+      has-tests: false
+      has-build: true
+      prepare-env: false
+    secrets: inherit
+    permissions:
+      contents: read
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: 20
-          cache: npm
+  # L1 enforcement — the integration branch is PR-only.
+  #
+  # The push guard protects production; this protects the gate TO production.
+  # A direct push to school-dev would otherwise land unreviewed code that the
+  # promotion PR then carries into production. It runs inside CI so a
+  # violating push turns CI red on school-dev itself, where the author sees it.
+  integration-guard:
+    if: github.event_name == 'push' && github.ref_name == 'school-dev'
+    uses: IntelliAttend/.github/.github/workflows/guard-integration.yml@cd-v1
+    with:
+      integration-branch: 'school-dev'
+    secrets: inherit
+    permissions:
+      contents: read
 
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Run ESLint
-        run: npm run lint
-
-  typecheck:
-    name: Type Check
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: 20
-          cache: npm
-
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Run TypeScript compiler
-        run: npx tsc --noEmit
-
-  build:
-    name: Build
-    runs-on: ubuntu-latest
-    needs: [lint, typecheck]
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: 20
-          cache: npm
-
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Build
-        run: npm run build
-
-      # Upload the PUBLISHABLE output. The previous step uploaded `.next`,
-      # which is Next.js's intermediate build cache — but the Cloudflare
-      # deploy publishes `out/` (next.config.ts sets `output: "export"`).
-      # The artifact therefore did not contain the thing that actually gets
-      # deployed, and could not be used to reproduce a deploy.
-      - name: Upload build artifacts
-        continue-on-error: true
-        uses: actions/upload-artifact@v4
-        with:
-          name: web-build-${{ github.event_name }}-${{ github.ref_name }}-${{ github.run_number }}
-          path: out
-          retention-days: 1
-          if-no-files-found: warn
+  # Production drift reconciler — if a (#hotfix) push lands on school-main,
+  # this opens the school-main → school-dev PR so the fix is never prod-only.
+  backport:
+    if: github.event_name == 'push' && github.ref_name == 'school-main'
+    needs: [ci]
+    uses: IntelliAttend/.github/.github/workflows/promote-backport.yml@cd-v1
+    with:
+      production-branch: 'school-main'
+      integration-branch: 'school-dev'
+    secrets: inherit
+    permissions:
+      contents: write
+      pull-requests: write
