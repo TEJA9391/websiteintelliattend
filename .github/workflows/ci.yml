@@ -1,10 +1,27 @@
 # ─────────────────────────────────────────────────────────────────────────────
-# IntelliAttend-Web — Tier-2 wrapper (governs .github/workflows/ci.yml)
-# Target refs: school-dev (integration/staging) + school-main (production)
+# IntelliAttend-Web — local, self-contained CI (traditional setup).
 #
-# Replaces the audited state: CI on `main` only, no guard, no school-dev.
-# The one-time ref reconciliation is done (school-dev created from school-main,
-# default branch switched) — see devops-reform/CHANGE_LOG.md §1.4/§1.5.
+# Every job lives in this file. No org-level reusable workflows: the previous
+# `uses: IntelliAttend/.github/...@ci-v1|cd-v1` calls (IA-1, Oct 21) pointed at
+# IntelliAttend/.github, which disappeared on Oct 22 — the wrapper kept a green
+# file while the pipeline behind it 404'd. A pipeline that can vanish without a
+# commit here is not a pipeline. Same rationale as AdminPanel's ci.yml.
+#
+# Jobs:
+#   1. lint              — npm run lint (eslint)
+#   2. type-check        — npx tsc --noEmit (package.json `typecheck` script)
+#   3. build             — npm run build (next build; also the canary for
+#                          deploy.yml, which rebuilds from source)
+#   4. integration-guard — school-dev is PR-only (rejects direct pushes)
+#   5. backport          — school-main → school-dev reconciliation after a
+#                          production push (hotfix path)
+#
+# Web has NO test suite yet (audit F-08) — a Test job would be dishonest, so
+# one is omitted rather than emitted as an empty green check. Flip it on when
+# the first suite lands.
+#
+# deploy.yml is untouched: it already carries its own guard → ci → deploy
+# chain (staging on school-dev, production on school-main).
 # ─────────────────────────────────────────────────────────────────────────────
 
 name: CI
@@ -19,48 +36,154 @@ concurrency:
   group: ci-${{ github.ref }}
   cancel-in-progress: true
 
+permissions:
+  contents: read
+
 jobs:
-  ci:
-    uses: IntelliAttend/.github/.github/workflows/ci-node-web.yml@ci-v1
-    with:
-      working-directory: '.'
-      node-version: '20'
-      # Web has NO test suite (audit F-08). `has-tests: false` is honest:
-      # it omits the Test check entirely rather than emitting a check that
-      # prints "no test runner selected" and goes green. Flip to true and
-      # set `javascript: 'vitest'` when the first suite lands.
-      has-tests: false
-      has-build: true
-      prepare-env: false
-    secrets: inherit
-    permissions:
-      contents: read
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - run: npm ci
+
+      - name: Lint
+        run: npm run lint
+
+  type-check:
+    name: Type Check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - run: npm ci
+
+      - name: Type Check
+        run: npx tsc --noEmit
+
+  build:
+    name: Build
+    needs: [lint, type-check]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - run: npm ci
+
+      - name: Build (next build)
+        run: npm run build
 
   # L1 enforcement — the integration branch is PR-only.
   #
-  # The push guard protects production; this protects the gate TO production.
-  # A direct push to school-dev would otherwise land unreviewed code that the
-  # promotion PR then carries into production. It runs inside CI so a
-  # violating push turns CI red on school-dev itself, where the author sees it.
+  # The deploy guard (deploy.yml) protects production; this protects the gate
+  # TO production. It runs on push so a violating push turns CI red on
+  # school-dev itself, where the author sees it. A commit is legitimate when a
+  # MERGED pull request contains it — merge, squash and rebase merges alike —
+  # and a direct push has no associated merged PR. Fails CLOSED if the API is
+  # unreachable.
   integration-guard:
+    name: Guard — school-dev is PR-only
     if: github.event_name == 'push' && github.ref_name == 'school-dev'
-    uses: IntelliAttend/.github/.github/workflows/guard-integration.yml@cd-v1
-    with:
-      integration-branch: 'school-dev'
-    secrets: inherit
+    runs-on: ubuntu-latest
     permissions:
       contents: read
+      pull-requests: read
 
-  # Production drift reconciler — if a (#hotfix) push lands on school-main,
-  # this opens the school-main → school-dev PR so the fix is never prod-only.
+    steps:
+      - name: Reject direct pushes to school-dev
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          SHA="${{ github.sha }}"
+          MERGED="$(gh api "repos/${{ github.repository }}/commits/$SHA/pulls" \
+            --jq '[.[] | select(.merged_at != null)] | length' || echo 0)"
+          if [ "$MERGED" -gt 0 ]; then
+            echo "Push discipline OK: commit is in a merged pull request."
+            exit 0
+          fi
+          echo "::error::Direct push to school-dev rejected."
+          echo "::error::Commit: $(git log -1 --pretty=%s "$SHA" 2>/dev/null || echo '(fetch failed)')"
+          echo "::error::Open a PR: feature/* -> school-dev -> school-main."
+          exit 1
+
+  # Port-back discipline — production hotfixes must return to school-dev.
+  #
+  # Content, not ancestry, decides: a normal promotion adds a merge commit to
+  # school-main whose tree is identical to school-dev's, so the job exits as a
+  # no-op. Only a genuine hotfix push to school-main (single-parent, (#hotfix))
+  # changes production content without school-dev — then this opens the
+  # reconciliation PR so the fix is never stranded in production.
   backport:
+    name: Backport — reconcile school-main into school-dev
     if: github.event_name == 'push' && github.ref_name == 'school-main'
-    needs: [ci]
-    uses: IntelliAttend/.github/.github/workflows/promote-backport.yml@cd-v1
-    with:
-      production-branch: 'school-main'
-      integration-branch: 'school-dev'
-    secrets: inherit
+    needs: [build]
+    runs-on: ubuntu-latest
     permissions:
       contents: write
       pull-requests: write
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Open reconciliation PR if school-main has content school-dev lacks
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          git fetch --quiet origin school-dev
+
+          if git diff --quiet origin/school-dev origin/school-main; then
+            echo "school-main and school-dev trees are identical; nothing to backport."
+            exit 0
+          fi
+
+          BRANCH="backport/school-main-into-school-dev"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git checkout -B "$BRANCH" origin/school-main
+          git merge origin/school-dev --no-edit \
+            -m "chore: reconcile school-main into school-dev (automated backport)"
+          git push --quiet origin "$BRANCH" --force
+
+          OPEN="$(gh pr list --repo "${{ github.repository }}" \
+            --head "$BRANCH" --base school-dev --state open --json number --jq 'length')"
+          if [ "$OPEN" -gt 0 ]; then
+            echo "Reconciliation PR already open."
+            exit 0
+          fi
+
+          PR_URL="https://github.com/${{ github.repository }}/compare/school-dev...$BRANCH?expand=1"
+          if gh pr create --repo "${{ github.repository }}" \
+            --base school-dev --head "$BRANCH" \
+            --title "Backport: reconcile school-main into school-dev" \
+            --body "Automated port-back after a school-main push (hotfix path). Review and merge so school-dev contains everything running in production."; then
+            echo "Reconciliation PR opened."
+            exit 0
+          fi
+
+          echo "::warning::Could not auto-create the reconciliation PR (Actions PR creation likely disabled in repo settings). Branch pushed; create it manually: $PR_URL"
+          {
+            echo "### Backport needed — manual step required"
+            echo "school-main has content school-dev lacks. The reconciliation branch was pushed."
+            echo ""
+            echo "[Create the reconciliation PR]($PR_URL)"
+          } >> "$GITHUB_STEP_SUMMARY"
