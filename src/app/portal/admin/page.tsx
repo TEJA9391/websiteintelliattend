@@ -7,6 +7,24 @@ import { motion } from "framer-motion";
 export default function AdminDashboard() {
   return (
     <>
+      {/* Synthetic Data Provenance Notice */}
+      <div className="bg-white border border-slate-200/90 rounded-xl p-3.5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-xs text-slate-600 shadow-2xs">
+        <div className="flex items-center gap-2">
+          <span className="font-bold text-slate-900 bg-slate-100 border border-slate-200 uppercase tracking-wider text-[10px] px-2 py-0.5 rounded">
+            Synthetic Mock Dataset
+          </span>
+          <span>Sample demonstration metrics for administrator role evaluation. Not connected to active production databases.</span>
+        </div>
+        <a 
+          href="https://dashboard.intelliattend.app/login"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="font-bold text-slate-900 hover:text-slate-700 underline shrink-0 transition-colors"
+        >
+          Official Institutional SSO &rarr;
+        </a>
+      </div>
+
       {/* Stats Row */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
         <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm">
@@ -14,9 +32,9 @@ export default function AdminDashboard() {
             <div className="text-sm font-semibold text-slate-500">Total Students</div>
             <Users className="w-5 h-5 text-slate-400" />
           </div>
-          <div className="text-3xl font-bold text-slate-900 mb-1">12,450</div>
+          <div className="text-3xl font-bold text-slate-900 mb-1">1,042</div>
           <div className="text-xs text-emerald-600 font-bold flex items-center gap-1">
-            <TrendingUp className="w-3 h-3" /> +2.4% this year
+            <TrendingUp className="w-3 h-3" /> Active Enrollment
           </div>
         </motion.div>
 
@@ -25,9 +43,9 @@ export default function AdminDashboard() {
             <div className="text-sm font-semibold text-slate-500">Total Faculty</div>
             <Building2 className="w-5 h-5 text-slate-400" />
           </div>
-          <div className="text-3xl font-bold text-slate-900 mb-1">840</div>
+          <div className="text-3xl font-bold text-slate-900 mb-1">31</div>
           <div className="text-xs text-emerald-600 font-bold flex items-center gap-1">
-            <TrendingUp className="w-3 h-3" /> +12 new hires
+            <TrendingUp className="w-3 h-3" /> Assigned Departments
           </div>
         </motion.div>
 
@@ -36,19 +54,19 @@ export default function AdminDashboard() {
             <div className="text-sm font-semibold text-slate-500">Avg Attendance</div>
             <BarChart3 className="w-5 h-5 text-slate-400" />
           </div>
-          <div className="text-3xl font-bold text-slate-900 mb-1">88.5%</div>
-          <div className="text-xs text-emerald-600 font-bold flex items-center gap-1">
-            <TrendingUp className="w-3 h-3" /> +1.2% this month
+          <div className="text-3xl font-bold text-slate-900 mb-1">73.7%</div>
+          <div className="text-xs text-amber-600 font-bold flex items-center gap-1">
+            Overall Campus
           </div>
         </motion.div>
 
         <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }} className="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm">
           <div className="flex items-center justify-between mb-4">
-            <div className="text-sm font-semibold text-slate-500">System Alerts</div>
-            <AlertTriangle className="w-5 h-5 text-amber-500" />
+            <div className="text-sm font-semibold text-slate-500">Defaulters (&lt;75%)</div>
+            <AlertTriangle className="w-5 h-5 text-rose-500" />
           </div>
-          <div className="text-3xl font-bold text-slate-900 mb-1">3</div>
-          <div className="text-xs text-slate-500 font-medium">Requires attention</div>
+          <div className="text-3xl font-bold text-rose-600 mb-1">837</div>
+          <div className="text-xs text-slate-500 font-medium">Below exam threshold</div>
         </motion.div>
       </div>
 

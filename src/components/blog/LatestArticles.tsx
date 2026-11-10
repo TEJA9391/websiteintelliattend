@@ -2,40 +2,12 @@
 
 import { Clock, ArrowRight } from 'lucide-react';
 import Link from 'next/link';
-import { useSearchParams } from 'next/navigation';
 import { ARTICLES } from '@/lib/blog-data';
 
 export function LatestArticles() {
-  const searchParams = useSearchParams();
-  const category = searchParams.get('category');
-  const query = searchParams.get('q')?.toLowerCase();
-
-  const filteredArticles = ARTICLES.filter((article) => {
-    let matchesCategory = true;
-    let matchesQuery = true;
-
-    if (category && category !== 'All Posts') {
-      matchesCategory = article.category === category;
-    }
-
-    if (query) {
-      matchesQuery = article.title.toLowerCase().includes(query) || article.desc.toLowerCase().includes(query);
-    }
-
-    return matchesCategory && matchesQuery;
-  });
-
-  if (filteredArticles.length === 0) {
-    return (
-      <div className="py-12 text-center border border-slate-200 rounded-3xl bg-slate-50 border-dashed">
-        <p className="text-slate-500 font-medium">No articles found matching your criteria.</p>
-      </div>
-    );
-  }
-
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-      {filteredArticles.map((article, i) => (
+      {ARTICLES.map((article, i) => (
         <Link href={`/blog/${article.slug}`} key={i} className="apple-card p-8 group cursor-pointer flex flex-col h-full relative block">
           
           <div className="text-[11px] font-black tracking-widest uppercase text-[#64748B] mb-3 z-10">{article.category}</div>

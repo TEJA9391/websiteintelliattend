@@ -6,6 +6,7 @@ import { Footer } from "@/components/layout/Footer";
 import { SmoothScrollProvider } from "@/components/layout/SmoothScrollProvider";
 import { OrganizationJsonLd, WebsiteJsonLd } from "@/components/seo/JsonLd";
 import { ChatWidget } from "@/components/layout/ChatWidget";
+import { FeedbackWidget } from "@/components/feedback/FeedbackWidget";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -22,7 +23,7 @@ export const metadata: Metadata = {
     template: "%s | IntelliAttend",
   },
   description:
-    "Manage attendance, schedules, SmartBoard, notifications, resources, analytics and communication from one intelligent platform. The AI-powered campus management system for modern institutions.",
+    "From 1-tap attendance and timetable scheduling to fee payments and SmartBoard displays—run your entire campus from one unified platform at your fingertips.",
   keywords: [
     "attendance management",
     "campus management",
@@ -52,7 +53,7 @@ export const metadata: Metadata = {
     siteName: "IntelliAttend",
     title: "IntelliAttend | Intelligent Attendance. Smart Campus.",
     description:
-      "Manage attendance, schedules, SmartBoard, notifications, resources, analytics and communication from one intelligent platform.",
+      "From 1-tap attendance and timetable scheduling to fee payments and SmartBoard displays—run your entire campus from one unified platform at your fingertips.",
     images: [
       {
         url: `${baseUrl}/images/og-default.png`,
@@ -66,7 +67,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "IntelliAttend | Intelligent Attendance. Smart Campus.",
     description:
-      "Manage attendance, schedules, SmartBoard, notifications, resources, analytics and communication from one intelligent platform.",
+      "From 1-tap attendance and timetable scheduling to fee payments and SmartBoard displays—run your entire campus from one unified platform at your fingertips.",
     images: [`${baseUrl}/images/og-default.png`],
     creator: "@intelliattend",
   },
@@ -120,6 +121,7 @@ export default function RootLayout({
           <Navbar />
           <main className="flex-1 relative overflow-x-hidden">{children}</main>
           <ChatWidget />
+          <FeedbackWidget />
           <Footer />
         </SmoothScrollProvider>
       </body>

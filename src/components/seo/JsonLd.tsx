@@ -18,9 +18,11 @@ export function OrganizationJsonLd({
     description:
       "IntelliAttend - Intelligent Attendance. Smart Campus. Manage attendance, schedules, SmartBoard, notifications, resources, analytics and communication from one intelligent platform.",
     sameAs: [
-      "https://twitter.com/intelliattend",
-      "https://linkedin.com/company/intelliattend",
+      "https://x.com/intelliattend",
+      "https://www.linkedin.com/company/intelliattend/",
       "https://github.com/intelliattend",
+      "https://www.youtube.com/@intelliattend-45",
+      "https://discord.com/users/1563078786646540319",
     ],
     contactPoint: {
       "@type": "ContactPoint",

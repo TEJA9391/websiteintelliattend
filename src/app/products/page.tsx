@@ -40,7 +40,7 @@ function AnimatedCounter({ from, to, duration = 2, suffix = "", prefix = "" }: {
     }
   }, [from, to, duration, suffix, prefix, isInView]);
 
-  return <span ref={nodeRef}>{prefix}{from}{suffix}</span>;
+  return <span ref={nodeRef}>{prefix}{to}{suffix}</span>;
 }
 
 export default function ProductsOverview() {
@@ -58,16 +58,12 @@ export default function ProductsOverview() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
           >
-            <div className="inline-flex items-center rounded-full px-4 py-1.5 text-sm font-semibold text-slate-500 bg-primary/10 mb-8 border border-primary/20">
-              <Layers className="w-4 h-4 mr-2" />
-              Platform Overview
-            </div>
             <h1 className="text-5xl md:text-7xl font-bold tracking-tight text-text-main mb-8 leading-[1.1]">
               Transforming Campus Management<br />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent">with Intelligent Automation.</span>
             </h1>
             <p className="mx-auto max-w-3xl text-xl leading-relaxed text-[#64748B]">
-              IntelliAttend is an AI-powered campus management platform that simplifies attendance, classroom operations, faculty workflows, and student engagement through one secure, connected ecosystem.
+              IntelliAttend is the connected campus operating platform built for modern higher education—unifying lecture scheduling, 1-tap attendance, SmartBoard displays, fee payments, and academic records in real time.
             </p>
           </motion.div>
         </div>
@@ -78,7 +74,7 @@ export default function ProductsOverview() {
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {[
-              { icon: BrainCircuit, title: "AI-Powered Automation", desc: "Automate attendance, scheduling, notifications, and classroom workflows with intelligent technology." },
+              { icon: BrainCircuit, title: "Smart Campus Automation", desc: "Streamline paperless attendance, fee collections, class schedules, and departmental paperwork with fingertip simplicity." },
               { icon: Zap, title: "Real-Time Operations", desc: "Synchronize attendance, SmartBoard content, announcements, and analytics instantly across campus." },
               { icon: ShieldCheck, title: "Enterprise Security", desc: "Protect academic data with encrypted communication, secure authentication, and role-based access control." },
               { icon: CloudSync, title: "Cloud Connected", desc: "Access teaching resources, reports, and classroom data securely from anywhere on any authorized device." },
@@ -110,10 +106,10 @@ export default function ProductsOverview() {
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 divide-x divide-slate-100">
             {[
-              { label: "Integrated Modules", from: 0, to: 10, suffix: "+" },
-              { label: "Attendance Accuracy", from: 0, to: 99, suffix: "%" },
-              { label: "Average Attendance Time", from: 5, to: 1, suffix: " Min" },
-              { label: "Cloud Availability", from: 0, to: 24, suffix: "/7" },
+              { label: "Unified Portals", from: 1, to: 4, suffix: "" },
+              { label: "Eligibility Tracking", from: 0, to: 75, suffix: "%" },
+              { label: "Session Roll-Call", prefix: "< ", from: 120, to: 60, suffix: "s" },
+              { label: "Cloud-Synchronized", from: 0, to: 100, suffix: "%" },
             ].map((stat, i) => (
               <motion.div 
                 key={i}
@@ -124,7 +120,7 @@ export default function ProductsOverview() {
                 className="text-center px-4"
               >
                 <div className="text-4xl md:text-5xl font-bold text-text-main mb-2 font-mono tracking-tight">
-                  <AnimatedCounter from={stat.from} to={stat.to} suffix={stat.suffix} />
+                  <AnimatedCounter from={stat.from} to={stat.to} suffix={stat.suffix} prefix={stat.prefix} />
                 </div>
                 <div className="text-sm font-medium text-slate-500 uppercase tracking-wider">{stat.label}</div>
               </motion.div>

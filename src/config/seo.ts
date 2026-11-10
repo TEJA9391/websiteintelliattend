@@ -4,20 +4,21 @@ export const SEO_CONFIG = {
   titleTemplate: "%s | IntelliAttend",
   defaultTitle: "IntelliAttend | Intelligent Attendance. Smart Campus.",
   defaultDescription:
-    "Manage attendance, schedules, SmartBoard, notifications, resources, analytics and communication from one intelligent platform. The AI-powered campus management system for modern institutions.",
+    "From 1-tap attendance and timetable scheduling to fee payments and SmartBoard displays—run your entire campus from one unified platform at your fingertips.",
 
   // Social media
   social: {
     twitter: "@intelliattend",
     linkedin: "intelliattend",
     github: "intelliattend",
+    instagram: "intelliattend",
   },
 
   // Contact info
   contact: {
-    email: "support@intelliattend.app",
-    phone: "+1-555-123-4567",
-    address: "100 Innovation Drive, Tech City, CA 94000",
+    email: "contact@intelliattend.app",
+    phone: "+91 9493615849",
+    address: "Maisammaguda, Dhulapally (Post via Kompally), Gundlapochampally Village, Medchal-Malkajgiri District, Hyderabad, Telangana 500100, India",
   },
 
   // Open Graph defaults
@@ -35,7 +36,7 @@ export const SEO_CONFIG = {
     home: {
       title: "IntelliAttend | Intelligent Attendance. Smart Campus Platform",
       description:
-        "The AI-powered campus management platform. Manage attendance, schedules, SmartBoard, notifications, analytics and communication from one intelligent platform. Trusted by universities and schools worldwide.",
+        "The connected campus management platform for higher education. Streamline attendance, timetable synchronization, SmartBoard presentations, and academic reporting from one unified platform.",
     },
     products: {
       title: "Products",
@@ -120,7 +121,7 @@ export const SEO_CONFIG = {
     register: {
       title: "Register",
       description:
-        "Create your IntelliAttend account. Join thousands of institutions using intelligent campus management.",
+        "Create your IntelliAttend account and modernize your campus with intelligent attendance and academic operations.",
     },
   },
 
@@ -132,9 +133,12 @@ export const SEO_CONFIG = {
       url: "https://www.intelliattend.app",
       logo: "https://www.intelliattend.app/images/logo.png",
       sameAs: [
-        "https://twitter.com/intelliattend",
-        "https://linkedin.com/company/intelliattend",
+        "https://x.com/intelliattend",
+        "https://www.linkedin.com/company/intelliattend/",
         "https://github.com/intelliattend",
+        "https://www.instagram.com/intelliattend?utm_source=ig_web_button_share_sheet&psln=ZDNlZDc0MzIxNw==",
+        "https://www.youtube.com/@intelliattend-45",
+        "https://discord.com/users/1563078786646540319",
       ],
     },
   },

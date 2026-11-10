@@ -29,25 +29,20 @@ export function CTASection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ delay: 0.1 }}
-          className="text-white/80 text-lg mb-10 max-w-2xl mx-auto"
+          className="text-white/90 text-lg mb-10 max-w-2xl mx-auto"
         >
-          Join thousands of institutions already using IntelliAttend to streamline their academic operations.
+          Partner with IntelliAttend to bring modern digital attendance, smart classroom displays, and paperless operations to your institution.
         </motion.p>
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ delay: 0.1 }}
-          className="flex flex-col sm:flex-row gap-4 justify-center"
+          className="flex justify-center"
         >
           <Link href="/get-started">
-            <button className="h-14 px-8 text-base font-semibold rounded-full bg-white text-slate-600 hover:bg-slate-50 hover:scale-105 active:scale-95 transition-all duration-150 shadow-xl hover:shadow-2xl cursor-pointer">
+            <button className="h-14 px-10 text-base font-semibold rounded-full bg-white text-slate-700 hover:bg-slate-50 hover:scale-105 active:scale-95 transition-all duration-150 shadow-xl hover:shadow-2xl cursor-pointer">
               Get Started Now
-            </button>
-          </Link>
-          <Link href="/#contact">
-            <button className="h-14 px-8 text-base font-semibold rounded-full border-2 border-white text-white hover:bg-white hover:text-primary hover:scale-105 active:scale-95 transition-all duration-150 cursor-pointer">
-              Contact Sales
             </button>
           </Link>
         </motion.div>

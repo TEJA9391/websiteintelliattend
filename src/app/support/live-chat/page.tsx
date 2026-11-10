@@ -8,7 +8,8 @@ import {
 } from "lucide-react";
 import ReactMarkdown from "react-markdown";
 import { cn } from "@/lib/utils";
-import { generateMockResponse } from "@/lib/bot-logic";
+import { generateResponse } from "@/lib/bot-logic";
+import { validateFiles } from "@/lib/file-security";
 
 const CHAT_FEATURES = [
   "AI Assistant", "Human Support", "Screen Sharing", 
@@ -35,6 +36,7 @@ export default function LiveChatPage() {
   const [isTyping, setIsTyping] = useState(false);
   const [mounted, setMounted] = useState(false);
   const [files, setFiles] = useState<File[]>([]);
+  const [fileErrors, setFileErrors] = useState<string[]>([]);
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -79,8 +81,14 @@ export default function LiveChatPage() {
     setFiles([]);
     setIsTyping(true);
 
-    setTimeout(() => {
-      let response = generateMockResponse(userMsg);
+    setTimeout(async () => {
+      let response = "I can help with IntelliAttend's SmartBoards, faculty tools, student apps, attendance, and support. What would you like to know?";
+      try {
+        const botRes = await generateResponse(userMsg, { lastIntent: null, lastEntity: null, history: [] });
+        if (botRes && botRes.text) response = botRes.text;
+      } catch {
+        // fallback
+      }
       if (attachedFiles.length > 0 && !userMsg) {
         response = "I see you've attached a file. An agent will review it shortly! Is there anything else you'd like to add?";
       } else if (attachedFiles.length > 0) {
@@ -98,8 +106,14 @@ export default function LiveChatPage() {
   };
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files) {
-      setFiles(prev => [...prev, ...Array.from(e.target.files!)]);
+    if (e.target.files && e.target.files.length > 0) {
+      const selectedFiles = Array.from(e.target.files);
+      const { validFiles, errors } = validateFiles(selectedFiles);
+      setFileErrors(errors);
+      if (validFiles.length > 0) {
+        setFiles((prev) => [...prev, ...validFiles]);
+      }
+      e.target.value = "";
     }
   };
 
@@ -279,6 +293,20 @@ export default function LiveChatPage() {
                 </div>
               )}
 
+              {/* Upload Security Validation Errors */}
+              {fileErrors.length > 0 && (
+                <div className="mb-2 p-2.5 bg-rose-50 border border-rose-200 rounded-xl text-xs text-rose-800">
+                  <div className="font-semibold flex items-center gap-1 text-rose-900 mb-0.5">
+                    <span>Upload Error (max. 10MB, PNG/JPG/PDF/TXT only):</span>
+                  </div>
+                  <ul className="list-disc list-inside space-y-0.5 text-rose-700">
+                    {fileErrors.map((err, idx) => (
+                      <li key={idx}>{err}</li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+
               <form onSubmit={handleSubmit} className="flex items-end gap-2 relative">
                 <input 
                   type="file" 
@@ -286,6 +314,7 @@ export default function LiveChatPage() {
                   onChange={handleFileChange} 
                   className="hidden" 
                   multiple 
+                  accept=".png,.jpg,.jpeg,.pdf,.txt,image/png,image/jpeg,application/pdf,text/plain"
                 />
                 
                 <div className="flex-1 bg-slate-50 border border-slate-200 rounded-2xl focus-within:border-primary/30 focus-within:ring-4 focus-within:ring-primary/10 transition-all p-1 flex items-center">

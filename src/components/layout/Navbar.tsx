@@ -5,7 +5,7 @@ import { motion, useScroll, useMotionValue, useSpring, useTransform, AnimatePres
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
-import { Sparkles, Menu, X, ChevronDown } from "lucide-react";
+import { Menu, X, ChevronDown } from "lucide-react";
 import Image from "next/image";
 import { MegaMenuProducts3D } from "@/components/navbar/MegaMenuProducts3D";
 
@@ -35,7 +35,6 @@ const navLinks = [
   { 
     name: "Resources", 
     href: "/docs",
-    overviewHref: "/docs",
     megaTitle: "Learn how to use IntelliAttend",
     dropdown: [
       { name: "Documentation", href: "/docs", desc: "Platform guides and API" },
@@ -69,35 +68,54 @@ export function Navbar() {
   const [expandedMobile, setExpandedMobile] = useState<string | null>(null);
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
   const { scrollY } = useScroll();
-  const headerHeight = useTransform(scrollY, [0, 100], [100, 80]);
+  const headerHeight = useTransform(scrollY, [0, 100], [80, 72]);
   const pathname = usePathname();
 
-  const handleMouseEnter = (link: any) => {
-    if (timeoutRef.current) clearTimeout(timeoutRef.current);
-    if (!link.dropdown) {
-      timeoutRef.current = setTimeout(() => {
-        setActiveMenu(null);
-      }, 200);
-      return;
-    }
-    if (activeMenu) {
-      setActiveMenu(link.name);
-    } else {
-      timeoutRef.current = setTimeout(() => {
-        setActiveMenu(link.name);
-      }, 150);
+  const cancelPendingMenuAction = () => {
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current);
+      timeoutRef.current = null;
     }
   };
 
-  const handleMouseLeave = () => {
-    if (timeoutRef.current) clearTimeout(timeoutRef.current);
+  const handleMouseEnter = (link: (typeof navLinks)[number]) => {
+    cancelPendingMenuAction();
+    if (!("dropdown" in link) || !link.dropdown) {
+      timeoutRef.current = setTimeout(() => {
+        setActiveMenu(null);
+      }, 220);
+      return;
+    }
+    if (activeMenu === link.name) {
+      return;
+    }
+    timeoutRef.current = setTimeout(() => {
+      setActiveMenu(link.name);
+    }, activeMenu ? 90 : 60);
+  };
+
+  const handleMouseLeaveHeader = () => {
+    cancelPendingMenuAction();
     timeoutRef.current = setTimeout(() => {
       setActiveMenu(null);
-    }, 300); // Increased delay for more forgiving diagonal movement
+    }, 150);
   };
 
   useEffect(() => {
-    return scrollY.onChange((latest) => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        setActiveMenu(null);
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+      cancelPendingMenuAction();
+    };
+  }, []);
+
+  useEffect(() => {
+    return scrollY.on("change", (latest) => {
       setIsScrolled(prev => {
         const isNowScrolled = latest > 20;
         return prev === isNowScrolled ? prev : isNowScrolled;
@@ -130,16 +148,18 @@ export function Navbar() {
       </AnimatePresence>
       <motion.header
         style={{ height: headerHeight }}
+        onMouseEnter={cancelPendingMenuAction}
+        onMouseLeave={handleMouseLeaveHeader}
         className={cn(
           "fixed top-0 inset-x-0 z-50 flex items-center transition-all duration-150",
           (activeMenu || isMobileMenuOpen) ? "bg-white" :
-          isScrolled ? "bg-white/70 backdrop-blur-[18px] border-b border-[#0F172A]/[0.08]" : "bg-transparent"
+          isScrolled ? "bg-white/95 backdrop-blur-[18px] border-b border-[#0F172A]/[0.08]" : "bg-transparent"
         )}
       >
       <div className="mx-auto max-w-7xl px-6 lg:px-8 w-full h-full flex items-center justify-between">
         
         {/* Logo */}
-        <Link href="/" className="flex items-center gap-2 group">
+        <Link href="/" onClick={() => setActiveMenu(null)} className="flex items-center gap-2 group">
           <Image src="/images/logo.png" alt="IntelliAttend" width={32} height={32} className="w-8 h-8 object-contain" />
           <span className="font-bold text-xl text-[#0F172A] tracking-tight">IntelliAttend</span>
         </Link>
@@ -152,11 +172,14 @@ export function Navbar() {
             <div 
               key={link.name} 
               className="group/nav flex items-center h-full"
-              onMouseLeave={handleMouseLeave}
             >
               <Link 
                 href={link.href}
                 onMouseEnter={() => handleMouseEnter(link)}
+                onMouseLeave={() => {
+                  if (!activeMenu) cancelPendingMenuAction();
+                }}
+                onClick={() => setActiveMenu(null)}
                 className="flex items-center gap-1.5 text-sm font-medium text-[#64748B] hover:text-[#0F172A] hover:bg-slate-100 transition-colors px-4 py-2 rounded-full"
               >
                 {link.name}
@@ -166,12 +189,17 @@ export function Navbar() {
               {link.dropdown && (
                 <>
                   {link.name === "Products" ? (
-                    <MegaMenuProducts3D isOpen={activeMenu === "Products"} />
+                    <MegaMenuProducts3D
+                      isOpen={activeMenu === "Products"}
+                      onMouseEnter={cancelPendingMenuAction}
+                      onClose={() => setActiveMenu(null)}
+                    />
                   ) : (
                     <AnimatePresence>
                       {activeMenu === link.name && (
                         <motion.div 
                           key="mega-standard"
+                          onMouseEnter={cancelPendingMenuAction}
                           initial={{ opacity: 0, y: -15, filter: "blur(8px)" }}
                           animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
                           exit={{ opacity: 0, y: -5, filter: "blur(4px)" }}
@@ -189,22 +217,24 @@ export function Navbar() {
                               >
                                 {link.megaTitle}
                               </motion.h3>
-                              <motion.div
-                                initial={{ opacity: 0, y: 10 }} 
-                                animate={{ opacity: 1, y: 0 }} 
-                                transition={{ delay: 0.1 }}
-                              >
-                                <Link href={link.overviewHref || link.href} className="mt-4 inline-flex items-center justify-center px-5 py-2 bg-slate-50 hover:bg-slate-100 text-sm font-semibold text-slate-700 rounded-full transition-colors self-start">
-                                  See overview
-                                </Link>
-                              </motion.div>
+                              {link.overviewHref && (
+                                <motion.div
+                                  initial={{ opacity: 0, y: 10 }} 
+                                  animate={{ opacity: 1, y: 0 }} 
+                                  transition={{ delay: 0.1 }}
+                                >
+                                  <Link href={link.overviewHref} onClick={() => setActiveMenu(null)} className="mt-4 inline-flex items-center justify-center px-5 py-2 bg-slate-50 hover:bg-slate-100 text-sm font-semibold text-slate-700 rounded-full transition-colors self-start">
+                                    See overview
+                                  </Link>
+                                </motion.div>
+                              )}
                             </div>
 
                             {/* Right Column (Grid of Links) */}
                             <div className="flex-1 grid grid-cols-1 gap-x-8 gap-y-1">
                               <div className="text-xs font-semibold text-slate-400 mb-1 px-3 uppercase tracking-wider">{link.name}</div>
                               {link.dropdown.map((item, index) => (
-                                <Link key={item.name} href={item.href} className="p-3 rounded-2xl hover:bg-slate-50 transition-colors group/item block">
+                                <Link key={item.name} href={item.href} onClick={() => setActiveMenu(null)} className="p-3 rounded-2xl hover:bg-slate-50 transition-colors group/item block">
                                   <motion.div
                                     initial={{ opacity: 0, x: -10 }} 
                                     animate={{ opacity: 1, x: 0 }} 

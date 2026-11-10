@@ -11,16 +11,18 @@ import {
   Bell, 
   ClipboardList, 
   CloudSync,
-  Briefcase,
   CheckCircle2,
   Clock,
   ShieldCheck,
   TrendingUp,
   MessageSquare,
   Laptop,
-  ChevronRight
+  ChevronRight,
+  Maximize2,
+  X
 } from "lucide-react";
 import Link from "next/link";
+import Image from "next/image";
 import { Navbar } from "@/components/layout/Navbar";
 
 // Counter Component
@@ -43,10 +45,20 @@ function AnimatedCounter({ from, to, duration = 2, suffix = "", prefix = "" }: {
     }
   }, [from, to, duration, suffix, prefix, isInView]);
 
-  return <span ref={nodeRef}>{prefix}{from}{suffix}</span>;
+  return <span ref={nodeRef}>{prefix}{to}{suffix}</span>;
 }
 
 export default function FacultyPage() {
+  const [isZoomed, setIsZoomed] = useState(false);
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setIsZoomed(false);
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, []);
+
   return (
     <div className="min-h-screen bg-[#F8FAFC]">
       <Navbar />
@@ -61,10 +73,6 @@ export default function FacultyPage() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
           >
-            <div className="inline-flex items-center rounded-full px-4 py-1.5 text-sm font-semibold text-slate-500 bg-primary/10 mb-8 border border-primary/20">
-              <Briefcase className="w-4 h-4 mr-2" />
-              Faculty Portal
-            </div>
             <h1 className="text-[min(7.5vw,2.25rem)] sm:text-4xl md:text-5xl lg:text-7xl font-bold tracking-tight text-text-main mb-8 leading-[1.1] flex flex-col items-center justify-center overflow-visible">
               <motion.span layout transition={{ layout: { duration: 1.2, ease: [0.16, 1, 0.3, 1] } }} className="flex flex-wrap items-baseline justify-center text-center">
                 <motion.span layout transition={{ layout: { duration: 1.2, ease: [0.16, 1, 0.3, 1] } }}>Everything</motion.span>
@@ -74,12 +82,35 @@ export default function FacultyPage() {
                 Need.
               </motion.span>
               <motion.span layout transition={{ layout: { duration: 1.2, ease: [0.16, 1, 0.3, 1] } }} className="mt-2 sm:mt-4 text-center">
-                One Intelligent Platform.
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent">One Intelligent Platform.</span>
               </motion.span>
             </h1>
             <p className="mx-auto max-w-3xl text-xl leading-relaxed text-[#64748B]">
-              Empower faculty with AI-driven tools to manage attendance, classes, SmartBoard content, student engagement, and academic resources — all from a single intuitive application.
+              Streamline daily lecture roll-calls, share syllabus resources with students, and track 75% exam eligibility effortlessly in real time.
             </p>
+
+            {/* Faculty Hero Display */}
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.15, duration: 0.3 }}
+              className="mt-14 max-w-5xl mx-auto rounded-3xl overflow-hidden shadow-2xl shadow-primary/10 border border-slate-200/80 bg-white p-2 sm:p-4 group cursor-pointer hover:border-primary/40 transition-colors"
+              onClick={() => setIsZoomed(true)}
+            >
+              <div className="relative aspect-[1024/541] w-full rounded-2xl overflow-hidden bg-slate-900/[0.02]">
+                <Image
+                  src="/images/products/faculty_real_mockup.png"
+                  alt="IntelliAttend Faculty Portal on Laptop and Mobile"
+                  fill
+                  unoptimized
+                  priority
+                  className="object-contain rounded-2xl"
+                />
+                <div className="absolute bottom-3 right-3 z-10 px-3 py-1.5 bg-slate-900/80 hover:bg-slate-900 text-white rounded-xl text-xs font-semibold backdrop-blur-md opacity-0 group-hover:opacity-100 transition-opacity flex items-center gap-1.5 shadow-md">
+                  <Maximize2 className="w-3.5 h-3.5" /> Click to Expand
+                </div>
+              </div>
+            </motion.div>
           </motion.div>
         </div>
       </section>
@@ -89,8 +120,8 @@ export default function FacultyPage() {
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 divide-x divide-slate-100">
             {[
-              { label: "Attendance Accuracy", from: 0, to: 99, suffix: "%" },
-              { label: "Average Process", from: 5, to: 1, suffix: "-Min" },
+              { label: "Attendance Precision", from: 0, to: 99, suffix: "%" },
+              { label: "Session Roll-Call", prefix: "< ", from: 5, to: 1, suffix: " Min" },
               { label: "Secure Cloud Access", from: 0, to: 24, suffix: "/7" },
               { label: "Digital Workflow", from: 0, to: 100, suffix: "%" },
             ].map((stat, i) => (
@@ -103,7 +134,7 @@ export default function FacultyPage() {
                 className="text-center px-4"
               >
                 <div className="text-4xl md:text-5xl font-bold text-text-main mb-2 font-mono tracking-tight">
-                  <AnimatedCounter from={stat.from} to={stat.to} suffix={stat.suffix} />
+                  <AnimatedCounter from={stat.from} to={stat.to} suffix={stat.suffix} prefix={stat.prefix} />
                 </div>
                 <div className="text-sm font-medium text-slate-500 uppercase tracking-wider">{stat.label}</div>
               </motion.div>
@@ -167,14 +198,10 @@ export default function FacultyPage() {
           <div className="max-w-4xl mx-auto">
             <div className="flex flex-col items-center">
               {[
-                { title: "Login Securely" },
-                { title: "View Today's Schedule" },
-                { title: "Start Class Session" },
-                { title: "Start Attendance Session", highlight: true },
-                { title: "Students Mark Attendance" },
-                { title: "Upload Lecture Materials" },
-                { title: "Push Content to SmartBoard", highlight: true },
-                { title: "Track Attendance & Analytics" },
+                { title: "Review Assigned Schedule" },
+                { title: "Instant Attendance Roll-Call", highlight: true },
+                { title: "Wirelessly Cast to SmartBoard", highlight: true },
+                { title: "Automate Academic Records" },
               ].map((step, i, arr) => (
                 <div key={i} className="flex flex-col items-center w-full relative">
                   <motion.div 
@@ -292,6 +319,41 @@ export default function FacultyPage() {
           </motion.div>
         </div>
       </section>
+
+      {/* Lightbox Modal for High-Resolution View */}
+      <AnimatePresence>
+        {isZoomed && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={() => setIsZoomed(false)}
+            className="fixed inset-0 z-50 bg-black/85 backdrop-blur-md flex items-center justify-center p-3 sm:p-6 cursor-zoom-out"
+          >
+            <div 
+              className="relative max-w-6xl w-auto bg-slate-900 rounded-2xl overflow-hidden shadow-2xl border border-white/10 flex flex-col"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <div className="flex items-center justify-between px-5 py-3 border-b border-white/10 bg-slate-900/90">
+                <span className="text-white font-semibold text-sm">Faculty Portal • Live System Preview</span>
+                <button
+                  onClick={() => setIsZoomed(false)}
+                  className="w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white transition-colors cursor-pointer"
+                >
+                  <X className="w-5 h-5" />
+                </button>
+              </div>
+              <div className="p-2 sm:p-4 flex items-center justify-center bg-slate-950 overflow-hidden">
+                <img
+                  src="/images/products/faculty_real_mockup.png"
+                  alt="Faculty Portal Live Preview"
+                  className="max-h-[78vh] w-auto max-w-full object-contain rounded-xl shadow-lg"
+                />
+              </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }

@@ -12,20 +12,15 @@ import {
   Users,
   GraduationCap,
   ArrowDown,
-  Sparkles,
   MonitorPlay,
   BarChart3,
   Database,
   Cloud,
   CheckCircle2,
-  ShieldCheck,
   Server,
-  Key,
-  Lock,
   FileX,
   MailQuestion,
   MonitorX,
-  FileWarning,
   Zap,
   ArrowRight,
   BrainCircuit,
@@ -44,7 +39,7 @@ function AnimatedCounter({ from, to, duration = 2, suffix = "", prefix = "" }: {
         ease: "easeOut",
         onUpdate(value) {
           if (nodeRef.current) {
-            nodeRef.current.textContent = prefix + Math.round(value).toLocaleString() + suffix;
+            nodeRef.current.textContent = prefix + Math.round(value).toLocaleString("en-US") + suffix;
           }
         }
       });
@@ -52,7 +47,7 @@ function AnimatedCounter({ from, to, duration = 2, suffix = "", prefix = "" }: {
     }
   }, [from, to, duration, suffix, prefix, isInView]);
 
-  return <span ref={nodeRef}>{prefix}{from}{suffix}</span>;
+  return <span ref={nodeRef}>{prefix}{to.toLocaleString("en-US")}{suffix}</span>;
 }
 
 const WORDS = [
@@ -95,10 +90,6 @@ export default function UniversitiesSolution() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
           >
-            <div className="inline-flex items-center rounded-full px-4 py-1.5 text-sm font-semibold text-slate-500 bg-primary/10 mb-8 border border-primary/20">
-              <Building2 className="w-4 h-4 mr-2" />
-              University Solutions
-            </div>
             <motion.h1 
               layout
               transition={{ layout: { duration: 1.2, ease: [0.16, 1, 0.3, 1] } }}
@@ -493,18 +484,21 @@ export default function UniversitiesSolution() {
       {/* Platform Intelligence Dashboard */}
       <section className="py-24 bg-slate-50">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
-          <div className="text-center mb-16">
+          <div className="text-center mb-14">
             <h2 className="text-3xl md:text-5xl font-bold text-text-main">Platform Intelligence Dashboard</h2>
+            <p className="text-slate-500 text-base max-w-2xl mx-auto mt-3">
+              Real-time verified metrics across classroom hardware, automated roll-calls, faculty operations, and student cohorts.
+            </p>
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {[
-              { title: "Live Classes", num: 214, icon: MonitorPlay },
-              { title: "Faculty Online", num: 127, icon: Users },
-              { title: "Students Present", num: 5842, icon: GraduationCap },
-              { title: "SmartBoards Active", num: 46, icon: Sparkles },
-              { title: "Resources Shared Today", num: 389, icon: BookMarked },
-              { title: "Notifications Delivered", num: 14822, icon: Zap },
+              { title: "Attendance Marks", num: 201785, sub: "Recorded roll-calls", icon: CheckCircle2 },
+              { title: "Students Enrolled", num: 2204, sub: "1,042 active students", icon: GraduationCap },
+              { title: "SmartBoards Connected", num: 454, sub: "Classroom screens paired", icon: MonitorPlay },
+              { title: "Attendance Sessions", num: 3728, sub: "Timetable periods conducted", icon: BookMarked },
+              { title: "Faculty Members", num: 32, sub: "31 active mentors", icon: Users },
+              { title: "Notifications Sent", num: 28874, sub: "Parent & student alerts", icon: Zap },
             ].map((stat, i) => (
               <motion.div 
                 key={i}
@@ -512,88 +506,65 @@ export default function UniversitiesSolution() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.1 }}
-                className="bg-white border border-slate-200 rounded-3xl p-8 flex items-center justify-between shadow-sm hover:shadow-md transition-shadow"
+                className="bg-white border border-slate-200 rounded-3xl p-7 sm:p-8 flex items-center justify-between shadow-xs hover:shadow-md transition-shadow"
               >
                 <div>
-                  <p className="text-slate-500 font-medium mb-2">{stat.title}</p>
-                  <div className="text-4xl font-bold text-text-main font-mono">
+                  <p className="text-slate-500 font-medium text-sm mb-1">{stat.title}</p>
+                  <div className="text-3xl sm:text-4xl font-bold text-text-main font-mono mb-2">
                     <AnimatedCounter from={0} to={stat.num} />
                   </div>
+                  <span className="text-xs text-slate-600 font-medium bg-slate-100 px-2.5 py-0.5 rounded-full inline-block border border-slate-200">
+                    {stat.sub}
+                  </span>
                 </div>
-                <div className="w-16 h-16 rounded-2xl bg-primary/10 flex items-center justify-center text-slate-500">
-                  <stat.icon className="w-8 h-8" />
+                <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-slate-100 text-slate-700 flex items-center justify-center shrink-0 border border-slate-200/60">
+                  <stat.icon className="w-7 h-7 sm:w-8 sm:h-8" />
                 </div>
               </motion.div>
             ))}
           </div>
-        </div>
-      </section>
 
-      {/* AI Operations & Security */}
-      <section className="py-24 bg-white border-t border-slate-100">
-        <div className="mx-auto max-w-7xl px-6 lg:px-8 grid lg:grid-cols-2 gap-16">
-          
-          {/* AI Operations */}
-          <div>
-            <h2 className="text-3xl font-bold text-text-main mb-12 flex items-center gap-4">
-              <BrainCircuit className="w-8 h-8 text-slate-500" /> AI Operations
-            </h2>
-            <div className="flex flex-col gap-4 relative before:absolute before:inset-y-0 before:left-5 before:w-0.5 before:bg-primary/20">
-              {[
-                "Attendance Completed",
-                "Late Faculty Detected",
-                "Notification Sent",
-                "Resources Uploaded",
-                "Analytics Updated",
-                "Reports Generated"
-              ].map((step, i) => (
-                <motion.div 
-                  key={i}
-                  initial={{ opacity: 0, x: -20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true, margin: "-50px" }}
-                  transition={{ delay: i * 0.2 }}
-                  className="flex items-center gap-6 relative z-10 bg-white"
-                >
-                  <div className="w-10 h-10 rounded-full bg-primary flex items-center justify-center shrink-0 shadow-[0_0_15px_rgba(45,212,191,0.4)]">
-                    <CheckCircle2 className="w-5 h-5 text-white" />
-                  </div>
-                  <span className="text-lg font-semibold text-text-main">{step}</span>
-                </motion.div>
-              ))}
+          {/* Institutional Campus Scale Breakdown */}
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="mt-8 bg-white border border-slate-200 rounded-3xl p-6 sm:p-8 shadow-xs"
+          >
+            <div className="flex flex-col lg:flex-row items-center justify-between gap-6">
+              <div className="text-center lg:text-left shrink-0">
+                <h4 className="text-lg font-bold text-slate-900">MRCET Academic Infrastructure</h4>
+                <p className="text-xs text-slate-500">9 Programs across Engineering &amp; Technology</p>
+              </div>
+
+              <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-6 sm:gap-8 text-center w-full lg:w-auto">
+                <div className="lg:border-r border-slate-100 lg:pr-6">
+                  <p className="text-2xl font-bold text-slate-900 font-mono">10,865</p>
+                  <p className="text-xs text-slate-500 font-medium mt-0.5">Enrollments</p>
+                </div>
+                <div className="lg:border-r border-slate-100 lg:pr-6">
+                  <p className="text-2xl font-bold text-slate-900 font-mono">126</p>
+                  <p className="text-xs text-slate-500 font-medium mt-0.5">Courses</p>
+                </div>
+                <div className="lg:border-r border-slate-100 lg:pr-6">
+                  <p className="text-2xl font-bold text-slate-900 font-mono">9</p>
+                  <p className="text-xs text-slate-500 font-medium mt-0.5">Departments</p>
+                </div>
+                <div className="lg:border-r border-slate-100 lg:pr-6">
+                  <p className="text-2xl font-bold text-slate-900 font-mono">15</p>
+                  <p className="text-xs text-slate-500 font-medium mt-0.5">Sections</p>
+                </div>
+                <div className="lg:border-r border-slate-100 lg:pr-6">
+                  <p className="text-2xl font-bold text-slate-900 font-mono">20+</p>
+                  <p className="text-xs text-slate-500 font-medium mt-0.5">Rooms &amp; Labs</p>
+                </div>
+                <div>
+                  <p className="text-2xl font-bold text-slate-900 font-mono">5,110</p>
+                  <p className="text-xs text-slate-500 font-medium mt-0.5">Faculty Alerts</p>
+                </div>
+              </div>
             </div>
-          </div>
-
-          {/* Security */}
-          <div>
-            <h2 className="text-3xl font-bold text-text-main mb-12 flex items-center gap-4">
-              <ShieldCheck className="w-8 h-8 text-emerald-500" /> Enterprise Security
-            </h2>
-            <div className="flex flex-col gap-4 relative before:absolute before:inset-y-0 before:left-5 before:w-0.5 before:bg-emerald-500/20">
-              {[
-                { label: "Faculty Authentication", icon: Key },
-                { label: "Encrypted Attendance", icon: ShieldCheck },
-                { label: "Cloud Backup", icon: Cloud },
-                { label: "Audit Logs", icon: FileWarning },
-                { label: "Role Permissions", icon: Lock }
-              ].map((step, i) => (
-                <motion.div 
-                  key={i}
-                  initial={{ opacity: 0, x: -20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true, margin: "-50px" }}
-                  transition={{ delay: i * 0.2 }}
-                  className="flex items-center gap-6 relative z-10 bg-white"
-                >
-                  <div className="w-10 h-10 rounded-full bg-emerald-500 flex items-center justify-center shrink-0 shadow-[0_0_15px_rgba(16,185,129,0.4)]">
-                    <step.icon className="w-5 h-5 text-white" />
-                  </div>
-                  <span className="text-lg font-semibold text-text-main">{step.label}</span>
-                </motion.div>
-              ))}
-            </div>
-          </div>
-
+          </motion.div>
         </div>
       </section>
 

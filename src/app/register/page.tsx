@@ -48,10 +48,10 @@ export default function RegisterPage() {
               <UserPlus className="w-8 h-8 text-primary" />
             </div>
             <h1 className="text-2xl font-bold text-[#0F172A] tracking-tight mb-2">
-              Create your account
+              Explore Demo Sandbox
             </h1>
             <p className="text-[#64748B] text-sm">
-              Join IntelliAttend and transform your campus experience
+              Launch an interactive preview with synthetic data. Real institutional accounts are provisioned by your campus IT administrator.
             </p>
           </div>
 

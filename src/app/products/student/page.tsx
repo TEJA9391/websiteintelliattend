@@ -9,9 +9,7 @@ import {
   BellRing,
   TrendingUp,
   ClipboardCheck,
-  MonitorPlay,
   CloudSync,
-  GraduationCap,
   Clock,
   LayoutList,
   MessageSquare,
@@ -44,7 +42,7 @@ function AnimatedCounter({ from, to, duration = 2, suffix = "", prefix = "" }: {
     }
   }, [from, to, duration, suffix, prefix, isInView]);
 
-  return <span ref={nodeRef}>{prefix}{from}{suffix}</span>;
+  return <span ref={nodeRef}>{prefix}{to}{suffix}</span>;
 }
 
 export default function StudentPage() {
@@ -62,10 +60,6 @@ export default function StudentPage() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
           >
-            <div className="inline-flex items-center rounded-full px-4 py-1.5 text-sm font-semibold text-slate-500 bg-primary/10 mb-8 border border-primary/20">
-              <GraduationCap className="w-4 h-4 mr-2" />
-              Student Portal
-            </div>
             <h1 className="text-5xl md:text-7xl font-bold tracking-tight text-text-main mb-8 leading-[1.1]">
               A Smarter Learning Experience<br />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent">for Every Student.</span>
@@ -132,7 +126,6 @@ export default function StudentPage() {
               { icon: BellRing, title: "Smart Notifications", desc: "Receive instant alerts for class updates, assignment deadlines, attendance reminders, exam schedules, and campus announcements." },
               { icon: TrendingUp, title: "Academic Progress", desc: "Track attendance percentage, completed courses, assignment status, and learning progress through interactive dashboards." },
               { icon: ClipboardCheck, title: "Assignments & Submissions", desc: "View assignments, submit coursework before deadlines, and receive updates on submission status." },
-              { icon: MonitorPlay, title: "SmartBoard Access", desc: "Instantly access classroom presentations and materials shared on SmartBoards directly from your device." },
               { icon: CloudSync, title: "Cloud Learning", desc: "All academic resources are securely synchronized, allowing students to continue learning from anywhere, on any device." },
             ].map((feature, i) => (
               <motion.div
@@ -276,11 +269,6 @@ export default function StudentPage() {
               </p>
               
               <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-                <Link href="/get-started">
-                  <button className="px-8 py-4 bg-white text-slate-500 rounded-full font-bold text-lg hover:scale-105 active:scale-95 transition-all duration-150 shadow-xl cursor-pointer">
-                    Explore Student Features
-                  </button>
-                </Link>
                 <Link href="/join">
                   <button className="px-8 py-4 bg-accent/20 text-white border border-accent/30 rounded-full font-bold text-lg hover:bg-accent/30 hover:scale-105 active:scale-95 transition-all duration-150 backdrop-blur-sm cursor-pointer">
                     Get Started

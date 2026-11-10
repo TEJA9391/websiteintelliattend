@@ -1,7 +1,7 @@
 "use client";
 
-import { useRef, useEffect } from "react";
-import { motion, useInView, useAnimation, useMotionValue, useTransform, animate } from "framer-motion";
+import { useRef, useEffect, useState } from "react";
+import { motion, useInView, useAnimation, useMotionValue, useTransform, animate, AnimatePresence } from "framer-motion";
 import { 
   UploadCloud, 
   BookOpen, 
@@ -15,13 +15,16 @@ import {
   ArrowDown,
   MonitorPlay,
   XCircle,
-  CheckCircle2
+  CheckCircle2,
+  Maximize2,
+  X
 } from "lucide-react";
 import Link from "next/link";
+import Image from "next/image";
 import { Navbar } from "@/components/layout/Navbar";
 
 // Counter Component
-function AnimatedCounter({ from, to, duration = 2, suffix = "" }: { from: number, to: number, duration?: number, suffix?: string }) {
+function AnimatedCounter({ from, to, duration = 2, suffix = "", prefix = "" }: { from: number, to: number, duration?: number, suffix?: string, prefix?: string }) {
   const nodeRef = useRef<HTMLSpanElement>(null);
   const isInView = useInView(nodeRef, { once: true, margin: "-100px" });
   
@@ -34,21 +37,31 @@ function AnimatedCounter({ from, to, duration = 2, suffix = "" }: { from: number
           if (nodeRef.current) {
             // Check if it's a decimal number like 99.9
             if (to % 1 !== 0) {
-              nodeRef.current.textContent = value.toFixed(1) + suffix;
+              nodeRef.current.textContent = prefix + value.toFixed(1) + suffix;
             } else {
-              nodeRef.current.textContent = Math.round(value) + suffix;
+              nodeRef.current.textContent = prefix + Math.round(value) + suffix;
             }
           }
         }
       });
       return () => controls.stop();
     }
-  }, [from, to, duration, suffix, isInView]);
+  }, [from, to, duration, suffix, prefix, isInView]);
 
-  return <span ref={nodeRef}>{from}{suffix}</span>;
+  return <span ref={nodeRef}>{prefix}{to}{suffix}</span>;
 }
 
 export default function SmartBoardPage() {
+  const [isZoomed, setIsZoomed] = useState(false);
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setIsZoomed(false);
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, []);
+
   return (
     <div className="min-h-screen bg-[#F8FAFC]">
       <Navbar />
@@ -63,17 +76,36 @@ export default function SmartBoardPage() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
           >
-            <div className="inline-flex items-center rounded-full px-4 py-1.5 text-sm font-semibold text-slate-500 bg-primary/10 mb-8 border border-primary/20">
-              <MonitorPlay className="w-4 h-4 mr-2" />
-              SmartBoard Integration
-            </div>
             <h1 className="text-5xl md:text-7xl font-bold tracking-tight text-[#0F172A] mb-8 leading-[1.1]">
               Teach Smarter.<br />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent">Present Instantly.</span>
             </h1>
             <p className="mx-auto max-w-3xl text-xl leading-relaxed text-[#64748B]">
-              Push classroom content, attendance, announcements, and live updates directly from your faculty app to the classroom SmartBoardâ€”without USB drives, emails, or manual setup.
+              Push classroom content, attendance, announcements, and live updates directly from your faculty app to the classroom SmartBoard—without USB drives, emails, or manual setup.
             </p>
+
+            {/* SmartBoard Hero Display */}
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.15, duration: 0.3 }}
+              className="mt-14 max-w-5xl mx-auto rounded-3xl overflow-hidden shadow-2xl shadow-primary/10 border border-slate-200/80 bg-white p-2 sm:p-3 group cursor-pointer hover:border-primary/40 transition-colors"
+              onClick={() => setIsZoomed(true)}
+            >
+              <div className="relative aspect-[1024/686] w-full rounded-2xl overflow-hidden bg-slate-900/5">
+                <Image
+                  src="/images/products/smartboard_real_display.jpg"
+                  alt="IntelliAttend SmartBoard Display"
+                  fill
+                  unoptimized
+                  priority
+                  className="object-contain rounded-2xl"
+                />
+                <div className="absolute bottom-3 right-3 z-10 px-3 py-1.5 bg-slate-900/80 hover:bg-slate-900 text-white rounded-xl text-xs font-semibold backdrop-blur-md opacity-0 group-hover:opacity-100 transition-opacity flex items-center gap-1.5 shadow-md">
+                  <Maximize2 className="w-3.5 h-3.5" /> Click to Expand
+                </div>
+              </div>
+            </motion.div>
           </motion.div>
         </div>
       </section>
@@ -83,10 +115,10 @@ export default function SmartBoardPage() {
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 divide-x divide-slate-100">
             {[
-              { label: "Connected SmartBoards", from: 0, to: 100, suffix: "+" },
-              { label: "Average Content Push", from: 5, to: 1, suffix: " Sec" },
-              { label: "Delivery Success", from: 0, to: 99.9, suffix: "%" },
-              { label: "Secure Encryption", from: 0, to: 256, suffix: "-bit" },
+              { label: "Extra Dongles Needed", from: 5, to: 0, suffix: "" },
+              { label: "Content Push Speed", prefix: "< ", from: 5, to: 2, suffix: "s" },
+              { label: "Faculty Screen Cast", from: 0, to: 1, suffix: "-Tap" },
+              { label: "Cloud Synchronized", from: 0, to: 100, suffix: "%" },
             ].map((stat, i) => (
               <motion.div 
                 key={i}
@@ -97,7 +129,7 @@ export default function SmartBoardPage() {
                 className="text-center px-4"
               >
                 <div className="text-4xl md:text-5xl font-bold text-[#0F172A] mb-2 font-mono tracking-tight">
-                  <AnimatedCounter from={stat.from} to={stat.to} suffix={stat.suffix} />
+                  <AnimatedCounter from={stat.from} to={stat.to} suffix={stat.suffix} prefix={stat.prefix} />
                 </div>
                 <div className="text-sm font-medium text-slate-500 uppercase tracking-wider">{stat.label}</div>
               </motion.div>
@@ -284,7 +316,7 @@ export default function SmartBoardPage() {
                 Your classroom is always ready before you arrive.
               </h2>
               <p className="text-xl text-white/80 leading-relaxed mb-10">
-                Start attendance, share lecture materials, display announcements, and manage every session from a single intelligent platform.
+                Empower professors to present lecture notes, display live attendance rosters, and coordinate classroom interactions from one seamless digital interface.
               </p>
               
               <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
@@ -304,18 +336,40 @@ export default function SmartBoardPage() {
         </div>
       </section>
 
-      {/* Taglines Footer */}
-      <section className="py-20 bg-[#F8FAFC] border-t border-slate-200 text-center">
-        <div className="mx-auto max-w-7xl px-6 lg:px-8 flex flex-wrap justify-center gap-x-8 gap-y-4 text-[#64748B] text-sm font-medium">
-          <span>From Faculty to SmartBoard in Seconds.</span>
-          <span className="hidden md:inline">•</span>
-          <span>The Intelligent Classroom Starts Here.</span>
-          <span className="hidden md:inline">•</span>
-          <span>One Platform. Every Classroom.</span>
-          <span className="hidden md:inline">•</span>
-          <span>Connected Teaching. Smarter Learning.</span>
-        </div>
-      </section>
+      {/* Lightbox Modal for High-Resolution View */}
+      <AnimatePresence>
+        {isZoomed && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={() => setIsZoomed(false)}
+            className="fixed inset-0 z-50 bg-black/85 backdrop-blur-md flex items-center justify-center p-3 sm:p-6 cursor-zoom-out"
+          >
+            <div 
+              className="relative max-w-6xl w-auto bg-slate-900 rounded-2xl overflow-hidden shadow-2xl border border-white/10 flex flex-col"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <div className="flex items-center justify-between px-5 py-3 border-b border-white/10 bg-slate-900/90">
+                <span className="text-white font-semibold text-sm">SmartBoard Interactive Display • Live System Preview</span>
+                <button
+                  onClick={() => setIsZoomed(false)}
+                  className="w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white transition-colors cursor-pointer"
+                >
+                  <X className="w-5 h-5" />
+                </button>
+              </div>
+              <div className="p-2 sm:p-4 flex items-center justify-center bg-slate-950 overflow-hidden">
+                <img
+                  src="/images/products/smartboard_real_display.jpg"
+                  alt="SmartBoard Interactive Display"
+                  className="max-h-[78vh] w-auto max-w-full object-contain rounded-xl shadow-lg"
+                />
+              </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }

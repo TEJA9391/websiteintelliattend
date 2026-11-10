@@ -2,12 +2,16 @@ export const SITE_CONFIG = {
   name: "IntelliAttend",
   title: "IntelliAttend | Intelligent Attendance. Smart Campus.",
   description:
-    "Manage attendance, schedules, communication, classroom resources, analytics, and academic operations from one intelligent platform.",
+    "From 1-tap attendance and timetable scheduling to fee payments and SmartBoard displays—run your entire campus from one unified platform at your fingertips.",
   url: "https://intelliattend.app",
   ogImage: "/images/og.png",
   links: {
-    twitter: "https://twitter.com/intelliattend",
+    twitter: "https://x.com/intelliattend",
     github: "https://github.com/intelliattend",
+    linkedin: "https://www.linkedin.com/company/intelliattend/",
+    instagram: "https://www.instagram.com/intelliattend?utm_source=ig_web_button_share_sheet&psln=ZDNlZDc0MzIxNw==",
+    youtube: "https://www.youtube.com/@intelliattend-45",
+    discord: "https://discord.com/users/1563078786646540319",
   },
 } as const;
 
@@ -81,27 +85,31 @@ export const FOOTER_LINKS = {
     { name: "K-12 Schools", href: "/solutions/k12" },
   ],
   resources: [
-    { name: "Documentation", href: "/docs" },
     { name: "Help Center", href: "/support" },
     { name: "Blog", href: "/blog" },
   ],
   legal: [
     { name: "Terms of Service", href: "/terms" },
     { name: "Privacy Policy", href: "/privacy" },
-    { name: "Cookie Policy", href: "/cookies" },
   ],
 } as const;
 
 export const CONTACT_INFO = {
-  email: "hello@intelliattend.app",
-  phone: "+1 (555) 123-4567",
-  address: "100 Innovation Drive, Tech City, CA",
+  email: "contact@intelliattend.app",
+  phone: "+91 9493615849",
+  phoneHref: "tel:+919493615849",
+  whatsapp: "+91 9493615849",
+  whatsappUrl: "https://wa.me/919493615849?text=Hi%20IntelliAttend%2C%20I%20have%20a%20question.",
+  address: "Maisammaguda, Dhulapally (Post via Kompally), Gundlapochampally Village, Medchal-Malkajgiri District, Hyderabad, Telangana 500100, India",
 } as const;
 
 export const SOCIAL_LINKS = [
-  { name: "Twitter", href: "https://twitter.com/intelliattend" },
+  { name: "X (Twitter)", href: "https://x.com/intelliattend" },
   { name: "GitHub", href: "https://github.com/intelliattend" },
-  { name: "LinkedIn", href: "https://linkedin.com/company/intelliattend" },
+  { name: "LinkedIn", href: "https://www.linkedin.com/company/intelliattend/" },
+  { name: "Instagram", href: "https://www.instagram.com/intelliattend?utm_source=ig_web_button_share_sheet&psln=ZDNlZDc0MzIxNw==" },
+  { name: "YouTube", href: "https://www.youtube.com/@intelliattend-45" },
+  { name: "Discord", href: "https://discord.com/users/1563078786646540319" },
 ] as const;
 
 export const PORTAL_ROLES = [

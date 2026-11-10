@@ -10,16 +10,16 @@ export const ARTICLES = [
       
       <h2>The Administrative Bottleneck</h2>
       <p>For decades, traditional methods of administration—from taking attendance on paper to managing physical grading books—have slowed down the educational process. Teachers and professors have been burdened with mundane administrative tasks, taking away valuable time that could be spent on lesson planning and student mentorship.</p>
-      <p>The modern classroom demands agility. By implementing smart AI solutions, institutions can reclaim thousands of hours previously lost to administrative overhead. Automated systems can now handle course registrations, schedule optimizations, and even preliminary grading with unprecedented accuracy.</p>
+      <p>The modern classroom demands agility. By implementing smart digital solutions, institutions can reclaim thousands of hours previously lost to administrative overhead. Automated systems can now handle course timetables, session tracking, and attendance analytics with unprecedented accuracy.</p>
       
       <blockquote>"Technology will not replace great teachers but technology in the hands of great teachers can be transformational." - George Couros</blockquote>
       
       <h2>Core Areas of AI Transformation</h2>
-      <p>When we look at the most significant impacts of AI on campus, a few key areas stand out:</p>
+      <p>When we look at the most significant impacts of modern technology on campus, a few key areas stand out:</p>
       <ul>
-        <li><strong>Automated Attendance:</strong> Utilizing facial recognition or smart ID scanning, attendance is logged instantly without disrupting the lecture.</li>
-        <li><strong>Predictive Analytics:</strong> AI models analyze student performance data to identify individuals at risk of falling behind, allowing for proactive intervention.</li>
-        <li><strong>Smart Scheduling:</strong> Algorithms optimize classroom usage, minimizing conflicts and maximizing facility efficiency based on historical data.</li>
+        <li><strong>Automated Attendance:</strong> Utilizing 1-tap digital roll-calls and session verification, attendance is logged in seconds without disrupting the lecture.</li>
+        <li><strong>Eligibility Analytics:</strong> Models analyze attendance trends to track the mandatory 75% threshold, allowing for proactive academic intervention before exams.</li>
+        <li><strong>Smart Scheduling:</strong> Intelligent timetables optimize classroom usage and faculty allocations, minimizing scheduling conflicts across departments.</li>
       </ul>
       
       <h2>Looking Ahead</h2>
@@ -38,8 +38,8 @@ export const ARTICLES = [
       <h2>1. Personalized Learning Paths</h2>
       <p>One-size-fits-all education is a relic of the past. Today, AI algorithms can analyze a student's learning speed, comprehension levels, and preferred learning styles. This allows educational platforms to tailor coursework to fit their unique needs. This personalized approach ensures that no student is left behind while advanced learners stay engaged with more challenging material.</p>
       
-      <h2>2. Automated Grading and Feedback</h2>
-      <p>Grading is often cited as the most time-consuming task for educators. By automating the grading of multiple-choice tests, fill-in-the-blank assignments, and even basic essays using Natural Language Processing (NLP), educators can spend more time on one-on-one mentorship rather than paperwork.</p>
+      <h2>2. Streamlined Academic Records & Timetables</h2>
+      <p>Administrative compilation is often cited as the most time-consuming task for educators. By digitizing attendance logs, calculating semester eligibility automatically, and organizing lecture notes in the cloud, educators can spend more time on one-on-one mentorship rather than paperwork.</p>
       
       <h2>3. 24/7 Student Support</h2>
       <p>University life can be overwhelming, especially for freshmen. AI-powered chatbots and virtual assistants provide instant answers to common student inquiries regarding schedules, financial aid deadlines, and campus facilities. This ensures students get the help they need at 2 AM without requiring a massive overnight support staff.</p>
@@ -86,7 +86,7 @@ export const ARTICLES = [
       <p>Traditional roll calls take an average of 5 to 10 minutes per class. Over a semester, across hundreds of classes, that equates to thousands of hours of lost learning time. Furthermore, paper registers are easily manipulated (the classic "buddy punching" scenario) and are prone to human error during data entry.</p>
       
       <h2>The Seamless Digital Solution</h2>
-      <p>Using technologies like RFID smart cards, biometric scans, or secure mobile app check-ins via Bluetooth beacons, modern systems can log the attendance of a 300-person lecture hall in seconds. Students simply walk into the room, and they are registered. It's frictionless, fast, and highly accurate.</p>
+      <p>Using 1-tap digital roll-calls and authenticated faculty sessions on mobile and web, instructors can record attendance for an entire classroom in under 60 seconds. It is paperless, fast, and eliminates manual data entry completely.</p>
       
       <h2>Real-Time Safety and Compliance</h2>
       <p>Beyond convenience, digital attendance is a matter of campus security. In the event of a campus emergency, administrators instantly know exactly who is in which building, aiding first responders significantly.</p>

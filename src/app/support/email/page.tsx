@@ -3,11 +3,12 @@
 import { useState, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { 
-  Mail, Send, UploadCloud, FileText, CheckCircle2, 
+  Send, UploadCloud, FileText, CheckCircle2, 
   AlertCircle, Clock, ShieldAlert, ArrowLeft, X 
 } from "lucide-react";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
+import { validateFiles } from "@/lib/file-security";
 
 const SLAs = [
   { priority: "Critical", time: "< 1 hour", icon: ShieldAlert, color: "text-rose-500", bg: "bg-rose-50", border: "border-rose-100" },
@@ -21,6 +22,7 @@ export default function EmailSupportPage() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [dragActive, setDragActive] = useState(false);
   const [files, setFiles] = useState<File[]>([]);
+  const [fileErrors, setFileErrors] = useState<string[]>([]);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -31,6 +33,7 @@ export default function EmailSupportPage() {
       setIsSubmitting(false);
       setIsSubmitted(true);
       setFiles([]);
+      setFileErrors([]);
     }, 1500);
   };
 
@@ -45,16 +48,25 @@ export default function EmailSupportPage() {
     e.preventDefault();
     e.stopPropagation();
     setDragActive(false);
-    if (e.dataTransfer.files && e.dataTransfer.files[0]) {
+    if (e.dataTransfer.files && e.dataTransfer.files.length > 0) {
       const droppedFiles = Array.from(e.dataTransfer.files);
-      setFiles((prev) => [...prev, ...droppedFiles]);
+      const { validFiles, errors } = validateFiles(droppedFiles);
+      setFileErrors(errors);
+      if (validFiles.length > 0) {
+        setFiles((prev) => [...prev, ...validFiles]);
+      }
     }
   };
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files && e.target.files[0]) {
+    if (e.target.files && e.target.files.length > 0) {
       const selectedFiles = Array.from(e.target.files);
-      setFiles((prev) => [...prev, ...selectedFiles]);
+      const { validFiles, errors } = validateFiles(selectedFiles);
+      setFileErrors(errors);
+      if (validFiles.length > 0) {
+        setFiles((prev) => [...prev, ...validFiles]);
+      }
+      e.target.value = "";
     }
   };
 
@@ -68,14 +80,6 @@ export default function EmailSupportPage() {
         
         {/* Header Section */}
         <div className="text-center max-w-3xl mx-auto mb-16">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-primary font-semibold text-sm mb-6 border border-primary/20"
-          >
-            <Mail className="w-4 h-4" />
-            Email Support Team
-          </motion.div>
           <motion.h1 
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -182,6 +186,7 @@ export default function EmailSupportPage() {
                         onChange={handleFileChange} 
                         className="hidden" 
                         multiple 
+                        accept=".png,.jpg,.jpeg,.pdf,.txt,image/png,image/jpeg,application/pdf,text/plain"
                       />
                       
                       <div 
@@ -199,8 +204,23 @@ export default function EmailSupportPage() {
                           <UploadCloud className="w-6 h-6 text-slate-400 group-hover:text-primary transition-colors" />
                         </div>
                         <p className="text-sm font-bold text-[#0F172A] mb-1">Click to upload or drag and drop</p>
-                        <p className="text-xs text-slate-500">PDF, Images, Logs, or Videos (max. 50MB)</p>
+                        <p className="text-xs text-slate-500">PNG, JPG, PDF, or TXT only (strict max. 10MB per file)</p>
                       </div>
+
+                      {/* Display Validation Errors */}
+                      {fileErrors.length > 0 && (
+                        <div className="mt-3 p-3.5 bg-rose-50 border border-rose-200 rounded-xl text-xs text-rose-800 space-y-1">
+                          <div className="font-bold flex items-center gap-1.5 text-rose-900">
+                            <AlertCircle className="w-4 h-4 text-rose-600 shrink-0" />
+                            <span>Upload Validation Warning</span>
+                          </div>
+                          <ul className="list-disc list-inside space-y-0.5 text-rose-700">
+                            {fileErrors.map((err, idx) => (
+                              <li key={idx}>{err}</li>
+                            ))}
+                          </ul>
+                        </div>
+                      )}
 
                       {/* Display Selected Files */}
                       {files.length > 0 && (

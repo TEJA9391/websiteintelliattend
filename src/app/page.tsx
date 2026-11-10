@@ -11,11 +11,11 @@ import { FAQJsonLd } from "@/components/seo/JsonLd";
 export const metadata: Metadata = {
   title: "IntelliAttend | Intelligent Attendance. Smart Campus Platform",
   description:
-    "The AI-powered campus management platform. Manage attendance, schedules, SmartBoard, notifications, analytics and communication from one intelligent platform. Trusted by universities and schools worldwide.",
+    "The connected campus management platform for higher education. Manage attendance, schedules, SmartBoard displays, notifications, analytics, and academic communication from one unified platform.",
   openGraph: {
     title: "IntelliAttend | Intelligent Attendance. Smart Campus Platform",
     description:
-      "The AI-powered campus management platform. Manage attendance, schedules, SmartBoard, notifications, analytics and communication from one intelligent platform.",
+      "From 1-tap attendance and timetable scheduling to fee payments and SmartBoard displays—run your entire campus from one unified platform at your fingertips.",
     url: "https://www.intelliattend.app",
     images: [
       {
@@ -35,12 +35,12 @@ const faqItems = [
   {
     question: "What is IntelliAttend?",
     answer:
-      "IntelliAttend is an AI-powered intelligent campus management platform that helps universities, colleges, and K-12 schools manage attendance, schedules, SmartBoard integration, notifications, resources, analytics, and communication from one unified platform.",
+      "IntelliAttend is a connected campus operating platform that simplifies daily lectures, 1-tap attendance, SmartBoard presentations, fee payments, and academic records from one unified dashboard.",
   },
   {
-    question: "How does AI attendance work?",
+    question: "How does digital attendance work?",
     answer:
-      "IntelliAttend uses advanced AI and computer vision to automatically track student attendance. The system can recognize students entering the classroom and mark their attendance in real-time, eliminating manual roll calls.",
+      "IntelliAttend allows faculty to complete 1-tap paperless roll-calls in seconds directly from their mobile or web portal. Attendance records are instantly synchronized to student apps and administrative compliance reports, eliminating manual paper registers.",
   },
   {
     question: "What products does IntelliAttend offer?",

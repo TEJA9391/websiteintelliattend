@@ -156,8 +156,20 @@ const SignInCard = ({ role }: { role: string }) => {
             transition={{ duration: 0.2 }}
             className="mt-4"
           >
-            <h1 className="text-2xl md:text-3xl font-bold mb-1 text-gray-800">{roleDisplay} Sign In</h1>
-            <p className="text-gray-500 mb-8">Sign in to your account</p>
+            <h1 className="text-2xl md:text-3xl font-bold mb-1 text-gray-800">{roleDisplay} Demo Portal</h1>
+            <p className="text-gray-500 mb-4">Explore the {roleDisplay} interactive sandbox</p>
+
+            <div className="mb-6 p-3 bg-amber-50 border border-amber-200/90 rounded-xl text-xs text-amber-900 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2">
+              <span>Demo sandbox with synthetic data. Real campus operations require authenticated credentials.</span>
+              <a 
+                href="https://dashboard.intelliattend.app/login"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-bold text-amber-950 underline shrink-0"
+              >
+                Production SSO &rarr;
+              </a>
+            </div>
             
             <div className="mb-6">
               <button 
@@ -254,11 +266,11 @@ const SignInCard = ({ role }: { role: string }) => {
                   )}
                   onClick={(e) => {
                     e.preventDefault();
-                    window.location.href = `/${role.toLowerCase()}`;
+                    window.location.href = `/portal/${role.toLowerCase()}`;
                   }}
                 >
                   <span className="flex items-center justify-center">
-                    Sign in
+                    Enter Demo Sandbox
                     <ArrowRight className="ml-2 h-4 w-4" />
                   </span>
                   {isHovered && (

@@ -7,6 +7,24 @@ import { motion } from "framer-motion";
 export default function StudentDashboard() {
   return (
     <>
+      {/* Synthetic Data Provenance Notice */}
+      <div className="bg-white border border-slate-200/90 rounded-xl p-3.5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-xs text-slate-600 shadow-2xs">
+        <div className="flex items-center gap-2">
+          <span className="font-bold text-slate-900 bg-slate-100 border border-slate-200 uppercase tracking-wider text-[10px] px-2 py-0.5 rounded">
+            Synthetic Mock Dataset
+          </span>
+          <span>Sample demonstration metrics for student app evaluation. Not connected to active production databases.</span>
+        </div>
+        <a 
+          href="https://dashboard.intelliattend.app/login"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="font-bold text-slate-900 hover:text-slate-700 underline shrink-0 transition-colors"
+        >
+          Official Student SSO &rarr;
+        </a>
+      </div>
+
       {/* Stats Row */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm">

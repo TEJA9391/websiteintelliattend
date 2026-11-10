@@ -24,9 +24,9 @@ import {
   MailQuestion,
   MonitorX,
   Zap,
-  Sparkles,
   ArrowRight,
-  UserCheck
+  UserCheck,
+  ClipboardCheck
 } from "lucide-react";
 
 // Counter Component
@@ -52,7 +52,7 @@ function AnimatedCounter({ from, to, duration = 2, suffix = "", prefix = "", dec
     }
   }, [from, to, duration, suffix, prefix, decimals, isInView]);
 
-  return <span ref={nodeRef}>{prefix}{from}{suffix}</span>;
+  return <span ref={nodeRef}>{prefix}{decimals > 0 ? to.toFixed(decimals) : Math.round(to).toLocaleString()}{suffix}</span>;
 }
 
 export default function K12Solution() {
@@ -69,10 +69,6 @@ export default function K12Solution() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
           >
-            <div className="inline-flex items-center rounded-full px-4 py-1.5 text-sm font-semibold text-slate-500 bg-primary/10 mb-8 border border-primary/20">
-              <School className="w-4 h-4 mr-2" />
-              IntelliAttend for K-12 Schools
-            </div>
             <h1 className="text-5xl md:text-7xl font-bold tracking-tight text-text-main mb-8 leading-[1.1]">
               Building Smarter, Safer, and<br />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent">More Connected Schools.</span>
@@ -105,30 +101,33 @@ export default function K12Solution() {
           
           <div className="flex flex-col gap-8 relative before:absolute before:inset-y-0 before:left-[50px] md:before:left-[120px] before:w-px before:bg-slate-200">
             {[
-              { time: "07:45", text: "Teachers Check In", icon: Briefcase },
-              { time: "08:00", text: "Students Mark Attendance", icon: UserCheck },
-              { time: "08:15", text: "Classes Begin", icon: BookOpen },
-              { time: "10:30", text: "Assignments Shared", icon: FileText },
-              { time: "12:30", text: "School Announcements", icon: Megaphone },
-              { time: "15:30", text: "Daily Reports Generated", icon: BarChart3 },
+              { time: "08:00", text: "Teachers Check In", desc: "Staff arrival and digital portal check-in across classrooms", icon: Briefcase },
+              { time: "08:15", text: "Students Mark Attendance", desc: "Fast 1-tap roll call and classroom OTP verification", icon: UserCheck },
+              { time: "08:30", text: "Classes Begin", desc: "Interactive SmartBoard teaching and curriculum sync", icon: BookOpen },
+              { time: "10:30", text: "Assignments Shared", desc: "Classroom exercises and study notes pushed to student app", icon: FileText },
+              { time: "12:30", text: "School Announcements", desc: "Campus notices and activity broadcasts pushed instantly", icon: Megaphone },
+              { time: "15:30", text: "Daily Reports Generated", desc: "Automated student attendance logs compiled for administration", icon: BarChart3 },
+              { time: "16:15", text: "Teachers Assign Homework", desc: "Subject teachers post today's homework, tasks, and submission deadlines", icon: ClipboardCheck },
+              { time: "18:00", text: "Parents Receive Homework Notifications", desc: "Parents get instant evening alerts directly in the Parent App with today's homework", icon: Bell },
             ].map((event, i) => (
               <motion.div 
                 key={i}
                 initial={{ opacity: 0, x: -20 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true, margin: "-100px" }}
-                transition={{ delay: i * 0.15 }}
+                transition={{ delay: i * 0.1 }}
                 className="flex items-center gap-6 md:gap-12 relative z-10"
               >
                 <div className="w-[100px] text-right font-mono font-bold text-slate-500 shrink-0 text-lg hidden md:block">
                   {event.time}
                 </div>
-                <div className="w-12 h-12 rounded-full bg-white border-2 border-primary flex items-center justify-center shrink-0 shadow-sm relative left-[26px] md:left-0">
-                  <event.icon className="w-5 h-5 text-slate-500" />
+                <div className="w-12 h-12 rounded-full bg-white border-2 border-slate-900 flex items-center justify-center shrink-0 shadow-sm relative left-[26px] md:left-0">
+                  <event.icon className="w-5 h-5 text-slate-700" />
                 </div>
-                <div className="bg-slate-50 border border-slate-100 p-6 rounded-2xl flex-1 shadow-sm ml-8 md:ml-0">
+                <div className="bg-slate-50 border border-slate-200/80 p-6 rounded-2xl flex-1 shadow-2xs ml-8 md:ml-0">
                   <div className="font-mono font-bold text-slate-500 text-sm mb-2 md:hidden">{event.time}</div>
-                  <span className="text-lg font-semibold text-text-main">{event.text}</span>
+                  <h3 className="text-lg font-bold text-text-main leading-snug">{event.text}</h3>
+                  <p className="text-sm text-[#64748B] mt-1">{event.desc}</p>
                 </div>
               </motion.div>
             ))}
@@ -284,7 +283,7 @@ export default function K12Solution() {
               <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 mix-blend-overlay" />
               <div className="relative z-10">
                 <h3 className="text-2xl font-bold mb-8 border-b border-white/20 pb-4 flex items-center gap-3">
-                  <Sparkles className="w-6 h-6 text-accent" /> IntelliAttend School
+                  <GraduationCap className="w-6 h-6 text-accent" /> IntelliAttend School
                 </h3>
                 <ul className="space-y-6">
                   <li className="flex items-center gap-4 font-semibold text-lg"><CheckCircle2 className="text-accent" /> Digital attendance</li>
@@ -339,7 +338,7 @@ export default function K12Solution() {
               {[
                 "Reduce administrative workload",
                 "Improve classroom organization",
-                "Strengthen teacherâ€“student communication",
+                "Strengthen teacher-student communication",
                 "Keep parents informed in real time",
                 "Digitize school operations",
                 "Support a safer, more connected learning environment"

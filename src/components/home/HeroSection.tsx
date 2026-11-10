@@ -2,7 +2,7 @@
 
 import { useRef, useEffect } from "react";
 import { motion, useScroll, useTransform, useSpring, useMotionValue, useAnimation } from "framer-motion";
-import { ArrowRight, Sparkles, Presentation, BarChart3, Bell, FileText, Brain, Calendar, MessageCircle, CheckSquare } from "lucide-react";
+import { ArrowRight, Presentation, BarChart3, Bell, FileText, Brain, Calendar, MessageCircle, CheckSquare } from "lucide-react";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
 
@@ -29,7 +29,7 @@ function FloatingCard({ card, mouseX, mouseY }: { card: any, mouseX: any, mouseY
 
   useEffect(() => {
     let hasAnimated = false;
-    return scrollY.onChange((latest) => {
+    return scrollY.on("change", (latest) => {
       if (latest < 20 && !hasAnimated) {
         controls.start({ x: card.initialPos.x, y: card.initialPos.y, transition: { type: "spring", stiffness: 200, damping: 20 } });
         hasAnimated = true;
@@ -106,7 +106,7 @@ export function HeroSection() {
             </h1>
             
             <p className="text-fluid-p text-[#64748B] leading-relaxed font-normal">
-              Manage attendance, schedules, SmartBoard, notifications, resources, analytics and communication from one intelligent platform.
+              From 1-tap attendance and timetable scheduling to fee payments and SmartBoard displays—run your entire campus from one unified platform at your fingertips.
             </p>
             
             <div className="flex flex-wrap items-center gap-4 pt-4">
@@ -114,7 +114,7 @@ export function HeroSection() {
                 <motion.button 
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
-                  className="px-8 py-4 bg-[#0F172A] text-white rounded-full font-medium shadow-xl shadow-teal-900/10 hover:bg-[#1E293B] transition-colors flex items-center gap-2 text-lg"
+                  className="px-8 py-4 bg-[#0F172A] text-white rounded-full font-medium shadow-xl shadow-teal-900/10 hover:bg-[#1E293B] transition-colors flex items-center gap-2 text-lg cursor-pointer"
                 >
                   Get Started <ArrowRight className="w-5 h-5" />
                 </motion.button>
@@ -122,7 +122,7 @@ export function HeroSection() {
               <motion.button 
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
-                className="px-8 py-4 bg-white border border-[#0F172A]/[0.08] text-[#0F172A] rounded-full font-medium hover:bg-slate-50 transition-colors flex items-center gap-2 text-lg shadow-sm"
+                className="px-8 py-4 bg-white border border-[#0F172A]/[0.08] text-[#0F172A] rounded-full font-medium hover:bg-slate-50 transition-colors flex items-center gap-2 text-lg shadow-sm cursor-pointer"
               >
                 Live Demo
               </motion.button>
@@ -133,7 +133,7 @@ export function HeroSection() {
               <div className="flex items-center gap-8">
                  <div className="text-xl font-bold text-[#0F172A]/40">Universities</div>
                  <div className="text-xl font-bold text-[#0F172A]/40">Colleges</div>
-                 <div className="text-xl font-bold text-[#0F172A]/40">Faculty</div>
+                 <div className="text-xl font-bold text-[#0F172A]/40">Schools</div>
               </div>
             </div>
           </motion.div>
